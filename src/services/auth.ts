@@ -17,7 +17,7 @@ export const saveUser = async (user: User): Promise<void> => {
 export const getUser = async (): Promise<User | null> => {
     try {
         const userString = await SecureStore.getItemAsync(USER_KEY);
-        console.log("userString:", userString);
+        console.log("get user :", userString);
         
         if (userString) {
             return JSON.parse(userString) as User;
@@ -33,6 +33,8 @@ export const getUser = async (): Promise<User | null> => {
 export const deleteUser = async (): Promise<void> => {
     try {
         await SecureStore.deleteItemAsync(USER_KEY);
+        console.log("logout : user deleted");
+        
     } catch (error) {
         console.error("Erreur lors de la suppression de l'utilisateur:", error);
         throw error;

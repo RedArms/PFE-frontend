@@ -1,25 +1,30 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, Button, StyleSheet, Modal } from "react-native";
-import { User } from "../models/user";
-import { saveUser } from "../services/auth";
+import { User } from "../../models/user";
+import { saveUser } from "../../services/auth";
 const RegisterScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
   const [isModalVisible, setModalVisible] = useState(false);
-  const [username, setUsername] = useState("");
+  const [firstname, setFirstname] = useState("");
+  const [lastname, setLastname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const closeModal = () => {
     setModalVisible(false);
-    navigation.navigate("Home");
+    navigation.navigate("Login");
   };
 
   const handleRegister = async () => {
-    console.log("Username:", username);
-    console.log("Email:", email);
-    console.log("Password:", password);
+    const user: User = {
+      id_user: 0,
+      firstname,
+      lastname,
+      email,
+      isAdmin: false,
+    };
 
-    const user: User = { username: username, email: email, password: password };
+    // appel à l'API
 
+    //local storage
     await saveUser(user);
 
     setModalVisible(true);
@@ -27,11 +32,16 @@ const RegisterScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Register</Text>
+      <Text style={styles.title}>Inscrivez-vous</Text>
       <TextInput
         style={styles.input}
-        placeholder="Username"
-        onChangeText={(text) => setUsername(text)}
+        placeholder="Prenom"
+        onChangeText={(text) => setFirstname(text)}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Nom"
+        onChangeText={(text) => setLastname(text)}
       />
       <TextInput
         style={styles.input}
@@ -40,18 +50,32 @@ const RegisterScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
       />
       <TextInput
         style={styles.input}
-        placeholder="Password"
+        placeholder="Mot de passe"
         secureTextEntry
         onChangeText={(text) => setPassword(text)}
       />
 
-      <Button title="Register" onPress={handleRegister} />
+      <Button title="S'inscrire" onPress={handleRegister} />
+
+      <Text>
+        Vous avez déjà un compte ? Cliquez ici
+        <Text
+          style={{ color: "blue" }}
+          onPress={() => navigation.navigate("Login")}
+        >
+          {" "}
+          Se connecter
+        </Text>
+      </Text>
 
       <Modal visible={isModalVisible} animationType="slide" transparent={true}>
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
-            <Text style={styles.modalText}>Bienvenue {username} !</Text>
-            <Button title="Close" onPress={closeModal} />
+            <Text style={styles.modalText}>
+              Bienvenue {firstname}, nous vous enverrons un mail lorsque nous
+              validerons votre inscription!
+            </Text>
+            <Button title="Fermer" onPress={closeModal} />
           </View>
         </View>
       </Modal>

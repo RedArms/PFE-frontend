@@ -1,18 +1,14 @@
 import React from "react";
 
-// navigation react native
-import { NavigationContainer } from "@react-navigation/native";
-import BottomTabNavigator from "./src/navigator/BottomTabNavigator";
-
+// index.tsx is the entry point for the navigation folder 
+import Navigation from "./src/navigation"; 
+import { UserContextProvider } from "./src/contexts/UserContext";
 const App: React.FC = () => {
   return (
-    <NavigationContainer>
-      <BottomTabNavigator />
-    </NavigationContainer>
-   
+    <UserContextProvider>
+      <Navigation />
+    </UserContextProvider>
   );
 };
-
-
 
 export default App;
