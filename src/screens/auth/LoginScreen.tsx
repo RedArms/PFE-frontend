@@ -15,7 +15,7 @@ const LoginScreen: React.FC<{navigation : any}> = ({navigation}) => {
         id_user: 0,
         firstname: 'Brahim',
         lastname: 'Brahim',
-        isAdmin: false,
+        isAdmin: true,
         email,
         };
     login(user);

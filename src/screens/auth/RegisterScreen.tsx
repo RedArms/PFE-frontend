@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { View, Text, TextInput, Button, StyleSheet, Modal } from "react-native";
 import { User } from "../../models/user";
 import { saveUser } from "../../services/auth";
+
 const RegisterScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
   const [isModalVisible, setModalVisible] = useState(false);
   const [firstname, setFirstname] = useState("");
@@ -22,9 +23,10 @@ const RegisterScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
       isAdmin: false,
     };
 
+    console.log(password);
+    
     // appel à l'API
 
-    //local storage
     await saveUser(user);
 
     setModalVisible(true);

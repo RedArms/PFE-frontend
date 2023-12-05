@@ -6,10 +6,10 @@ const AdminScreen: React.FC = () => {
 
     const { logout } = useContext(UserContext);
     return (
-        <View>
+        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
             <Text>Welcome to Admin Page</Text>
             <Button title="Logout" onPress={logout} />
-            
+
         </View>
     );
 };
