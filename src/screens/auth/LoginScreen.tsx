@@ -11,13 +11,34 @@ const LoginScreen: React.FC<{navigation : any}> = ({navigation}) => {
   const { login } = useContext(UserContext);
 
   const handleLogin = () => {
-    const user : User = {
-        id_user: 0,
-        firstname: 'Brahim',
-        lastname: 'Brahim',
-        isAdmin: true,
+
+    // api call here
+
+   /*  axios.post('http://localhost:3000/api/auth/login', {  
         email,
-        };
+        password
+    })
+    .then((response )=> {
+        console.log(response);
+
+        const userFetched : User = response.data as User;
+        
+        login(userFetched);
+    })
+    .catch(function (error) {
+        console.log(error);
+    }); */
+
+    const user: User = {
+      id_user: 1,
+      email: 'z',
+      firstname : 'z',
+      lastname : 'z',
+      password: '1234',
+      isAdmin: true,
+    };
+
+    
     login(user);
   };
 
