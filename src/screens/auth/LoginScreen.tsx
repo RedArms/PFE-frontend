@@ -4,42 +4,24 @@ import { View , Text, TextInput, Button , StyleSheet } from 'react-native';
 import { UserContext } from '../../contexts/UserContext';
 import { User } from '../../models/user';
 
+import { login as  loginApi} from '../../services/authService';
+
+
 const LoginScreen: React.FC<{navigation : any}> = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const { login } = useContext(UserContext);
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
 
-    // api call here
 
-   /*  axios.post('http://localhost:3000/api/auth/login', {  
-        email,
-        password
-    })
-    .then((response )=> {
-        console.log(response);
-
-        const userFetched : User = response.data as User;
-        
-        login(userFetched);
-    })
-    .catch(function (error) {
-        console.log(error);
-    }); */
-
-    const user: User = {
-      id_user: 1,
-      email: 'z',
-      firstname : 'z',
-      lastname : 'z',
-      password: '1234',
-      isAdmin: true,
-    };
+    const user = await loginApi(email, password);
+    console.log({user});
+    
+    // login(user);
 
     
-    login(user);
   };
 
   return (

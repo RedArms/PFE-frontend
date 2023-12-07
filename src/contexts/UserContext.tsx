@@ -1,5 +1,5 @@
 import React, { createContext, useState } from "react";
-import { saveUser , deleteUser as removeFromStorage } from "../utils/auth";
+import { saveUser , deleteUser as removeFromStorage , getUser } from "../utils/auth";
 import { User } from "../models/user";
 
 
@@ -8,13 +8,16 @@ interface UserContextProps {
   isAdmin: boolean;
   login: (user: User) => void;
   logout: () => void;
+  user?: User;
 }
 const UserContext = createContext<UserContextProps>({
   isAuthenticated: false,
   isAdmin: false,
   login: () => {},
   logout: () => {},
+  user: undefined,
 });
+
 
 const UserContextProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
@@ -40,12 +43,25 @@ const UserContextProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   };
 
+  const getUserInformation = async (): Promise<User | null> => {
+    try {
+      const user = await getUser();
+      return user;
+    } catch (error) {
+      console.error("Login failed:", error);
+      return null;
+    }
+  };
+
   const exposedValue: UserContextProps = {
     isAuthenticated,
     isAdmin,
     login,
     logout,
   };
+
+
+  
 
   return (
     <UserContext.Provider value={exposedValue}>{children}</UserContext.Provider>
