@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useFocusEffect } from "@react-navigation/native";
 
 import { View, Text, Button, StyleSheet } from "react-native";
@@ -9,16 +9,15 @@ import { getUser } from "../utils/auth";
 const HomeScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
   const [user, setUser] = useState<User | null>(null);
 
-  // de react navigation pour faire des actions quand on arrive sur l'écran, ici on va chercher l'utilisateur
-  useFocusEffect(
-    React.useCallback(() => {
-      const fetchUser = async () => {
-        const fetchedUser = await getUser();
-        setUser(fetchedUser);
-      };
-      fetchUser();
-    }, [])
-  );
+  useEffect(() => {
+    const fetchUser = async () => {
+      const user: User | null = await getUser();
+      setUser(user);
+    };
+
+    fetchUser();
+  }, []);
+  
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Welcome to the Home Screen!</Text>
