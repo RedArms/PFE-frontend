@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useFocusEffect } from "@react-navigation/native";
-
 import { View, Text, Button, StyleSheet } from "react-native";
-
 import { User } from "../models/user";
 import { getUser } from "../utils/auth";
 
@@ -17,14 +14,16 @@ const HomeScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
 
     fetchUser();
   }, []);
-  
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Welcome to the Home Screen!</Text>
 
       {user ? (
         <View style={styles.userContainer}>
-          <Text style={styles.welcomeText}>Welcome {user.first_name} {user.last_name }</Text>
+          <Text style={styles.welcomeText}>
+            Welcome {user.first_name} {user.last_name}
+          </Text>
         </View>
       ) : (
         <Text style={styles.notLoggedInText}>Vous n'êtes pas connecté!</Text>
