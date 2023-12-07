@@ -17,8 +17,6 @@ export const saveUser = async (user: User): Promise<void> => {
 export const getUser = async (): Promise<User | null> => {
     try {
         const userString = await SecureStore.getItemAsync(USER_KEY);
-        console.log("get user :", userString);
-        
         if (userString) {
             return JSON.parse(userString) as User;
         } else {

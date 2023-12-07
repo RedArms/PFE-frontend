@@ -1,8 +1,10 @@
 export type User = {
-  id_user?: number;
-  firstname: string;
-  lastname: string;
   email: string;
-  password?: string;
-  isAdmin: boolean ;
-}
+  first_name: string;
+  is_admin: boolean;
+  is_delivery_person: boolean;
+  is_verified: boolean;
+  last_name: string;
+  phone: string;
+  user_id: number;
+};

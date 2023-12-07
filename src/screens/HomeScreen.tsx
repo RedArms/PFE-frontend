@@ -25,7 +25,7 @@ const HomeScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
 
       {user ? (
         <View style={styles.userContainer}>
-          <Text style={styles.welcomeText}>Welcome {user.firstname}!</Text>
+          <Text style={styles.welcomeText}>Welcome {user.first_name} {user.last_name }</Text>
         </View>
       ) : (
         <Text style={styles.notLoggedInText}>Vous n'êtes pas connecté!</Text>

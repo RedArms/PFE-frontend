@@ -17,9 +17,12 @@ const LoginScreen: React.FC<{navigation : any}> = ({navigation}) => {
 
 
     const user = await loginApi(email, password);
-    console.log({user});
+
+    if (user) {
+      login(user);
+      
+    }
     
-    // login(user);
 
     
   };
