@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { ScrollView, View, Text, TouchableOpacity, TouchableWithoutFeedback, Dimensions } from 'react-native';
 import styles from './toursChooseLineStyle';
-import { useNavigation } from '@react-navigation/native';
 interface ToursChooseLineProps {
   value: {
     title: string;

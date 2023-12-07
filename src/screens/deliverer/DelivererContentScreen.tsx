@@ -1,9 +1,8 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { getMonthString } from "../../utils/month";
-import ToursChoose from "../../components/toursChoose/toursChoose";
 
-const DelivererContentScreen: React.FC<{navigation : any}> = ({navigation}) => {
+const DelivererContentScreen = () => {
   const today: Date = new Date();
   const year: number = today.getFullYear();
   const month: number = today.getMonth() + 1; // MONTHS START AT 0

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, ScrollView } from 'react-native';
+import {  ScrollView } from 'react-native';
 import ToursChooseLine from '../toursChooseLine/toursChooseLine'; // Adjust the import path accordingly
 
 const ToursChoose:React.FC<{ navigation: any }> = ({navigation}) => {
