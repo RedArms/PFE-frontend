@@ -1,5 +1,5 @@
 import React, { createContext, useState } from "react";
-import { saveUser , deleteUser as removeFromStorage } from "../services/auth";
+import { saveUser , deleteUser as removeFromStorage } from "../utils/auth";
 import { User } from "../models/user";
 
 

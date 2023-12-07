@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, Button, StyleSheet, Modal } from "react-native";
 import { User } from "../../models/user";
-import { saveUser } from "../../services/auth";
+import { saveUser } from "../../utils/auth";
 
 const RegisterScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
   const [isModalVisible, setModalVisible] = useState(false);

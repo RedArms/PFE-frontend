@@ -4,7 +4,7 @@ import { useFocusEffect } from "@react-navigation/native";
 import { View, Text, Button, StyleSheet } from "react-native";
 
 import { User } from "../models/user";
-import { getUser } from "../services/auth";
+import { getUser } from "../utils/auth";
 
 const HomeScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
   const [user, setUser] = useState<User | null>(null);
