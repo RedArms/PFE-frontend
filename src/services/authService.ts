@@ -19,7 +19,6 @@ async function login(
       email: userString.email,
       first_name: userString.first_name,
       is_admin: userString.is_admin,
-      is_delivery_person: userString.is_delivery_person,
       is_verified: userString.is_verified,
       last_name: userString.last_name,
       phone: userString.phone,
