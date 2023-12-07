@@ -9,6 +9,7 @@ const RegisterScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
   const [lastname, setLastname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [ phone, setPhone] = useState("");
   const closeModal = () => {
     setModalVisible(false);
     navigation.navigate("Login");
@@ -16,11 +17,11 @@ const RegisterScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
 
   const handleRegister = async () => {
     const user: User = {
-      id_user: 0,
-      firstname,
-      lastname,
+      first_name : firstname,
+      last_name: lastname,
       email,
-      isAdmin: false,
+      password,
+      phone,
     };
 
     console.log(password);
@@ -49,6 +50,11 @@ const RegisterScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
         style={styles.input}
         placeholder="Email"
         onChangeText={(text) => setEmail(text)}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Téléphone"
+        onChangeText={(text) => setPhone(text)}
       />
       <TextInput
         style={styles.input}

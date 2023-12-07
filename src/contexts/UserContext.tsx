@@ -32,7 +32,7 @@ const UserContextProvider: React.FC<{ children: React.ReactNode }> = ({
       const storedUser : User | null = await getUserFromStorage();
       if (storedUser) {
         setIsAuthenticated(true);
-        setIsAdmin(storedUser.is_admin);
+        setIsAdmin(storedUser.is_admin ?? false);
         setUser(storedUser);
       }
     };
@@ -53,7 +53,7 @@ const UserContextProvider: React.FC<{ children: React.ReactNode }> = ({
       saveUser(user); // save user in storage
       setUser(user); // set user in state
       setIsAuthenticated(true);
-      setIsAdmin(user.is_admin);
+      setIsAdmin(user.is_admin?? false);
     } catch (error) {
       console.error("Login failed:", error);
     }
