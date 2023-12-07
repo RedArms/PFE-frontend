@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState} from "react";
 import { View, Text, TextInput, Button, StyleSheet, Modal } from "react-native";
 import { User } from "../../models/user";
-import { saveUser } from "../../utils/auth";
+import { register as registerAPI } from "../../services/authService";
 
 const RegisterScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
   const [isModalVisible, setModalVisible] = useState(false);
@@ -9,7 +9,7 @@ const RegisterScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
   const [lastname, setLastname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [ phone, setPhone] = useState("");
+  const [phone, setPhone] = useState("");
   const closeModal = () => {
     setModalVisible(false);
     navigation.navigate("Login");
@@ -17,20 +17,24 @@ const RegisterScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
 
   const handleRegister = async () => {
     const user: User = {
-      first_name : firstname,
+      first_name: firstname,
       last_name: lastname,
       email,
       password,
       phone,
     };
 
-    console.log(password);
-    
-    // appel à l'API
+   
+    // appel à service d'authentification
 
-    await saveUser(user);
+    const idUserCreated = await registerAPI(user);
+    if (idUserCreated) {
+      // si l'utilisateur est créé
+      setModalVisible(true);
+    } else {
+      alert("Erreur lors de l'inscription");
+    }
 
-    setModalVisible(true);
   };
 
   return (

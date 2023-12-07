@@ -1,6 +1,6 @@
 import { User } from "../models/user";
 import API_URL from "../utils/config";
-import axios from "axios";
+import axios, { Axios, AxiosResponse } from "axios";
 
 async function login(
   email: string,
@@ -28,10 +28,30 @@ async function login(
 
     return user;
   } catch (error) {
-    console.error("Une erreur s'est produite :", error);
-   
+    console.log("Une erreur s'est produite :", error);
+
     return undefined;
   }
 }
 
-export { login };
+// fn register return a promise of id user connected or undefined
+async function register(newUserData: User): Promise<number | undefined> {
+  try {
+    console.log("new user data:", newUserData);
+
+    const response = await axios.post(`${API_URL}/auth/register`, newUserData);
+    
+    if (response.status !== 201) {
+      return undefined;
+    }
+    const id = response.data;
+
+    return id;
+  } catch (error) {
+    console.log("Une erreur s'est produite :", error);
+
+    return undefined;
+  }
+}
+
+export { login, register };
