@@ -1,40 +1,53 @@
-import React, { useState} from "react";
-import { View, Text, TextInput, Button, StyleSheet, Modal } from "react-native";
+import React, { useState } from "react";
+import { View, Text, TextInput, Button, StyleSheet, Alert } from "react-native";
 import { User } from "../../models/user";
 import { register as registerAPI } from "../../services/authService";
 
 const RegisterScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
-  const [isModalVisible, setModalVisible] = useState(false);
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [phone, setPhone] = useState("");
-  const closeModal = () => {
-    setModalVisible(false);
-    navigation.navigate("Login");
-  };
 
   const handleRegister = async () => {
-    const user: User = {
-      first_name: firstname,
-      last_name: lastname,
-      email,
-      password,
-      phone,
-    };
+    Alert.alert(
+      "Inscription",
+      "Voulez-vous vraiment vous inscrire ?",
+      [
+        {
+          text: "Annuler",
+          style: "cancel",
+        },
+        {
+          text: "Confirmer",
+          onPress: async () => {
+            // si l'utilisateur confirme l'inscription
+           
+            console.log("inscription en cours");
+            
+            const user: User = {
+              first_name: firstname,
+              last_name: lastname,
+              email,
+              password,
+              phone,
+            };
 
-   
-    // appel à service d'authentification
+            // appel à service d'authentification
 
-    const idUserCreated = await registerAPI(user);
-    if (idUserCreated) {
-      // si l'utilisateur est créé
-      setModalVisible(true);
-    } else {
-      alert("Erreur lors de l'inscription");
-    }
-
+            const idUserCreated = await registerAPI(user);
+            if (idUserCreated) {
+              // si l'utilisateur est créé
+              navigation.navigate("Login");
+            } else {
+              alert("Erreur lors de l'inscription");
+            }
+          },
+        },
+      ],
+      { cancelable: false }
+    );
   };
 
   return (
@@ -54,6 +67,7 @@ const RegisterScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
         style={styles.input}
         placeholder="Email"
         onChangeText={(text) => setEmail(text)}
+        autoCapitalize="none"
       />
       <TextInput
         style={styles.input}
@@ -79,18 +93,6 @@ const RegisterScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
           Se connecter
         </Text>
       </Text>
-
-      <Modal visible={isModalVisible} animationType="slide" transparent={true}>
-        <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
-            <Text style={styles.modalText}>
-              Bienvenue {firstname}, nous vous enverrons un mail lorsque nous
-              validerons votre inscription!
-            </Text>
-            <Button title="Fermer" onPress={closeModal} />
-          </View>
-        </View>
-      </Modal>
     </View>
   );
 };
@@ -114,22 +116,9 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     marginBottom: 16,
     paddingHorizontal: 8,
+    borderRadius:10
   },
-  modalContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  modalContent: {
-    backgroundColor: "white",
-    padding: 20,
-    borderRadius: 10,
-    alignItems: "center",
-  },
-  modalText: {
-    fontSize: 18,
-    marginBottom: 16,
-  },
+
 });
 
 export default RegisterScreen;
