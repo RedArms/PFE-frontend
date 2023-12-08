@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Image } from "react-native";
+import { Image } from "react-native";
 // this component can be used in any screen and can be customized
 interface Props {
   height?: number;
