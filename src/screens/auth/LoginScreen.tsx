@@ -35,7 +35,7 @@ const LoginScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
   return (
     <View style={styles.container}>
  
-      <Logo />
+      <Logo width={175} height={175} />
 
    
       <Text style={styles.title}>Connectez-vous</Text>
