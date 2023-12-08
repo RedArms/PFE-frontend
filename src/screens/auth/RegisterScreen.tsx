@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { View, Text, TextInput, Button, StyleSheet, Alert } from "react-native";
 import { User } from "../../models/user";
 import { register as registerAPI } from "../../services/authService";
-
+import Logo from "../../components/Logo/Logo";
 const RegisterScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
@@ -52,6 +52,7 @@ const RegisterScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
+      <Logo />
       <Text style={styles.title}>Inscrivez-vous</Text>
       <TextInput
         style={styles.input}
