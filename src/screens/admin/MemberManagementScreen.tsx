@@ -1,133 +1,69 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import Registration from "./components/Registration";
 import Member from "./components/Member";
-import { verifyUser, revokeUser } from "../../services/membersManagementService";
+import { User } from "../../models/user";
+import {
+  verifyUser as verifyUserApi,
+  revokeUser as revokeUserApi,
+  setAdmin as setAdminApi,
+  getAllUsers as getAllUsersApi,
+} from "../../services/membersManagementService";
 
-const AdminScreen: React.FC = () => {
-  const [registrations, setRegistrations] = useState([
-    {
-      id: 1,
-      name: "Alice",
-      surname: "Dupont",
-      email: "alice.dupont@example.com",
-      phoneNumber: "0123-456-789",
-    },
-    {
-      id: 2,
-      name: "Bob",
-      surname: "Martin",
-      email: "bob.martin@example.com",
-      phoneNumber: "0234-567-890",
-    },
-    {
-      id: 3,
-      name: "Charlie",
-      surname: "Durand",
-      email: "charlie.durand@example.com",
-      phoneNumber: "0345-678-901",
-    },
-  ]);
+const MembersManagementService: React.FC = () => {
+  const [registrations, setRegistrations] = useState<User[]>([]);
+  const [members, setMembers] = useState<User[]>([]);
 
-  const [members, setMembers] = useState([
-    {
-      id: 8,
-      name: "Manuel",
-      surname: "Bautista",
-      email: "phillip18@green-turner.com",
-      phoneNumber: "008-608-8036x6130",
-      status: "admin",
-    },
-    {
-      id: 9,
-      name: "Jasmine",
-      surname: "Cole",
-      email: "davidanderson@reyes-davis.net",
-      phoneNumber: "+1-032-995-2171",
-      status: "admin",
-    },
-    {
-      id: 10,
-      name: "Jacqueline",
-      surname: "Allen",
-      email: "aimeejordan@yahoo.com",
-      phoneNumber: "556.955.7984",
-      status: "livreur",
-    },
-    {
-      id: 4,
-      name: "Billy",
-      surname: "Vasquez",
-      email: "gardnerstanley@holland.com",
-      phoneNumber: "+1-703-749-5606x9979",
-      status: "admin",
-    },
-    {
-      id: 5,
-      name: "Jonathan",
-      surname: "Palmer",
-      email: "frederickcody@hotmail.com",
-      phoneNumber: "916-344-6011",
-      status: "livreur",
-    },
-    {
-      id: 6,
-      name: "Heather",
-      surname: "Hunt",
-      email: "sharon03@gmail.com",
-      phoneNumber: "482.517.0920x403",
-      status: "livreur",
-    },
-    {
-      id: 7,
-      name: "Johnny",
-      surname: "Aguilar",
-      email: "david85@hotmail.com",
-      phoneNumber: "+1-894-039-2806x293",
-      status: "admin",
-    },
-  ]);
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const allUsers = await getAllUsersApi();
+        const newRegistrations = allUsers.filter(
+          (user: User) => !user.is_verified
+        );
+        const newMembers = allUsers.filter((user: User) => user.is_verified);
+
+        setRegistrations(newRegistrations);
+        setMembers(newMembers);
+      } catch (error) {
+        console.error("Erreur lors du chargement des utilisateurs:", error);
+      }
+    };
+
+    fetchUsers();
+  }, []);
 
   const handleAcceptRegistration = (id: number) => {
-    // TODO : vérifier si le membre existe déjà dans la liste des membres avant de l'ajouter dans la liste
-
     // Trouver l'inscription à accepter
-    const registration = registrations.find((reg) => reg.id === id);
+    const registration = registrations.find((reg) => reg.user_id === id);
 
     // Mettre à jour la liste des inscriptions
-    setRegistrations(registrations.filter((reg) => reg.id !== id));
+    setRegistrations(registrations.filter((reg) => reg.user_id !== id));
 
     // Ajouter le membre à la liste des membres avec le rôle 'livreur'
     if (registration) {
       setMembers([
         ...members,
-        {
-          ...(registration as {
-            id: number;
-            name: string;
-            surname: string;
-            email: string;
-            phoneNumber: string;
-            status: string;
-          }),
-          status: "livreur",
-        },
+        { ...registration, is_verified: true, is_admin: false },
       ]);
     }
-    verifyUser(id);
+    verifyUserApi(id);
   };
 
   const handleRejectRegistration = (id: number) => {
-    revokeUser(id);
-
-    // Simplement retirer l'inscription de la liste
-    setRegistrations(registrations.filter((reg) => reg.id !== id));
+    revokeUserApi(id);
+    setRegistrations(registrations.filter((reg) => reg.user_id !== id));
   };
 
   const setAdmin = (id: number) => {
-    // Mettre à jour la liste des membres
+    setAdminApi(id);
     setMembers(
-      members.map((m) => (m.id === id ? { ...m, status: "admin" } : m))
+      members.map((m) => {
+        if (m.user_id === id) {
+          return { ...m, is_admin: true };
+        }
+        return m;
+      })
     );
   };
 
@@ -135,38 +71,36 @@ const AdminScreen: React.FC = () => {
     <ScrollView style={styles.scrollContainer}>
       <View style={styles.top}>
         <Text style={styles.title}>Inscriptions en attente</Text>
-        {registrations.length === 0 ? (
-          <Text>Aucune inscription en attente</Text>
-        ) : (
-          registrations.map((registration) => (
-            <Registration
-              key={registration.id}
-              name={registration.name}
-              surname={registration.surname}
-              id={registration.id}
-              onAccept={() => handleAcceptRegistration(registration.id)}
-              onReject={() => handleRejectRegistration(registration.id)}
-            />
-          ))
-        )}
+        {registrations.map((registration) => (
+          <Registration
+            key={registration.user_id}
+            name={registration.last_name}
+            surname={registration.first_name}
+            id={registration.user_id || 0}
+            onAccept={() =>
+              registration.user_id &&
+              handleAcceptRegistration(registration.user_id)
+            }
+            onReject={() =>
+              registration.user_id &&
+              handleRejectRegistration(registration.user_id)
+            }
+          />
+        ))}
       </View>
       <View style={styles.container}>
         <Text style={styles.title}>Gérer les membres</Text>
-        {members.length === 0 ? (
-          <Text>Aucun membre trouvé</Text>
-        ) : (
-          members.map((member) => (
-            <Member
-              key={member.id}
-              role={member.status}
-              prenom={member.name}
-              nom={member.surname}
-              email={member.email}
-              phoneNumber={member.phoneNumber}
-              onSetAdmin={() => setAdmin(member.id)}
-            />
-          ))
-        )}
+        {members.map((member) => (
+          <Member
+            key={member.user_id}
+            role={member.is_admin ? "admin" : "livreur"}
+            prenom={member.last_name}
+            nom={member.first_name}
+            email={member.email}
+            phoneNumber={member.phone}
+            onSetAdmin={() => member.user_id && setAdmin(member.user_id)}
+          />
+        ))}
       </View>
     </ScrollView>
   );
@@ -214,4 +148,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AdminScreen;
+export default MembersManagementService;
