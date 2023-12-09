@@ -4,8 +4,8 @@ import HomeScreen from "../screens/HomeScreen";
 import { UserContext } from "../contexts/UserContext";
 import AdminScreen from "../screens/admin/AdminScreen";
 import MemberManagement from "../screens/admin/MemberManagementScreen";
-import DelivererScreen from "../screens/deliverer/DelivererScreen";
 import ItemManagementScreen from "../screens/admin/ItemManagementScreen";
+import DelivererScreen from "../screens/deliverer/DelivererChooseScreen";
 const Tab = createBottomTabNavigator();
 
 const BottomTabNavigator: React.FC = () => {
