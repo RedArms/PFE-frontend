@@ -7,12 +7,14 @@ const Membre = ({
   nom,
   email,
   phoneNumber,
+  onSetAdmin,
 }: {
   role: string;
   prenom: string;
   nom: string;
   email: string;
   phoneNumber: string;
+  onSetAdmin: () => void;
 }) => {
   const [expanded, setExpanded] = useState(false);
 
@@ -36,7 +38,7 @@ const Membre = ({
           <Text style={styles.email}>E-mail : {email}</Text>
           <Text style={styles.phoneNumber}>Num. tél. :{phoneNumber}</Text>
           {role !== "admin" && (
-            <TouchableOpacity style={styles.adminButton}>
+            <TouchableOpacity onPress={onSetAdmin} style={styles.adminButton}>
               <Text style={styles.adminButtonText}>
                 Passer en administrateur
               </Text>
