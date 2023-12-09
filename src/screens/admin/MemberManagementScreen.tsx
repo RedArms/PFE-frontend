@@ -2,26 +2,26 @@ import React, { useState } from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import Registration from "./components/Registration";
 import Member from "./components/Member";
-import { verifyUser } from "../../services/membersManagementService";
+import { verifyUser, revokeUser } from "../../services/membersManagementService";
 
 const AdminScreen: React.FC = () => {
   const [registrations, setRegistrations] = useState([
     {
-      id: 8,
+      id: 1,
       name: "Alice",
       surname: "Dupont",
       email: "alice.dupont@example.com",
       phoneNumber: "0123-456-789",
     },
     {
-      id: 9,
+      id: 2,
       name: "Bob",
       surname: "Martin",
       email: "bob.martin@example.com",
       phoneNumber: "0234-567-890",
     },
     {
-      id: 10,
+      id: 3,
       name: "Charlie",
       surname: "Durand",
       email: "charlie.durand@example.com",
@@ -31,7 +31,7 @@ const AdminScreen: React.FC = () => {
 
   const [members, setMembers] = useState([
     {
-      id: 1,
+      id: 8,
       name: "Manuel",
       surname: "Bautista",
       email: "phillip18@green-turner.com",
@@ -39,7 +39,7 @@ const AdminScreen: React.FC = () => {
       status: "admin",
     },
     {
-      id: 2,
+      id: 9,
       name: "Jasmine",
       surname: "Cole",
       email: "davidanderson@reyes-davis.net",
@@ -47,7 +47,7 @@ const AdminScreen: React.FC = () => {
       status: "admin",
     },
     {
-      id: 3,
+      id: 10,
       name: "Jacqueline",
       surname: "Allen",
       email: "aimeejordan@yahoo.com",
@@ -89,6 +89,8 @@ const AdminScreen: React.FC = () => {
   ]);
 
   const handleAcceptRegistration = (id: number) => {
+    // TODO : vérifier si le membre existe déjà dans la liste des membres avant de l'ajouter dans la liste
+
     // Trouver l'inscription à accepter
     const registration = registrations.find((reg) => reg.id === id);
 
@@ -116,6 +118,8 @@ const AdminScreen: React.FC = () => {
   };
 
   const handleRejectRegistration = (id: number) => {
+    revokeUser(id);
+
     // Simplement retirer l'inscription de la liste
     setRegistrations(registrations.filter((reg) => reg.id !== id));
   };
