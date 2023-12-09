@@ -1,86 +1,148 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, Button, StyleSheet, Modal } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  Button,
+  StyleSheet,
+  Alert
+} from "react-native";
 import { User } from "../../models/user";
-import { saveUser } from "../../utils/auth";
+import { register as registerAPI } from "../../services/authService";
+import Logo from "../../components/Logo/Logo";
+import KeyboardAvoidingComponent from "../../components/KeyboardAvoiding/KeyboardAvoiding";
+
 
 const RegisterScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
-  const [isModalVisible, setModalVisible] = useState(false);
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const closeModal = () => {
-    setModalVisible(false);
-    navigation.navigate("Login");
-  };
+  const [phone, setPhone] = useState("");
 
   const handleRegister = async () => {
-    const user: User = {
-      id_user: 0,
-      firstname,
-      lastname,
-      email,
-      isAdmin: false,
-    };
+    Alert.alert(
+      "Inscription",
+      "Voulez-vous vraiment vous inscrire ?",
+      [
+        {
+          text: "Annuler",
+          style: "cancel",
+        },
+        {
+          text: "Confirmer",
+          onPress: async () => {
+            // si l'utilisateur confirme l'inscription
 
-    console.log(password);
-    
-    // appel à l'API
+            console.log("inscription en cours");
 
-    await saveUser(user);
+            const user: User = {
+              first_name: firstname,
+              last_name: lastname,
+              email,
+              password,
+              phone,
+            };
 
-    setModalVisible(true);
+            // appel à service d'authentification
+
+            const idUserCreated = await registerAPI(user);
+            if (idUserCreated) {
+              // si l'utilisateur est créé
+              navigation.navigate("Login");
+            } else {
+              alert("Erreur lors de l'inscription");
+            }
+          },
+        },
+      ],
+      { cancelable: false }
+    );
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Inscrivez-vous</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Prenom"
-        onChangeText={(text) => setFirstname(text)}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Nom"
-        onChangeText={(text) => setLastname(text)}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Email"
-        onChangeText={(text) => setEmail(text)}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Mot de passe"
-        secureTextEntry
-        onChangeText={(text) => setPassword(text)}
-      />
+      <KeyboardAvoidingComponent>
+        <View style={{
 
-      <Button title="S'inscrire" onPress={handleRegister} />
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+        
+        }}>
+          <Logo width={175} height={175} />
+          <View style={styles.formContainer}>
+            <Text style={styles.title}>Inscrivez-vous</Text>
 
-      <Text>
-        Vous avez déjà un compte ? Cliquez ici
-        <Text
-          style={{ color: "blue" }}
-          onPress={() => navigation.navigate("Login")}
-        >
-          {" "}
-          Se connecter
-        </Text>
-      </Text>
+            <View style={styles.inputContainer}>
+              <Text style={styles.label}>Prénom</Text>
+              <TextInput
+                style={styles.input}
+                placeholder="Votre prénom"
+                onChangeText={(text) => setFirstname(text)}
+              />
+            </View>
 
-      <Modal visible={isModalVisible} animationType="slide" transparent={true}>
-        <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
-            <Text style={styles.modalText}>
-              Bienvenue {firstname}, nous vous enverrons un mail lorsque nous
-              validerons votre inscription!
+            <View style={styles.inputContainer}>
+              <Text style={styles.label}>Nom</Text>
+              <TextInput
+                style={styles.input}
+                placeholder="Votre nom"
+                onChangeText={(text) => setLastname(text)}
+              />
+            </View>
+
+            <View style={styles.inputContainer}>
+              <Text style={styles.label}>Email</Text>
+              <TextInput
+                style={styles.input}
+                placeholder="Votre email"
+                onChangeText={(text) => setEmail(text)}
+                autoCapitalize="none"
+                keyboardType="email-address"
+              />
+            </View>
+
+            <View style={styles.inputContainer}>
+              <Text style={styles.label}>Téléphone</Text>
+              <TextInput
+                style={styles.input}
+                placeholder="Votre téléphone"
+                onChangeText={(text) => setPhone(text)}
+                keyboardType="phone-pad"
+                returnKeyType="done"
+              />
+            </View>
+
+            <View style={styles.inputContainer}>
+              <Text style={styles.label}>Mot de passe</Text>
+              <TextInput
+                style={styles.input}
+                placeholder="Votre mot de passe"
+                secureTextEntry
+                onChangeText={(text) => setPassword(text)}
+              />
+            </View>
+
+            <Button
+              color="#124972"
+              title="S'inscrire"
+              onPress={handleRegister}
+            />
+
+            <Text>
+              Vous avez déjà un compte ?
+              <Text
+                style={{ color: "#124972", fontWeight: "bold" }}
+                onPress={() => navigation.navigate("Login")}
+              >
+                {"  "}
+                Se connecter
+              </Text>
             </Text>
-            <Button title="Fermer" onPress={closeModal} />
           </View>
         </View>
-      </Modal>
+      </KeyboardAvoidingComponent>
     </View>
   );
 };
@@ -90,12 +152,29 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    padding: 16,
+    padding: 2,
+  },
+  formContainer: {
+    width: "100%",
+    backgroundColor: "#D4A866",
+    padding: 20,
+    borderRadius: 10,
+    alignItems: "center",
   },
   title: {
     fontSize: 24,
     fontWeight: "bold",
     marginBottom: 16,
+    color: "#124972",
+  },
+  inputContainer: {
+    width: "100%",
+    marginBottom: 5,
+  },
+  label: {
+    marginBottom: 4,
+    fontWeight: "bold",
+    color: "#124972",
   },
   input: {
     width: "100%",
@@ -104,21 +183,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     marginBottom: 16,
     paddingHorizontal: 8,
-  },
-  modalContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  modalContent: {
-    backgroundColor: "white",
-    padding: 20,
     borderRadius: 10,
-    alignItems: "center",
-  },
-  modalText: {
-    fontSize: 18,
-    marginBottom: 16,
+    backgroundColor: "white",
   },
 });
 
