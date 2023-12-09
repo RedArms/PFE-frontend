@@ -1,8 +1,10 @@
 // deliverer stack navigator
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import DelivererScreen from "../screens/deliverer/DelivererScreen";
+import DelivererChooseScreen from "../screens/deliverer/DelivererChooseScreen";
+import DelivererContentScreen from "../screens/deliverer/DelivererContentScreen";
 import BottomTabNavigator from "./BottomTabNavigator";
+import DelivererTours from "../screens/deliverer/DelivererTours";
 const DelivererStack = createStackNavigator();
 
 /*
@@ -14,7 +16,10 @@ const Deliverer: React.FC = () => {
     <DelivererStack.Navigator>
       <DelivererStack.Screen name="BottomTab" component={BottomTabNavigator} 
       options={{headerShown: false}}/>
-      <DelivererStack.Screen name="Deliverer" component={DelivererScreen} />
+      <DelivererStack.Screen name="Deliverer" component={DelivererChooseScreen} />
+      <DelivererStack.Screen name="DelivererContent" component={DelivererContentScreen}
+       options={{headerBackAccessibilityLabel: 'zeriopuezoipurzeioprua'}} />
+       <DelivererStack.Screen name="DelivererTours" component={DelivererTours}/>
     </DelivererStack.Navigator>
   );
 };
