@@ -1,36 +1,30 @@
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-} from "react-native";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
 import Registration from "./components/Registration";
 import Member from "./components/Member";
 
 const AdminScreen: React.FC = () => {
-  
   const [registrations, setRegistrations] = useState([
-    { 
-      id: "8", 
-      name: "Alice", 
-      surname: "Dupont", 
-      email: "alice.dupont@example.com", 
-      phoneNumber: "0123-456-789" 
+    {
+      id: "8",
+      name: "Alice",
+      surname: "Dupont",
+      email: "alice.dupont@example.com",
+      phoneNumber: "0123-456-789",
     },
-    { 
-      id: "9", 
-      name: "Bob", 
-      surname: "Martin", 
-      email: "bob.martin@example.com", 
-      phoneNumber: "0234-567-890" 
+    {
+      id: "9",
+      name: "Bob",
+      surname: "Martin",
+      email: "bob.martin@example.com",
+      phoneNumber: "0234-567-890",
     },
-    { 
-      id: "10", 
-      name: "Charlie", 
-      surname: "Durand", 
-      email: "charlie.durand@example.com", 
-      phoneNumber: "0345-678-901" 
+    {
+      id: "10",
+      name: "Charlie",
+      surname: "Durand",
+      email: "charlie.durand@example.com",
+      phoneNumber: "0345-678-901",
     },
   ]);
 
@@ -93,33 +87,43 @@ const AdminScreen: React.FC = () => {
     },
   ]);
 
-  
   const handleAcceptRegistration = (id: string) => {
     // Trouver l'inscription à accepter
-    const registration = registrations.find(reg => reg.id === id);
+    const registration = registrations.find((reg) => reg.id === id);
 
     // Mettre à jour la liste des inscriptions
-    setRegistrations(registrations.filter(reg => reg.id !== id));
+    setRegistrations(registrations.filter((reg) => reg.id !== id));
 
     // Ajouter le membre à la liste des membres avec le rôle 'livreur'
     if (registration) {
-      setMembers([...members, { ...(registration as { id: string; name: string; surname: string; email: string; phoneNumber: string; status: string; }), status: 'livreur' }]);
+      setMembers([
+        ...members,
+        {
+          ...(registration as {
+            id: string;
+            name: string;
+            surname: string;
+            email: string;
+            phoneNumber: string;
+            status: string;
+          }),
+          status: "livreur",
+        },
+      ]);
     }
   };
 
   const handleRejectRegistration = (id: string) => {
     // Simplement retirer l'inscription de la liste
-    setRegistrations(registrations.filter(reg => reg.id !== id));
+    setRegistrations(registrations.filter((reg) => reg.id !== id));
   };
 
   const setAdmin = (id: string) => {
-    // Trouver le membre à promouvoir
-    const member = members.find(m => m.id === id);
-
     // Mettre à jour la liste des membres
-    setMembers(members.map(m => m.id === id ? { ...m, status: 'admin' } : m));
-  }
-
+    setMembers(
+      members.map((m) => (m.id === id ? { ...m, status: "admin" } : m))
+    );
+  };
 
   return (
     <ScrollView style={styles.scrollContainer}>
@@ -135,7 +139,7 @@ const AdminScreen: React.FC = () => {
               surname={registration.surname}
               id={registration.id}
               onAccept={() => handleAcceptRegistration(registration.id)}
-              onReject={() => handleRejectRegistration(registration.id)}    
+              onReject={() => handleRejectRegistration(registration.id)}
             />
           ))
         )}

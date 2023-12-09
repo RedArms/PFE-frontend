@@ -7,7 +7,7 @@ const Membre = ({
   nom,
   email,
   phoneNumber,
-  onSetAdmin
+  onSetAdmin,
 }: {
   role: string;
   prenom: string;
