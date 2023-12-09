@@ -2,25 +2,26 @@ import React, { useState } from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import Registration from "./components/Registration";
 import Member from "./components/Member";
+import { verifyUser } from "../../services/membersManagementService";
 
 const AdminScreen: React.FC = () => {
   const [registrations, setRegistrations] = useState([
     {
-      id: "8",
+      id: 8,
       name: "Alice",
       surname: "Dupont",
       email: "alice.dupont@example.com",
       phoneNumber: "0123-456-789",
     },
     {
-      id: "9",
+      id: 9,
       name: "Bob",
       surname: "Martin",
       email: "bob.martin@example.com",
       phoneNumber: "0234-567-890",
     },
     {
-      id: "10",
+      id: 10,
       name: "Charlie",
       surname: "Durand",
       email: "charlie.durand@example.com",
@@ -30,7 +31,7 @@ const AdminScreen: React.FC = () => {
 
   const [members, setMembers] = useState([
     {
-      id: "1",
+      id: 1,
       name: "Manuel",
       surname: "Bautista",
       email: "phillip18@green-turner.com",
@@ -38,7 +39,7 @@ const AdminScreen: React.FC = () => {
       status: "admin",
     },
     {
-      id: "2",
+      id: 2,
       name: "Jasmine",
       surname: "Cole",
       email: "davidanderson@reyes-davis.net",
@@ -46,7 +47,7 @@ const AdminScreen: React.FC = () => {
       status: "admin",
     },
     {
-      id: "3",
+      id: 3,
       name: "Jacqueline",
       surname: "Allen",
       email: "aimeejordan@yahoo.com",
@@ -54,7 +55,7 @@ const AdminScreen: React.FC = () => {
       status: "livreur",
     },
     {
-      id: "4",
+      id: 4,
       name: "Billy",
       surname: "Vasquez",
       email: "gardnerstanley@holland.com",
@@ -62,7 +63,7 @@ const AdminScreen: React.FC = () => {
       status: "admin",
     },
     {
-      id: "5",
+      id: 5,
       name: "Jonathan",
       surname: "Palmer",
       email: "frederickcody@hotmail.com",
@@ -70,7 +71,7 @@ const AdminScreen: React.FC = () => {
       status: "livreur",
     },
     {
-      id: "6",
+      id: 6,
       name: "Heather",
       surname: "Hunt",
       email: "sharon03@gmail.com",
@@ -78,7 +79,7 @@ const AdminScreen: React.FC = () => {
       status: "livreur",
     },
     {
-      id: "7",
+      id: 7,
       name: "Johnny",
       surname: "Aguilar",
       email: "david85@hotmail.com",
@@ -87,7 +88,7 @@ const AdminScreen: React.FC = () => {
     },
   ]);
 
-  const handleAcceptRegistration = (id: string) => {
+  const handleAcceptRegistration = (id: number) => {
     // Trouver l'inscription à accepter
     const registration = registrations.find((reg) => reg.id === id);
 
@@ -100,7 +101,7 @@ const AdminScreen: React.FC = () => {
         ...members,
         {
           ...(registration as {
-            id: string;
+            id: number;
             name: string;
             surname: string;
             email: string;
@@ -111,14 +112,15 @@ const AdminScreen: React.FC = () => {
         },
       ]);
     }
+    verifyUser(id);
   };
 
-  const handleRejectRegistration = (id: string) => {
+  const handleRejectRegistration = (id: number) => {
     // Simplement retirer l'inscription de la liste
     setRegistrations(registrations.filter((reg) => reg.id !== id));
   };
 
-  const setAdmin = (id: string) => {
+  const setAdmin = (id: number) => {
     // Mettre à jour la liste des membres
     setMembers(
       members.map((m) => (m.id === id ? { ...m, status: "admin" } : m))

@@ -10,18 +10,10 @@ const Registration = ({
 }: {
   name: string;
   surname: string;
-  id: string;
+  id: number;
   onAccept: () => void;
   onReject: () => void;
 }) => {
-  // Fonctions pour gérer les clics sur les boutons (à définir)
-  const handleAccept = () => {
-    console.log(`Accepted registration with ID: ${id}`);
-  };
-
-  const handleReject = () => {
-    console.log(`Rejected registration with ID: ${id}`);
-  };
 
   return (
     <View style={styles.registration}>
