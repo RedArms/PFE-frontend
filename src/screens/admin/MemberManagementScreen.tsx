@@ -11,9 +11,27 @@ import Member from "./components/Member";
 const AdminScreen: React.FC = () => {
   
   const [registrations, setRegistrations] = useState([
-    { name: "Alice", surname: "Dupont", id: "001" },
-    { name: "Bob", surname: "Martin", id: "002" },
-    { name: "Charlie", surname: "Durand", id: "003" },
+    { 
+      id: "8", 
+      name: "Alice", 
+      surname: "Dupont", 
+      email: "alice.dupont@example.com", 
+      phoneNumber: "0123-456-789" 
+    },
+    { 
+      id: "9", 
+      name: "Bob", 
+      surname: "Martin", 
+      email: "bob.martin@example.com", 
+      phoneNumber: "0234-567-890" 
+    },
+    { 
+      id: "10", 
+      name: "Charlie", 
+      surname: "Durand", 
+      email: "charlie.durand@example.com", 
+      phoneNumber: "0345-678-901" 
+    },
   ]);
 
   const [members, setMembers] = useState([
@@ -94,6 +112,15 @@ const AdminScreen: React.FC = () => {
     setRegistrations(registrations.filter(reg => reg.id !== id));
   };
 
+  const setAdmin = (id: string) => {
+    // Trouver le membre à promouvoir
+    const member = members.find(m => m.id === id);
+
+    // Mettre à jour la liste des membres
+    setMembers(members.map(m => m.id === id ? { ...m, status: 'admin' } : m));
+  }
+
+
   return (
     <ScrollView style={styles.scrollContainer}>
       <View style={styles.top}>
@@ -126,6 +153,7 @@ const AdminScreen: React.FC = () => {
               nom={member.surname}
               email={member.email}
               phoneNumber={member.phoneNumber}
+              onSetAdmin={() => setAdmin(member.id)}
             />
           ))
         )}
