@@ -4,7 +4,7 @@ import HomeScreen from "../screens/HomeScreen";
 import ScreenTwo from "../screens/ScreenTwo";
 import { UserContext } from "../contexts/UserContext";
 import AdminScreen from "../screens/admin/AdminScreen";
-import DelivererScreen from "../screens/deliverer/DelivererScreen";
+import MemberManagement from "../screens/admin/MemberManagementScreen";
 const Tab = createBottomTabNavigator();
 
 const BottomTabNavigator: React.FC = () => {
@@ -14,10 +14,13 @@ const BottomTabNavigator: React.FC = () => {
       <Tab.Screen name="Home" component={HomeScreen} />
       
       {isAuthenticated && isAdmin && (
-        <Tab.Screen name="Admin" component={AdminScreen} />
-      )}
-      {isAuthenticated && !isAdmin && (<Tab.Screen name="Deliverer" component={DelivererScreen} />)}
-      <Tab.Screen name="ScreenTwo" component={ScreenTwo} />
+        <>
+          <Tab.Screen name="Admin" component={AdminScreen} />
+          <Tab.Screen name="Gestion membre" component={MemberManagement} />
+        </>
+        )}
+      {isAuthenticated && !isAdmin && (
+      <Tab.Screen name="Deliverer" component={ScreenTwo} />)}
     </Tab.Navigator>
   );
 };
