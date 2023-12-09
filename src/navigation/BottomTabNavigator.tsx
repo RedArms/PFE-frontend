@@ -5,6 +5,7 @@ import ScreenTwo from "../screens/ScreenTwo";
 import { UserContext } from "../contexts/UserContext";
 import AdminScreen from "../screens/admin/AdminScreen";
 import MemberManagement from "../screens/admin/MemberManagementScreen";
+import DelivererScreen from "../screens/deliverer/DelivererScreen";
 const Tab = createBottomTabNavigator();
 
 const BottomTabNavigator: React.FC = () => {
@@ -20,7 +21,7 @@ const BottomTabNavigator: React.FC = () => {
         </>
         )}
       {isAuthenticated && !isAdmin && (
-      <Tab.Screen name="Deliverer" component={ScreenTwo} />)}
+      <Tab.Screen name="Deliverer" component={DelivererScreen} />)}
     </Tab.Navigator>
   );
 };
