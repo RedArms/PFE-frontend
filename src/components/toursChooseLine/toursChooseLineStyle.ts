@@ -25,8 +25,6 @@ interface Styles {
     };
     titleContainer: ViewStyle;
     text: TextStyle;
-    button: ViewStyle;
-    buttonText: TextStyle;
     crecheContainer: ViewStyle;
     crecheLine: ViewStyle;
   }
@@ -52,7 +50,7 @@ interface Styles {
         shadowRadius: 3.84,
         elevation: 5,
       },
-      backgroundColor: "#124972",
+      backgroundColor: "#b0e0e6",
       alignItems: 'center',
       justifyContent: 'space-between',
     },
@@ -68,24 +66,13 @@ interface Styles {
       fontSize: moderateScale(25),
       fontWeight: 'bold',
     },
-    button: {
-      backgroundColor: "#32CD32",
-      borderRadius: moderateScale(20),
-      padding: moderateScale(10),
-      margin: moderateScale(5),
-      alignItems: 'center',
-    },
-    buttonText: {
-      color: "#FFFFFF",
-      fontWeight: "bold",
-    },
-    crecheContainer: {
+      crecheContainer: {
       paddingTop: moderateScale(10),
       alignSelf: 'flex-start', // Align the container to the left
       paddingLeft: moderateScale(20), // Add left padding
       paddingBottom: moderateScale(20),
-      maxHeight: moderateScale(150), // Set a maximum height for the container
-
+      maxHeight: moderateScale(100), // Set a maximum height for the container
+      width: '100%', // Take full width of the container
     },
     crecheLine: {
       color: '#D4A866',

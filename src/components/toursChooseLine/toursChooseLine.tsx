@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { ScrollView, View, Text, TouchableOpacity, TouchableWithoutFeedback, Dimensions } from 'react-native';
+import { ScrollView, View, Text, TouchableOpacity, TouchableWithoutFeedback, Dimensions, Button } from 'react-native';
 import styles from './toursChooseLineStyle';
+import ButtonChoose from '../button/Button';
 interface ToursChooseLineProps {
   value: {
     title: string;
@@ -24,15 +25,7 @@ const ToursChooseLine: React.FC<ToursChooseLineProps> = (props) => {
         <TouchableWithoutFeedback onPress={toggleCrecheVisibility}>
           <View style={styles.titleContainer}>
             <Text style={styles.text}>{props.value.title}</Text>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => {
-                console.log('choisir ce tour');
-                navigation.navigate('DelivererContent');
-              }}
-            >
-              <Text style={styles.buttonText}>Choisir</Text>
-            </TouchableOpacity>
+            <ButtonChoose valueString="Choisir" method={() => {navigation.navigate('DelivererContent',{id : 23} )}}/> 
           </View>
         </TouchableWithoutFeedback>
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import { View,Button } from 'react-native';
+import styles from './ButtonStyle';
 
 interface ButtonProps {
     valueString: string;
@@ -10,10 +11,11 @@ const ButtonChoose:React.FC<ButtonProps>= (props) => {
   
 
   return (
-    <View style={{ padding: 20 }}>
-      <Button title={props.valueString} onPress={props.method} />
+    <View style={styles.button}>
+      <Button title={props.valueString} onPress={props.method} color="#FFFFFF" />
     </View>
   );
 };
+
 
 export default ButtonChoose;

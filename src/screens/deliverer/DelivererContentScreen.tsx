@@ -1,19 +1,44 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
-import { getMonthString } from "../../utils/month";
+import { Text, StyleSheet, ScrollView } from "react-native";
+import QuantityLine from "../../components/QuantityLine/QuantityLine";
+import ButtonChoose from "../../components/button/Button";
 
-const DelivererContentScreen = () => {
-  const today: Date = new Date();
-  const year: number = today.getFullYear();
-  const month: number = today.getMonth() + 1; // MONTHS START AT 0
-  const day: number = today.getDate();
+const DelivererContentScreen : React.FC<{ route: any , navigation : any}> = ({route,navigation}) => {
+
+  const { id } = route.params;
+  console.log(id);
+  let  queryResult = [
+    {
+      label:"lange S",
+      quantity: 42
+    },
+    {
+      label:"lange M",
+      quantity: 432
+    },
+    {
+      label:"lange L",
+      quantity: 21
+    },
+
+  ]
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <Text style={styles.headerText}>
-        Tournées du {day} {getMonthString(month)} {year}!
+          Contenu de la tournée X
       </Text>
-    </View>
+      {
+        queryResult.map((result, index) => (
+          <QuantityLine
+            key={index}
+            value={result}/>
+        ))
+      }
+      <ButtonChoose valueString="Valider la tournée" method={() => {
+        navigation.navigate('DelivererTours',{id: 'toto'}); // TODO: change to id
+        }}/>
+    </ScrollView>
 
   );
 };
