@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -9,12 +9,14 @@ import Registration from "./components/Registration";
 import Member from "./components/Member";
 
 const AdminScreen: React.FC = () => {
-  const registrations = [
+  
+  const [registrations, setRegistrations] = useState([
     { name: "Alice", surname: "Dupont", id: "001" },
     { name: "Bob", surname: "Martin", id: "002" },
     { name: "Charlie", surname: "Durand", id: "003" },
-  ];
-  const members = [
+  ]);
+
+  const [members, setMembers] = useState([
     {
       id: "1",
       name: "Manuel",
@@ -71,7 +73,26 @@ const AdminScreen: React.FC = () => {
       phoneNumber: "+1-894-039-2806x293",
       status: "admin",
     },
-  ];
+  ]);
+
+  
+  const handleAcceptRegistration = (id: string) => {
+    // Trouver l'inscription à accepter
+    const registration = registrations.find(reg => reg.id === id);
+
+    // Mettre à jour la liste des inscriptions
+    setRegistrations(registrations.filter(reg => reg.id !== id));
+
+    // Ajouter le membre à la liste des membres avec le rôle 'livreur'
+    if (registration) {
+      setMembers([...members, { ...(registration as { id: string; name: string; surname: string; email: string; phoneNumber: string; status: string; }), status: 'livreur' }]);
+    }
+  };
+
+  const handleRejectRegistration = (id: string) => {
+    // Simplement retirer l'inscription de la liste
+    setRegistrations(registrations.filter(reg => reg.id !== id));
+  };
 
   return (
     <ScrollView style={styles.scrollContainer}>
@@ -86,6 +107,8 @@ const AdminScreen: React.FC = () => {
               name={registration.name}
               surname={registration.surname}
               id={registration.id}
+              onAccept={() => handleAcceptRegistration(registration.id)}
+              onReject={() => handleRejectRegistration(registration.id)}    
             />
           ))
         )}

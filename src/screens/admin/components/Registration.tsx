@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
-const Registration = ({ name, surname, id }: { name: string, surname: string, id: string }) => {
+const Registration = ({ name, surname, id, onAccept, onReject }: { name: string, surname: string, id: string, onAccept: () => void, onReject: () => void }) => {
   // Fonctions pour gérer les clics sur les boutons (à définir)
   const handleAccept = () => {
     console.log(`Accepted registration with ID: ${id}`);
@@ -15,10 +15,10 @@ const Registration = ({ name, surname, id }: { name: string, surname: string, id
     <View style={styles.registration}>
       <Text style={styles.registrationText}>{id} : {name} {surname}</Text>
       <View style={styles.buttons}>
-        <TouchableOpacity onPress={handleAccept} style={styles.button}>
+        <TouchableOpacity onPress={onAccept} style={styles.button}>
           <Text style={styles.acceptText}>V</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={handleReject} style={styles.button}>
+        <TouchableOpacity onPress={onReject} style={styles.button}>
           <Text style={styles.rejectText}>X</Text>
         </TouchableOpacity>
       </View>
