@@ -53,7 +53,7 @@ const UserContextProvider: React.FC<{ children: React.ReactNode }> = ({
       saveUser(user); // save user in storage
       setUser(user); // set user in state
       setIsAuthenticated(true);
-      setIsAdmin(user.is_admin?? false);
+      setIsAdmin(!user.isAdmin);
     } catch (error) {
       console.error("Login failed:", error);
     }
