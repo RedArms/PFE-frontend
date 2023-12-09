@@ -5,7 +5,7 @@ import { UserContext } from "../../contexts/UserContext";
 import { User } from "../../models/user";
 import Logo from "../../components/Logo/Logo";
 import { login as loginApi } from "../../services/authService";
-import KeyboardAvoidingComponent from "../../components/KeyboardAvoiding/KeyboardAvoiding";
+
 
 const LoginScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
   const [email, setEmail] = useState("");
