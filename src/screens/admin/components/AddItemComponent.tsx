@@ -10,11 +10,7 @@ const AddItemComponent: React.FC = () => {
   const [newItemSize, setNewItemSize] = useState("");
 
   const [pickerKey, setPickerKey] = useState(0); // key for reseting the picker
-  const resetPicker = () => {
-    setNewItemSize("");
-    // Augmenter la clé pour forcer la mise à jour du composant
-    setPickerKey((prevKey) => prevKey + 1);
-  };
+ 
 
   const onHandleAddItem = async () => {
     if (newItemLabel === "") return alert("Veuillez saisir un nom d'article");
@@ -27,7 +23,7 @@ const AddItemComponent: React.FC = () => {
     if (itemCreated) {
       setNewItemLabel("");
       setNewItemSize("");
-      resetPicker();
+      setPickerKey((prevKey) => prevKey + 1);
     }
   };
 
