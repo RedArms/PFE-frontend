@@ -5,12 +5,13 @@ import { Item } from "../../../models/item";
 import { createItem } from "../../../services/itemService";
 import RNPickerSelect from "react-native-picker-select";
 
-const AddItemComponent: React.FC = () => {
+const AddItemComponent: React.FC<{ onAddItem: () => void }> = ({
+  onAddItem,
+}) => {
   const [newItemLabel, setNewItemLabel] = useState("");
   const [newItemSize, setNewItemSize] = useState("");
 
   const [pickerKey, setPickerKey] = useState(0); // key for reseting the picker
- 
 
   const onHandleAddItem = async () => {
     if (newItemLabel === "") return alert("Veuillez saisir un nom d'article");
@@ -24,6 +25,7 @@ const AddItemComponent: React.FC = () => {
       setNewItemLabel("");
       setNewItemSize("");
       setPickerKey((prevKey) => prevKey + 1);
+      onAddItem();
     }
   };
 

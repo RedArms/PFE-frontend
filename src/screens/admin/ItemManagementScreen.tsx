@@ -9,12 +9,17 @@ const ItemManagementScreen: React.FC = () => {
   const [itemsList, setItemsList] = React.useState<Item[]>([]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const data = await getAllItems();
-      if (data) setItemsList(data);
-    };
     fetchData();
   }, []);
+
+  const fetchData = async () => {
+    const data = await getAllItems();
+    if (data) setItemsList(data);
+  };
+
+  const handleAddItem = () => {
+    fetchData();
+  };
 
   return (
     <View style={styles.container}>
@@ -23,10 +28,10 @@ const ItemManagementScreen: React.FC = () => {
       <FlatList
         data={itemsList}
         renderItem={({ item }) => <ItemComponent item={item} />}
-        keyExtractor={(item) => item.item_id? item.item_id.toString() : ""}
+        keyExtractor={(item) => (item.item_id ? item.item_id.toString() : "")}
       />
 
-      <AddItemComponent />
+      <AddItemComponent onAddItem={handleAddItem} />
     </View>
   );
 };
