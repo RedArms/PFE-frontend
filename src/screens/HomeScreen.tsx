@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useContext } from "react";
 import { View, Text, Button, StyleSheet } from "react-native";
 import { User } from "../models/user";
