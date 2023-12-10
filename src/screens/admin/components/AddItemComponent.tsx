@@ -33,28 +33,30 @@ const AddItemComponent: React.FC<{ onAddItem: () => void }> = ({
     <KeyboardAvoidingComponent>
       <View style={styles.formContainer}>
         <Text style={styles.formTitle}>Ajouter un nouvel article</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Nom de l'article"
-          value={newItemLabel}
-          onChangeText={(text) => setNewItemLabel(text)}
-        />
-        <View style={styles.pickerContainer}>
-          <RNPickerSelect
-            key={pickerKey}
-            placeholder={{ label: "Taille (Optionel)", value: "" }}
-            onValueChange={(size) => setNewItemSize(size)}
-            items={[
-              { label: "S", value: "S" },
-              { label: "M", value: "M" },
-              { label: "L", value: "L" },
-              { label: "XL", value: "XL" },
-            ]}
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={styles.input}
+            placeholder="Nom de l'article"
+            value={newItemLabel}
+            onChangeText={(text) => setNewItemLabel(text)}
           />
+          <View style={styles.pickerContainer}>
+            <RNPickerSelect
+              key={pickerKey}
+              placeholder={{ label: "Taille (Optionel)", value: "" }}
+              onValueChange={(size) => setNewItemSize(size)}
+              items={[
+                { label: "S", value: "S" },
+                { label: "M", value: "M" },
+                { label: "L", value: "L" },
+                { label: "XL", value: "XL" },
+              ]}
+            />
+          </View>
         </View>
         <Button
           color="white"
-          title="Ajouter l'article"
+          title="Ajouter"
           onPress={onHandleAddItem}
         />
       </View>
@@ -63,6 +65,11 @@ const AddItemComponent: React.FC<{ onAddItem: () => void }> = ({
 };
 
 const styles = StyleSheet.create({
+  formTitle: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "white",
+  },
   formContainer: {
     marginTop: 20,
     alignItems: "center",
@@ -70,34 +77,33 @@ const styles = StyleSheet.create({
     marginHorizontal: 2,
     borderRadius: 8,
     paddingVertical: 10,
+    width: "100%",
   },
-  formTitle: {
-    fontSize: 18,
-    fontWeight: "bold",
-    marginBottom: 10,
-    color: "white",
+  inputContainer: {
+    flexDirection: "row", //
+    alignItems: "center",
+    marginBottom: 5,
+    padding: 10,
   },
   input: {
+    flex: 1, // Utilise tout l'espace disponible
     height: 40,
     borderColor: "gray",
     borderWidth: 1,
-    marginBottom: 10,
     paddingHorizontal: 8,
     borderRadius: 8,
-    width: "60%",
     backgroundColor: "white",
+    marginRight: 10,
   },
   pickerContainer: {
-    width: "60%",
+    width: "35%",
+    height: 40,
     backgroundColor: "white",
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: "white",
-  },
-  picker: {
-    height: 40,
-    color: "black",
-    alignSelf: "stretch",
+    paddingTop: 10,
+    paddingHorizontal: 8,
+    borderColor: "gray",
   },
 });
 
