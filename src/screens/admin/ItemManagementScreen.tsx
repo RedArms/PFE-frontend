@@ -23,7 +23,7 @@ const ItemManagementScreen: React.FC = () => {
       <FlatList
         data={itemsList}
         renderItem={({ item }) => <ItemComponent item={item} />}
-        keyExtractor={(item) => item.item_id.toString()}
+        keyExtractor={(item) => item.item_id? item.item_id.toString() : ""}
       />
 
       <AddItemComponent />

@@ -21,5 +21,22 @@ async function getAllItems(): Promise<Item[] | undefined> {
   }
 }
 
+async function createItem(item: Item): Promise<Item | undefined> {
+  try {
+    const response = await axios.post(`${API_URL}/items/`, item);
 
-export { getAllItems };
+    if (response.status !== 200) {
+      return undefined;
+    }
+    const newItem : Item = response.data;
+
+    return newItem;
+  } catch (error) {
+    console.log("Une erreur s'est produite :", error);
+
+    return undefined;
+  }
+}
+
+
+export { getAllItems  , createItem};
