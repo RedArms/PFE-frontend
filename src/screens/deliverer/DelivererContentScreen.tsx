@@ -1,7 +1,7 @@
 import React from "react";
 import { Text, StyleSheet, ScrollView } from "react-native";
 import QuantityLine from "../../components/QuantityLine/QuantityLine";
-import ButtonChoose from "../../components/button/Button";
+import ButtonChoose from "../../components/button/ButtonChoose";
 
 const DelivererContentScreen : React.FC<{ route: any , navigation : any}> = ({route,navigation}) => {
 
