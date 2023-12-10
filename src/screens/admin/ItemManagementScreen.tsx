@@ -1,32 +1,20 @@
-import React, {  } from "react";
-import {
-  View,
-  Text,
-  FlatList,
-  StyleSheet,
-} from "react-native";
+import React, { useEffect } from "react";
+import { View, Text, FlatList, StyleSheet } from "react-native";
 import { Item } from "../../models/item";
 import ItemComponent from "./components/Item";
 import AddItemComponent from "./components/AddItemComponent";
-const ItemManagementScreen: React.FC = () => {
-  
-  const itemsList: Item[] = [
-  ];
+import { getAllItems } from "../../services/itemService";
 
-  const getRandomWord = () => {
-    const words = ["couches", "biberons", "lits", "jouets", "vêtements", "poussettes", "serviettes", "cuisinettes"];
-    const randomIndex = Math.floor(Math.random() * words.length);
-    return words[randomIndex];
-  };
- // add 25 items to the list for the example
-  for (let i = 1; i < 25; i++) {
-    const item: Item = {
-      item_id: i,
-      label: `*${i}* ${getRandomWord()} `,
-      size: i % 2 == 0 ? "M" : i % 3 == 0 ? "L" : undefined,
+const ItemManagementScreen: React.FC = () => {
+  const [itemsList, setItemsList] = React.useState<Item[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getAllItems();
+      if (data) setItemsList(data);
     };
-    itemsList.push(item);
-  }
+    fetchData();
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -38,9 +26,7 @@ const ItemManagementScreen: React.FC = () => {
         keyExtractor={(item) => item.item_id.toString()}
       />
 
-  
       <AddItemComponent />
-      
     </View>
   );
 };
