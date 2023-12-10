@@ -1,45 +1,63 @@
-import React from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Text, StyleSheet, ScrollView } from "react-native";
 import QuantityLine from "../../components/QuantityLine/QuantityLine";
-import ButtonChoose from "../../components/button/Button";
+import ButtonChoose from "../../components/button/ButtonChoose";
+import { BoxeContext } from "../../contexts/BoxeContext";
+import { Boxe } from "../../models/boxe";
+import { TourContext } from "../../contexts/TourContext";
+import API_URL from "../../utils/config";
+import { UserContext } from "../../contexts/UserContext";
 
-const DelivererContentScreen : React.FC<{ route: any , navigation : any}> = ({route,navigation}) => {
+interface DelivererContentScreenProps {
+  route: {
+    params: {
+      id: number;
+    };
+  };
+  navigation: any; 
+}
 
+const DelivererContentScreen: React.FC<DelivererContentScreenProps> = ({
+  route,
+  navigation,
+}) => {
   const { id } = route.params;
-  console.log(id);
-  let  queryResult = [
-    {
-      label:"lange S",
-      quantity: 42
-    },
-    {
-      label:"lange M",
-      quantity: 432
-    },
-    {
-      label:"lange L",
-      quantity: 21
-    },
+  const { user } = useContext(UserContext);
+  const { getToursToday, setDelivererDB } = useContext(TourContext);
 
-  ]
+  const [boxeData, setBoxeData] = useState<Boxe[]>([]);
+  const [date, setDate] = useState<string>("");
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const boxe = await getToursToday();
+        const boxeId = boxe.find((tour) => tour.tour === id);
+        setDate(boxeId?.date ?? "");
+        setBoxeData(boxeId?.content ?? []);
+
+      } catch (error) {
+        console.error("Error fetching boxe:", error);
+      }
+    };
+
+    fetchData();
+  }, [getToursToday, id]);
 
   return (
     <ScrollView style={styles.container}>
-      <Text style={styles.headerText}>
-          Contenu de la tournée X
-      </Text>
-      {
-        queryResult.map((result, index) => (
-          <QuantityLine
-            key={index}
-            value={result}/>
-        ))
-      }
-      <ButtonChoose valueString="Valider la tournée" method={() => {
-        navigation.navigate('DelivererTours',{id: 'toto'}); // TODO: change to id
-        }}/>
+      <Text style={styles.headerText}>Contenu de la tournée X</Text>
+      {boxeData.map((boxe, index) => (
+        <QuantityLine key={index} quantity={boxe.quantity} label={boxe.name} />
+      ))}
+      <ButtonChoose
+        valueString="Valider la tournée"
+        method={async () => {
+          await setDelivererDB(id, date, user?.user_id);
+          navigation.navigate("DelivererTours", { id: id }); // TODO: change to id
+        }}
+      />
     </ScrollView>
-
   );
 };
 

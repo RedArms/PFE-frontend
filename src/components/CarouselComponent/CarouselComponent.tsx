@@ -24,7 +24,7 @@ const CarouselComponent = () => {
   ];
 
   const renderItem = ({ item }: { item: any }) => {
-    return <QuantityLine value={item} />;
+    return <QuantityLine label={item.label} quantity={item.quantity} />;
   };
 
   const windowWidth = Dimensions.get('window').width;
