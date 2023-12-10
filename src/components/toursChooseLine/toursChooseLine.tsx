@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import { ScrollView, View, Text, TouchableOpacity, TouchableWithoutFeedback, Dimensions, Button } from 'react-native';
 import styles from './toursChooseLineStyle';
-import ButtonChoose from '../button/Button';
+import ButtonChoose from '../button/ButtonChoose';
+import { Client } from '../../models/client';
 interface ToursChooseLineProps {
-  value: {
-    title: string;
-    creche: string[];
-  },
+  title?: string;
+  creche: Client[];
   navigation: any;
 }
 
@@ -24,16 +23,16 @@ const ToursChooseLine: React.FC<ToursChooseLineProps> = (props) => {
       <View style={styles.toursChooseLine}>
         <TouchableWithoutFeedback onPress={toggleCrecheVisibility}>
           <View style={styles.titleContainer}>
-            <Text style={styles.text}>{props.value.title}</Text>
+            <Text style={styles.text}>{props.title}</Text>
             <ButtonChoose valueString="Choisir" method={() => {navigation.navigate('DelivererContent',{id : 23} )}}/> 
           </View>
         </TouchableWithoutFeedback>
 
         {isCrecheVisible && (
           <ScrollView style={{ ...styles.crecheContainer, maxHeight }}>
-            {props.value.creche.map((creche, index) => (
+            {props.creche.map((creche, index) => (
               <Text style={styles.crecheLine} key={index}>
-                {creche}
+                {creche.name}
               </Text>
             ))}
           </ScrollView>
