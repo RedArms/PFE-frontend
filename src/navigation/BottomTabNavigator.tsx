@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeScreen from "../screens/HomeScreen";
-import ScreenTwo from "../screens/ScreenTwo";
 import { UserContext } from "../contexts/UserContext";
 import AdminScreen from "../screens/admin/AdminScreen";
 import MemberManagement from "../screens/admin/MemberManagementScreen";

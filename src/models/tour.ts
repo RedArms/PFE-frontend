@@ -1,3 +1,4 @@
+import { Boxe } from "./boxe";
 import { Client } from "./client";
 
 export type Tour = {
@@ -6,4 +7,5 @@ export type Tour = {
     Deliverer ?: string;
     date : string;
     clients : Client[];
+    content? : Boxe[];
   };

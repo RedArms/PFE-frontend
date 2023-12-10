@@ -4,6 +4,7 @@ import styles from './toursChooseLineStyle';
 import ButtonChoose from '../button/ButtonChoose';
 import { Client } from '../../models/client';
 interface ToursChooseLineProps {
+  id : number;
   title?: string;
   creche: Client[];
   navigation: any;
@@ -24,7 +25,7 @@ const ToursChooseLine: React.FC<ToursChooseLineProps> = (props) => {
         <TouchableWithoutFeedback onPress={toggleCrecheVisibility}>
           <View style={styles.titleContainer}>
             <Text style={styles.text}>{props.title}</Text>
-            <ButtonChoose valueString="Choisir" method={() => {navigation.navigate('DelivererContent',{id : 23} )}}/> 
+            <ButtonChoose valueString="Choisir" method={() => {navigation.navigate('DelivererContent',{id : props.id} )}}/> 
           </View>
         </TouchableWithoutFeedback>
 

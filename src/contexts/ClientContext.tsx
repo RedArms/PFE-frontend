@@ -18,20 +18,23 @@ const ClientContextProvider: React.FC<{ children: React.ReactNode }> = ({
     const [clients, setClients] = useState<Client[]>([]);
 
     const getClients = async (id: number): Promise<Client[]> => {
-        if (clients.length === 0) {
-            try {
-                const response = await axios.get(
-                    API_URL + `/tours/getTours/${id}/getAllClient`
-                );
-                setClients(response.data);
-            } catch (error) {
-                console.error("Error fetching clients:", error);
+        try {
+            const path = API_URL + `/tours/getTours/${id}/getAllClient`;
+    
+            const response = await axios.get(path);
+            const newClients = response.data;
+                if (newClients.length > 0) {
+                setClients(newClients);
             }
+    
+            console.log(newClients);
+            return newClients;
+        } catch (error) {
+            console.error("Error fetching clients:", error);
+            return [];
         }
-
-        console.log(clients);
-        return clients;
     };
+    
 
     const exposedValue: ClientContextProps = {
         getClients,
