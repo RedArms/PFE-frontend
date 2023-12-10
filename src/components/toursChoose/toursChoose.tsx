@@ -1,11 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { ScrollView } from 'react-native';
-import ToursChooseLine from '../toursChooseLine/toursChooseLine'; // Adjust the import path accordingly
+import ToursChooseLine from '../toursChooseLine/toursChooseLine';
 import { TourContext } from '../../contexts/TourContext';
 import { Tour } from '../../models/tour';
-import {Client } from '../../models/client';
+import { Client } from '../../models/client';
 
-const ToursChoose: React.FC<{ navigation: any }> = ({ navigation }) => {
+interface ToursChooseProps {
+  navigation : any
+}
+
+const ToursChoose: React.FC<ToursChooseProps> = (props) => {
   const { getToursToday } = useContext(TourContext);
   const [tours, setTours] = useState<Tour[]>([]);
 
@@ -20,12 +24,12 @@ const ToursChoose: React.FC<{ navigation: any }> = ({ navigation }) => {
     };
 
     fetchTours();
-  }, [getToursToday]); // Add getToursToday to the dependency array
+  }, []);
 
   return (
     <ScrollView style={styles.toursChoose}>
       {tours.map((tour, index) => (
-        <ToursChooseLine key={index} title={tour.geo_zone} creche={tour.clients} navigation={navigation} />
+        <ToursChooseLine key={index} id={tour.tour} title={tour.geo_zone} creche={tour.clients} navigation={props.navigation} />
       ))}
     </ScrollView>
   );

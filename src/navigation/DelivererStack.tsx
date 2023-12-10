@@ -17,8 +17,7 @@ const Deliverer: React.FC = () => {
       <DelivererStack.Screen name="BottomTab" component={BottomTabNavigator} 
       options={{headerShown: false}}/>
       <DelivererStack.Screen name="Deliverer" component={DelivererChooseScreen} />
-      <DelivererStack.Screen name="DelivererContent" component={DelivererContentScreen}
-       options={{headerBackAccessibilityLabel: 'zeriopuezoipurzeioprua'}} />
+      <DelivererStack.Screen name="DelivererContent" component={DelivererContentScreen}/>
        <DelivererStack.Screen name="DelivererTours" component={DelivererTours}/>
     </DelivererStack.Navigator>
   );

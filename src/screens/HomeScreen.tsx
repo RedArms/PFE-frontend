@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from "react";
+
+import React, { useState, useEffect, useContext } from "react";
 import { View, Text, Button, StyleSheet } from "react-native";
 import { User } from "../models/user";
 import { getUser } from "../utils/auth";
+import { UserContext } from "../contexts/UserContext";
 
 const HomeScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
   const [user, setUser] = useState<User | null>(null);
+  const { logout } = useContext(UserContext);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -24,15 +27,11 @@ const HomeScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
           <Text style={styles.welcomeText}>
             Welcome {user.first_name} {user.last_name}
           </Text>
+          <Button title="Logout" onPress={logout} />
         </View>
       ) : (
         <Text style={styles.notLoggedInText}>Vous n'êtes pas connecté!</Text>
       )}
-
-      <Button
-        title="Go to ScreenTwo"
-        onPress={() => navigation.navigate("ScreenTwo")}
-      />
     </View>
   );
 };
