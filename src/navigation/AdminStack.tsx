@@ -2,6 +2,9 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import AdminScreen from "../screens/admin/AdminScreen";
 import BottomTabNavigator from "./BottomTabNavigator";
+import TourScreen from "../screens/admin/TourScreen";
+import TourDetailScreen from "../screens/admin/TourDetailScreen";
+
 const AdminStack = createStackNavigator();
 /*
 AdminStack is a stack navigator, which means it will be used to navigate between screens.
@@ -13,6 +16,9 @@ const Admin = () => {
         <AdminStack.Screen name="BottomTab" component={BottomTabNavigator} 
       options={{headerShown: false}}/>
       <AdminStack.Screen name="Admin" component={AdminScreen} />
+      <AdminStack.Screen name="Tour" component={TourScreen} />
+      <AdminStack.Screen name="TourDetail" component={TourDetailScreen} />
+
     </AdminStack.Navigator>
   );
 };
