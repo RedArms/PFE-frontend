@@ -6,7 +6,6 @@ const ClientsScreen: React.FC = () => {
 
     return (
         <View style={{flex: 1, backgroundColor: '#F5F5F5'}}>
-            
             <ClientList />
         </View>
     );
