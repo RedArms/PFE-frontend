@@ -78,4 +78,23 @@ async function getAllTours(): Promise<any | undefined> {
     return undefined;
   }
 
-export { getAllTours,getAllToursToday,getToursByDate};
+  async function getOrders(tour: number,date: string): Promise<any | undefined> {
+    try {
+      console.log(`${API_URL}/tours/${tour}/${date}`);
+      const response = await axios.get(`${API_URL}/tours/${tour}/${date}`);
+  
+      return response.data;
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        console.error("Erreur axios détectée :", error.message);
+        if (error.response) {
+          console.error("Réponse d'erreur :", error.response.data);
+        }
+      } else {
+        console.error("Erreur générale :", error);
+      }
+    }
+    return undefined;
+  }
+
+export { getAllTours,getAllToursToday,getToursByDate,getOrders};

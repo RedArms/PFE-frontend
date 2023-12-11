@@ -7,6 +7,7 @@ import {
     getToursByDate as getToursByDateApi
  } from "../../services/toursManagementService";
  import DateTimePicker, { DateTimePickerAndroid } from '@react-native-community/datetimepicker'; 
+import { useRoute } from "@react-navigation/native";
 
 
 const ToursScreen: React.FC<{navigation : any}> = ({navigation}) => {
@@ -54,8 +55,8 @@ const ToursScreen: React.FC<{navigation : any}> = ({navigation}) => {
       }, [date,refreshing]);
 
 
-    const pressHandler = () => {
-        navigation.navigate('TourDetail',);
+    const pressHandler = (tour:Tour) => {
+        navigation.navigate('TourDetail',{tour});
     }
 
     return (
@@ -70,20 +71,24 @@ const ToursScreen: React.FC<{navigation : any}> = ({navigation}) => {
                     <DateTimePicker
                       testID="dateTimePicker"
                       value={date}
+                      //@ts-ignore
                       mode={mode}
                       is24Hour={true}
                       onChange={onChange}
                     />
 
                     <Text>Tours {date.getFullYear()}-{date.getMonth()}-{date.getDate()}:</Text>
+
                         {toursToday.map((tour, index) => (
+
                             <View key={index} style={{ marginBottom: 10 }}>
                                 <Text>Tour: {tour.tour}</Text>
                                 <Text>Delivery Person: {tour.delivery_person || "Pas encore assigné"}</Text>
                                 <Text>Date: {tour.date}</Text>
                                 
-                                <Button title="Go" onPress={pressHandler} />
+                                <Button title="Go" onPress={()=>{pressHandler(tour)}}/>
                              </View>
+
                     ))}
 
 
