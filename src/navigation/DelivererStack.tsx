@@ -14,11 +14,24 @@ DelivererStack will be shown when user is authenticated and is not admin.
 const Deliverer: React.FC = () => {
   return (
     <DelivererStack.Navigator>
-      <DelivererStack.Screen name="BottomTab" component={BottomTabNavigator} 
-      options={{headerShown: false}}/>
-      <DelivererStack.Screen name="Deliverer" component={DelivererChooseScreen} />
-      <DelivererStack.Screen name="DelivererContent" component={DelivererContentScreen}/>
-       <DelivererStack.Screen name="DelivererTours" component={DelivererTours}/>
+      <DelivererStack.Screen
+        name="BottomTab"
+        component={BottomTabNavigator}
+        options={{ headerShown: false }}
+      />
+      <DelivererStack.Screen
+        name="Deliverer"
+        component={DelivererChooseScreen}
+      />
+      <DelivererStack.Screen
+        name="DelivererContent"
+        component={DelivererContentScreen}
+        options={{
+          headerTitle: "Contenu de la tournée",
+          headerBackTitle: "Retour",
+        }}
+      />
+      <DelivererStack.Screen name="DelivererTours" component={DelivererTours} />
     </DelivererStack.Navigator>
   );
 };

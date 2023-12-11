@@ -51,6 +51,8 @@ const TourContextProvider: React.FC<{ children: React.ReactNode }> = ({
       return tours;
   };
 
+  
+
   const setDelivererDB = async (id_tour: number, date : String, id_user: number) => {
     try {
       console.log(id_tour);
