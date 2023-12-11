@@ -2,22 +2,13 @@ import React, { useContext, useState, useEffect } from "react";
 import { Text, StyleSheet, ScrollView } from "react-native";
 import QuantityLine from "../../components/QuantityLine/QuantityLine";
 import ButtonChoose from "../../components/button/ButtonChoose";
-import { BoxeContext } from "../../contexts/BoxeContext";
+
 import { Boxe } from "../../models/boxe";
 import { TourContext } from "../../contexts/TourContext";
-import API_URL from "../../utils/config";
+
 import { UserContext } from "../../contexts/UserContext";
 
-interface DelivererContentScreenProps {
-  route: {
-    params: {
-      id: number;
-    };
-  };
-  navigation: any; 
-}
-
-const DelivererContentScreen: React.FC<DelivererContentScreenProps> = ({
+const DelivererContentScreen: React.FC<{ route: any; navigation: any }> = ({
   route,
   navigation,
 }) => {
@@ -35,7 +26,6 @@ const DelivererContentScreen: React.FC<DelivererContentScreenProps> = ({
         const boxeId = boxe.find((tour) => tour.tour === id);
         setDate(boxeId?.date ?? "");
         setBoxeData(boxeId?.content ?? []);
-
       } catch (error) {
         console.error("Error fetching boxe:", error);
       }
