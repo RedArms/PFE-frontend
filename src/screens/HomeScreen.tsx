@@ -1,40 +1,36 @@
-import React, { useState } from "react";
-import { useFocusEffect } from "@react-navigation/native";
-
+import React, { useState, useEffect, useContext } from "react";
 import { View, Text, Button, StyleSheet } from "react-native";
-
 import { User } from "../models/user";
-import { getUser } from "../services/auth";
+import { getUser } from "../utils/auth";
+import { UserContext } from "../contexts/UserContext";
 
 const HomeScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
   const [user, setUser] = useState<User | null>(null);
+  const { logout } = useContext(UserContext);
 
-  // de react navigation pour faire des actions quand on arrive sur l'écran, ici on va chercher l'utilisateur
-  useFocusEffect(
-    React.useCallback(() => {
-      const fetchUser = async () => {
-        const fetchedUser = await getUser();
-        setUser(fetchedUser);
-      };
-      fetchUser();
-    }, [])
-  );
+  useEffect(() => {
+    const fetchUser = async () => {
+      const user: User | null = await getUser();
+      setUser(user);
+    };
+
+    fetchUser();
+  }, []);
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Welcome to the Home Screen!</Text>
 
       {user ? (
         <View style={styles.userContainer}>
-          <Text style={styles.welcomeText}>Welcome {user.firstname}!</Text>
+          <Text style={styles.welcomeText}>
+            Welcome {user.first_name} {user.last_name}
+          </Text>
+          <Button title="Logout" onPress={logout} />
         </View>
       ) : (
         <Text style={styles.notLoggedInText}>Vous n'êtes pas connecté!</Text>
       )}
-
-      <Button
-        title="Go to ScreenTwo"
-        onPress={() => navigation.navigate("ScreenTwo")}
-      />
     </View>
   );
 };

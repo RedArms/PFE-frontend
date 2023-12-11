@@ -4,6 +4,7 @@ import AdminScreen from "../screens/admin/AdminScreen";
 import BottomTabNavigator from "./BottomTabNavigator";
 import ClientsScreen from "../screens/clients/ClientsScreen";
 import ClientDetailsScreen from "../screens/clients/ClientsDetailsScreen";
+import ItemManagementScreen from "../screens/admin/ItemManagementScreen";
 const AdminStack = createStackNavigator();
 /*
 AdminStack is a stack navigator, which means it will be used to navigate between screens.
@@ -17,6 +18,7 @@ const Admin = () => {
       <AdminStack.Screen name="Admin" component={AdminScreen} />
       <AdminStack.Screen name="Clients" component={ClientsScreen} />
       <AdminStack.Screen name="ClientDetailsScreen" component={ClientDetailsScreen} options={{headerTitle: "Détails du client"}}/>
+      <AdminStack.Screen name="ItemManagement" component={ItemManagementScreen} />
     </AdminStack.Navigator>
   );
 };
