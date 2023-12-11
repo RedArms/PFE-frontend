@@ -54,6 +54,7 @@ const LoginScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
             placeholder="Votre mot de passe"
             secureTextEntry={true}
             onChangeText={(value) => setPassword(value)}
+            autoCapitalize="none"
             value={password}
           />
         </View>
