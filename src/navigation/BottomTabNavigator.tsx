@@ -3,6 +3,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeScreen from "../screens/HomeScreen";
 import { UserContext } from "../contexts/UserContext";
 import AdminScreen from "../screens/admin/AdminScreen";
+import ClientsScreen from "../screens/clients/ClientsScreen";
 import MemberManagement from "../screens/admin/MemberManagementScreen";
 import ItemManagementScreen from "../screens/admin/ItemManagementScreen";
 import DelivererScreen from "../screens/deliverer/DelivererChooseScreen";
@@ -20,6 +21,7 @@ const BottomTabNavigator: React.FC = () => {
         <>
           <Tab.Screen name="Admin" component={AdminScreen} />
           <Tab.Screen name="Gestion membre" component={MemberManagement} />
+          <Tab.Screen name="Clients" component={ClientsScreen} />
           <Tab.Screen
             name="ItemManagement"
             component={ItemManagementScreen}

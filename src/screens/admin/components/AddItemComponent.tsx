@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View, StyleSheet, Text, TextInput, Button } from "react-native";
 import KeyboardAvoidingComponent from "../../../components/KeyboardAvoiding/KeyboardAvoiding";
-import { Item } from "../../../models/item";
+import { Item } from "../../../models/Item";
 import { createItem } from "../../../services/itemService";
 import RNPickerSelect from "react-native-picker-select";
 

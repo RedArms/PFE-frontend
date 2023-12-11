@@ -1,6 +1,6 @@
 export type Client = {
-    tour: number;
-    adress : string;
-    name : string;
-    client_id : number;
-};
+    client_id: number;
+    name: string;
+    address: string;
+    tour?: number;
+}
