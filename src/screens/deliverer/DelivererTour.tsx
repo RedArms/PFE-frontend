@@ -6,7 +6,7 @@ import { UserContext } from "../../contexts/UserContext";
 import { TourContext } from "../../contexts/TourContext";
 
 // cette page s'affiche quand le livreur a une tournée en cours
-const DelivererTours: React.FC<{ navigation: any }> = ({ navigation }) => {
+const DelivererTour: React.FC<{ navigation: any }> = ({ navigation }) => {
   const { user } = useContext(UserContext);
   const user_id = user?.user_id;
 
@@ -51,4 +51,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DelivererTours;
+export default DelivererTour;

@@ -9,7 +9,7 @@ import ItemManagementScreen from "../screens/admin/ItemManagementScreen";
 import DelivererChooseScreen from "../screens/deliverer/DelivererChooseScreen";
 import Logo from "../components/Logo/Logo";
 import { View } from "react-native";
-import DelivererTours from "../screens/deliverer/DelivererTours";
+import DelivererTour from "../screens/deliverer/DelivererTour";
 const Tab = createBottomTabNavigator();
 
 const BottomTabNavigator: React.FC = () => {
@@ -36,7 +36,7 @@ const BottomTabNavigator: React.FC = () => {
       {isAuthenticated && !isAdmin && (
         <>
        
-       <Tab.Screen name="DelivererTours" component={DelivererTours} />
+       <Tab.Screen name="DelivererTour" component={DelivererTour} />
         <Tab.Screen name="DelivererChoose" component={DelivererChooseScreen} />
         </>
       )}
