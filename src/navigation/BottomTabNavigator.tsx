@@ -6,7 +6,7 @@ import AdminScreen from "../screens/admin/AdminScreen";
 import ClientsScreen from "../screens/clients/ClientsScreen";
 import MemberManagement from "../screens/admin/MemberManagementScreen";
 import ItemManagementScreen from "../screens/admin/ItemManagementScreen";
-import DelivererScreen from "../screens/deliverer/DelivererChooseScreen";
+import DelivererChooseScreen from "../screens/deliverer/DelivererChooseScreen";
 import Logo from "../components/Logo/Logo";
 import { View } from "react-native";
 import DelivererTours from "../screens/deliverer/DelivererTours";
@@ -37,7 +37,7 @@ const BottomTabNavigator: React.FC = () => {
         <>
        
        <Tab.Screen name="DelivererTours" component={DelivererTours} />
-        <Tab.Screen name="Deliverer" component={DelivererScreen} />
+        <Tab.Screen name="DelivererChoose" component={DelivererChooseScreen} />
         </>
       )}
     </Tab.Navigator>

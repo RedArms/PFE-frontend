@@ -4,7 +4,7 @@ import { getMonthString } from "../../utils/month";
 import ToursChoose from "../../components/toursChoose/toursChoose";
 import { get } from 'react-native/Libraries/TurboModule/TurboModuleRegistry';
 import { TourContext } from "../../contexts/TourContext";
-
+// cette page s'affiche quand le livreur n'a pas de tournée en cours, il a donc le choix entre les tournées du jour
 const DelivererChooseScreen: React.FC<{navigation : any}>  = ({navigation}) => {
   const today: Date = new Date();
   const year: number = today.getFullYear();
