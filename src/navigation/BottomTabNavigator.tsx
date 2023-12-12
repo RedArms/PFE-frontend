@@ -10,6 +10,7 @@ import DelivererChooseScreen from "../screens/deliverer/DelivererChooseScreen";
 import Logo from "../components/Logo/Logo";
 import { View } from "react-native";
 import DelivererTour from "../screens/deliverer/DelivererTour";
+import Profile from "../screens/Profile/Profile";
 const Tab = createBottomTabNavigator();
 
 const BottomTabNavigator: React.FC = () => {
@@ -40,6 +41,10 @@ const BottomTabNavigator: React.FC = () => {
         <Tab.Screen name="DelivererChoose" component={DelivererChooseScreen} />
         </>
       )}
+      {isAuthenticated && (
+          <Tab.Screen name="Profile" component={Profile}  options={{headerTitle: 'Votre profil'}}/>        
+      )
+      }
     </Tab.Navigator>
   );
 };
