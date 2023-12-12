@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { View, FlatList, StyleSheet } from 'react-native';
+import { View, FlatList, StyleSheet, Text } from 'react-native';
+import { getOrder, updateOrder } from '../../services/clientService';
 import ActionButton from '../ActionButton/ActionButton';
 import OrderItem from '../OrderItem/OrderItem';
 import { RegularOrder } from '../../models/RegularOrder';
-import axios from 'axios';
 import { Client } from '../../models/Client';
-import { API_URL } from '@env';
 
 interface OrderListProps {
   client: Client;
@@ -20,27 +19,15 @@ const OrderList: React.FC<OrderListProps> = ({client}) => {
     setOrderChanged(true);
   };
 
-  const handleChangeButtonPress = () => {
-    console.warn('Updating order...');
-    axios.put(`${API_URL}/client/orders/${client.client_id}`, order)
-      .then(response => {
-        console.log(response.data);
-        fetchOrder();
-        setOrderChanged(false);
-      })
-      .catch(error => {
-        console.error(error);
-      });
+  const handleChangeButtonPress = async () => {
+    await updateOrder(client, order);
+    fetchOrder();
+    setOrderChanged(false);
   }
 
-  const fetchOrder = () => {
-    axios.get(`${API_URL}/client/orders/${client.client_id}`)
-      .then(response => {
-        setOrder(response.data);
-      })
-      .catch(error => {
-        console.error(error);
-      });
+  const fetchOrder = async () => {
+    const order = await getOrder(client);
+    setOrder(order);
   }
 
   useEffect(() => {
@@ -49,7 +36,9 @@ const OrderList: React.FC<OrderListProps> = ({client}) => {
 
   return (
     <View style={styles.container}>
+      <Text style={styles.title}>Commande habituelle</Text>
       <FlatList
+        nestedScrollEnabled
         data={order.regular_order_lines}
         renderItem={({ item }) => <OrderItem orderLine={item} order={order} setOrder={setOrderWithChangeTracking} />}
         keyExtractor={(item, index) => index.toString()}
@@ -66,6 +55,14 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     paddingEnd: 20,
     borderRadius: 10,
+    height: 320,
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#fff',
+    marginTop: 10,
+    marginBottom: 10,
   },
 });
 

@@ -1,11 +1,11 @@
 import React from 'react';
-import { Text, View, StyleSheet, Alert } from 'react-native';
-import axios from 'axios';
+import { Text, View, StyleSheet, Alert, ScrollView } from 'react-native';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { deleteClient } from '../../services/clientService';
 import OrderList from '../../components/OrderList/OrderList';
 import ActionButton from '../../components/ActionButton/ActionButton';
 import { Client } from '../../models/Client';
-import { useNavigation, useRoute } from '@react-navigation/native';
-import { API_URL } from '@env';
+import ClientTourSelector from '../../components/ClientTourSelector/ClientTourSelector';
 
 const ClientDetailsScreen: React.FC = () => {
   const navigation = useNavigation();
@@ -24,10 +24,7 @@ const ClientDetailsScreen: React.FC = () => {
         { 
           text: "Supprimer", 
           onPress: async () => {
-            await axios.delete(`${API_URL}/client/${client.client_id}`)
-              .catch(error => {
-                console.error(error);
-              });
+            await deleteClient(client);
             navigation.goBack();
           } 
         }
@@ -37,8 +34,9 @@ const ClientDetailsScreen: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Nom : {client.name}</Text>
+      <Text style={styles.title}>{client.name}</Text>
       <Text style={styles.subtitle}>Adresse : {client.address}</Text>
+      <ClientTourSelector client={client} />
       <OrderList client={client} />
       <ActionButton title="Supprimer le client" color="#D9534F" onPress={handleDeletePress} />
     </View>
@@ -48,15 +46,18 @@ const ClientDetailsScreen: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 10,
+    padding: 20,
     backgroundColor: '#f5f5f5',
   },
   title: {
-    fontSize: 18,
+    fontSize: 24,
     fontWeight: 'bold',
+    color: '#333',
+    marginBottom: 10,
   },
   subtitle: {
-    fontSize: 14,
+    fontSize: 18,
+    color: '#333',
   },
 });
 

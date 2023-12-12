@@ -2,10 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { ScrollView, Text, TouchableOpacity, StyleSheet, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
-import axios from 'axios';
+import { getAllClients } from '../../services/clientService';
 import ClientItem from '../ClientItem/ClientItem';
 import { Client } from '../../models/Client';
-import { API_URL } from '@env';
 import AddClientModal from '../AddClientModal/AddClientModal';
 
 const ClientList = () => {
@@ -21,19 +20,9 @@ const ClientList = () => {
     return focusListener;
   }, []);
 
-  const fetchClients = () => {
-    console.log('Fetching clients...');
-    try {
-      axios.get(`${API_URL}/client/`)
-        .then(response => {
-          setClients(response.data);
-        })
-        .catch(error => {
-          console.error(error);
-        });
-    } catch (error) {
-      console.error('Error fetching clients:', error);
-    }
+  const fetchClients = async () => {
+    const clients = await getAllClients();
+    setClients(clients);
   };
 
   const handleAddClientPress = () => {

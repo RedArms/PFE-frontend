@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { ScrollView, View, Text, TouchableOpacity, TouchableWithoutFeedback, Dimensions, Button } from 'react-native';
 import styles from './toursChooseLineStyle';
 import ButtonChoose from '../button/ButtonChoose';
-import { Client } from '../../models/client';
+import { Client } from '../../models/Client';
 interface ToursChooseLineProps {
   id : number;
   title?: string;

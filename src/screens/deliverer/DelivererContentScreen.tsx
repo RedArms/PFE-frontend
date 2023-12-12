@@ -26,7 +26,7 @@ const DelivererContentScreen: React.FC<{ route: any; navigation: any }> = ({
     const fetchData = async () => {
       try {
         const boxe = await getToursToday();
-        const fetchedTour = boxe.find((tour) => tour.tour === id);
+        const fetchedTour = boxe.find((tour) => tour.tour_id === id);
         setTour(fetchedTour);
         setDate(fetchedTour?.date ?? "");
         setBoxeData(fetchedTour?.content ?? []);

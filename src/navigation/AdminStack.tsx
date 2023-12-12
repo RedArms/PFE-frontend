@@ -17,7 +17,17 @@ const Admin = () => {
         options={{headerShown: false}}/>
       <AdminStack.Screen name="Admin" component={AdminScreen} />
       <AdminStack.Screen name="Clients" component={ClientsScreen} />
-      <AdminStack.Screen name="ClientDetailsScreen" component={ClientDetailsScreen} options={{headerTitle: "Détails du client"}}/>
+      <AdminStack.Screen name="ClientDetailsScreen" 
+        component={ClientDetailsScreen} 
+        options={
+          {
+            headerTitle: "Détails du client", 
+            headerStyle: {
+              backgroundColor: '#f3f3f3'
+            }
+          }
+        }
+      />
       <AdminStack.Screen name="ItemManagement" component={ItemManagementScreen} />
     </AdminStack.Navigator>
   );

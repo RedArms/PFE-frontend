@@ -8,6 +8,7 @@ const ClientItem = ({ client }: { client: Client }) => {
 	const navigation = useNavigation();
 
 	const navigateToClientDetails = () => {
+		//@ts-ignore
 		navigation.navigate('ClientDetailsScreen', { client });
 	};
 

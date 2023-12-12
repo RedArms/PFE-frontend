@@ -22,7 +22,6 @@ const OrderItem: React.FC<OrderItemProps> = ({ orderLine, order, setOrder }) => 
             setQuantityInput(text);
             order.regular_order_lines.find((a) => a.item_id === orderLine.item_id)!.quantity = parseInt(text);
             setOrder(order);
-            console.log(order);
           }
         }
       />
