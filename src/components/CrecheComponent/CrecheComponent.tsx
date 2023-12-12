@@ -1,30 +1,20 @@
 import React from 'react';
-import { View,ScrollView } from 'react-native';
+import {ScrollView } from 'react-native';
 import CrecheLine from '../CrecheLine/CrecheLine';
+import { Client } from '../../models/Client';
 
 interface Props {
+    creches: Client[];
+    onHandleIndicateToDelivered: () => void;
 
 }
 
-const CrecheComponent: React.FC<Props> = () => {
-    let creches=[
-        {
-            creche : "Creche 1",
-            article : [{name:"article 1",quantity:1},{name:"article 2",quantity:2},{name:"article 3",quantity:3}]
-        },
-        {
-            creche: "Creche 2",
-            article : [{name:"article 1",quantity:1},{name:"article 2",quantity:2},{name:"article 3",quantity:3},{name:"article 1",quantity:1},{name:"article 2",quantity:2},{name:"article 1",quantity:1},{name:"article 2",quantity:2},]
-        },
-        {
-            creche: "Creche 3",
-            article : [{name:"article 1",quantity:1},{name:"article 2",quantity:2},{name:"article 3",quantity:3}]
-        }
-    ]
+const CrecheComponent: React.FC<Props> = ({creches, onHandleIndicateToDelivered}) => {
+   
     return (
         <ScrollView style={styles.creche}>
             {creches.map((creche, index) => (
-                <CrecheLine creche={creche.creche} article={creche.article}  key={index} />
+                <CrecheLine creche={creche}  onHandleIndicateToDelivered={onHandleIndicateToDelivered} key={index} />
             ))}
         </ScrollView>
     );

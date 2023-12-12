@@ -4,24 +4,12 @@ import React from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import QuantityLine from '../QuantityLine/QuantityLine';
+import { Item } from '../../models/Item';
 
-const CarouselComponent = () => {
+const CarouselComponent : React.FC<{items: Item[]}> = ({items}) => {
   const [activeIndex, setActiveIndex] = React.useState(0);
 
-  let queryResult = [
-    {
-      label: 'lange S',
-      quantity: 42,
-    },
-    {
-      label: 'lange M',
-      quantity: 432,
-    },
-    {
-      label: 'lange L',
-      quantity: 21,
-    },
-  ];
+ 
 
   const renderItem = ({ item }: { item: any }) => {
     return <QuantityLine label={item.label} quantity={item.quantity} />;
@@ -32,14 +20,14 @@ const CarouselComponent = () => {
   return (
     <View style={styles.carouselContainer}>
       <Carousel
-        data={queryResult}
+        data={items}
         renderItem={renderItem}
         sliderWidth={windowWidth}
         itemWidth={windowWidth - 20} 
         onSnapToItem={(index) => setActiveIndex(index)}
       />
       <Pagination
-        dotsLength={queryResult.length}
+        dotsLength={items.length}
         activeDotIndex={activeIndex}
         containerStyle={styles.paginationContainer}
         dotStyle={styles.paginationDot}

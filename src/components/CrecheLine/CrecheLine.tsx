@@ -1,57 +1,65 @@
-import React, { useState } from 'react';
-import { ScrollView, View, Text, TouchableWithoutFeedback, Modal, TouchableOpacity, TextInput, Button } from 'react-native';
-import styles from './CrecheLineStyle';
-import ButtonChoose from '../button/ButtonChoose';
+import React, { useState } from "react";
+import {
+  ScrollView,
+  View,
+  Text,
+  TouchableWithoutFeedback,
+  Modal,
+  TouchableOpacity,
+  TextInput,
+  Button,
+} from "react-native";
+import styles from "./CrecheLineStyle";
+import ButtonChoose from "../button/ButtonChoose";
+import { Client } from "../../models/Client";
 
 interface Article {
   name: string;
   quantity: number;
 }
 
-interface Props {
-  creche: string;
-  article: Article[];
-}
-
-const CrecheLine: React.FC<Props> = ({ creche, article }) => {
+const CrecheLine: React.FC<{
+  creche: Client;
+  onHandleIndicateToDelivered: () => void;
+}> = ({ creche }) => {
   const [isArticleVisible, setisArticleVisible] = useState(false);
-  const [modalVisible, setModalVisible] = useState(false);
-  const [editedArticles, setEditedArticles] = useState([...article]);
+  //const [modalVisible, setModalVisible] = useState(false);
+  //const [editedArticles, setEditedArticles] = useState(undefined as Article[] | undefined);
 
   const toggleArticleVisible = () => {
     setisArticleVisible(!isArticleVisible);
   };
 
-  const openModal = () => {
+  /*  const openModal = () => {
     setModalVisible(true);
-  };
+  }; */
 
-  const closeModal = () => {
+  /*  const closeModal = () => {
     setModalVisible(false);
-  };
+  }; */
 
-  const handleSave = () => {
+  /*   const handleSave = () => {
     // Handle save logic, e.g., update the state or send data to the server
     console.log('Save clicked', editedArticles);
     closeModal();
-  };
+  }; */
 
-  const handleQuantityChange = (index: number, newQuantity: string) => {
+  /*   const handleQuantityChange = (index: number, newQuantity: string) => {
     const updatedArticles = [...editedArticles];
     updatedArticles[index].quantity = parseInt(newQuantity, 10) || 0;
     setEditedArticles(updatedArticles);
-  };
+  }; */
 
   return (
     <ScrollView>
       <View style={styles.toursChooseLine}>
         <TouchableWithoutFeedback onPress={toggleArticleVisible}>
           <View style={styles.titleContainer}>
-            <Text style={styles.text}>{creche}</Text>
+            <Text style={styles.text}>{creche.name}</Text>
           </View>
         </TouchableWithoutFeedback>
 
-        {isArticleVisible && (
+        {/* isArticleVisible && (
           <View style={styles.AllArticleContainer}>
             <ScrollView style={{ ...styles.crecheContainer }}>
               {article.map((articleLine, index) => (
@@ -59,10 +67,14 @@ const CrecheLine: React.FC<Props> = ({ creche, article }) => {
                   {articleLine.name} : {articleLine.quantity}
                 </Text>
               ))}
-            </ScrollView>
-            <ButtonChoose valueString="Marquer comme livrée" method={openModal} />
+            </ScrollView> 
+            <ButtonChoose
+              valueString="Marquer comme livrée"
+              method={openModal}
+            /> */}
+            <Text> teeeteettete</Text>
 
-            {/* Modal for editing quantities */}
+            {/* Modal for editing quantities 
             <Modal visible={modalVisible} animationType="slide" transparent={true}>
               <View style={styles.modalContainer}>
                 <ScrollView style={styles.modalContent}>
@@ -86,8 +98,8 @@ const CrecheLine: React.FC<Props> = ({ creche, article }) => {
                 </View>
               </View>
             </Modal>
-          </View>
-        )}
+          </View>*/}
+      
       </View>
     </ScrollView>
   );
