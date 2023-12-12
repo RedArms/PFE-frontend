@@ -2,8 +2,7 @@
 import React, { useState } from 'react';
 import { Modal, Text, View, TouchableOpacity, TextInput, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import axios from 'axios';
-import { API_URL } from '@env';
+import { createClient } from '../../services/clientService';
 
 interface AddClientModalProps {
   visible: boolean;
@@ -15,29 +14,24 @@ const AddClientModal: React.FC<AddClientModalProps> = ({ visible, onClose, fetch
   const [nom, setNom] = useState('');
   const [adresse, setAdresse] = useState('');
 
-  const handleAddPress = () => {
+  const handleAddPress = async () => {
     if (!nom || !adresse) {
       alert('Veuillez remplir tous les champs.');
       return;
     }
     
-    axios.post(`${API_URL}/client/`, { name: nom, address: adresse })
-      .then(response => {
-        setAdresse('');
-        setNom('');
-        fetchClients();
-        onClose();
-      })
-      .catch(error => {
-        console.error(error);
-      });
+    await createClient({ name: nom, address: adresse });
+    setAdresse('');
+    setNom('');
+    fetchClients();
+    onClose();
   };
 
   const handleClose = () => {
     setNom('');
     setAdresse('');
     onClose();
-  }
+  };
 
   return (
     <Modal visible={visible} transparent animationType="slide" onRequestClose={handleClose}>
