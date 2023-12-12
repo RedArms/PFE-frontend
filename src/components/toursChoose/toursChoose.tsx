@@ -3,7 +3,7 @@ import { ScrollView } from 'react-native';
 import ToursChooseLine from '../toursChooseLine/toursChooseLine';
 import { TourContext } from '../../contexts/TourContext';
 import { Tour } from '../../models/tour';
-import { Client } from '../../models/client';
+import { Client } from '../../models/Client';
 
 interface ToursChooseProps {
   navigation : any
@@ -29,7 +29,7 @@ const ToursChoose: React.FC<ToursChooseProps> = (props) => {
   return (
     <ScrollView style={styles.toursChoose}>
       {tours.map((tour, index) => (
-        <ToursChooseLine key={index} id={tour.tour} title={tour.geo_zone} creche={tour.clients} navigation={props.navigation} />
+        <ToursChooseLine key={index} id={tour.tour_id} title={tour.geo_zone} creche={tour.clients} navigation={props.navigation} />
       ))}
     </ScrollView>
   );
