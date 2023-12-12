@@ -1,5 +1,5 @@
 import React from "react";
-import { Item } from "../../../models/item";
+import { Item } from "../../../models/Item";
 import { View , Text , StyleSheet} from "react-native";
 
 const ItemComponent: React.FC<{ item: Item }> = ({ item }) => (

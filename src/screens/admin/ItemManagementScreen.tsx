@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { View, Text, FlatList, StyleSheet } from "react-native";
-import { Item } from "../../models/item";
+import { Item } from "../../models/Item";
 import ItemComponent from "./components/Item";
 import AddItemComponent from "./components/AddItemComponent";
 import { getAllItems } from "../../services/itemService";

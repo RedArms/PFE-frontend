@@ -33,10 +33,10 @@ const TourContextProvider: React.FC<{ children: React.ReactNode }> = ({
         
         await Promise.all(
           tourData.map(async (tour) => {
-            const geoZoneResponse = await axios.get(API_URL + `/tours/${tour.tour}`);
+            const geoZoneResponse = await axios.get(API_URL + `/tours/${tour.tour_id}`);
             tour.geo_zone = geoZoneResponse.data.geo_zone;
-            tour.clients = await getClients(tour.tour);
-            tour.content= await getBoxeDeliverer(tour.tour);
+            tour.clients = await getClients(tour.tour_id);
+            tour.content= await getBoxeDeliverer(tour.tour_id);
             
           })
         );

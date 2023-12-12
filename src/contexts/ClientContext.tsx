@@ -2,7 +2,7 @@ import React, { createContext, useState, useEffect } from "react";
 import axios from "axios";
 import API_URL from "../utils/config";
 import { Tour } from "../models/tour";
-import { Client } from "../models/client";
+import { Client } from "../models/Client";
 
 interface ClientContextProps {
     getClients: (id: number) => Promise<Client[]>;
