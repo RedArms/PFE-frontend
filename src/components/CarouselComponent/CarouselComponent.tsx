@@ -4,7 +4,7 @@ import React from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import QuantityLine from '../QuantityLine/QuantityLine';
-import { Item , ItemWithQuantity} from '../../models/Item';
+import { ItemWithQuantity} from '../../models/Item';
 
 const CarouselComponent : React.FC<{items: ItemWithQuantity[]}> = ({items}) => {
   const [activeIndex, setActiveIndex] = React.useState(0);
