@@ -62,7 +62,7 @@ const DelivererContentScreen: React.FC<{ route: any; navigation: any }> = ({
           valueString="Lancer la tournée"
           method={async () => {
             await setDelivererDB(id, date, user?.user_id);
-            navigation.navigate("DelivererTours"); // TODO: change to id
+            navigation.navigate("DelivererTour"); 
           }}
         />
       </View>

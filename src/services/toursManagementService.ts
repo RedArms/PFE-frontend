@@ -35,18 +35,18 @@ async function getAllToursForToday(): Promise<Tour[]> {
   }
 }
 async function getTourByDelivererId(
-  idDeliverer: string
+  idDeliverer: number
 ): Promise<Tour | undefined> {
-  const url: string = `${API_URL}/getTourForDeliverer/${idDeliverer}`;
+  const url: string = `${API_URL}/tours/getTourForDeliverer/${idDeliverer}`;
 
-  console.log(`Fetching tour with id ${idDeliverer} at url ${url} :`);
+  console.log(`Fetching tour with id deliverer ${idDeliverer} at url ${url} :`);
 
   try {
     const response = await axios.get(url);
-    const tourData: Tour = response.data;
+    const tourData: Tour = response.data;  
     return tourData;
   } catch (error) {
-    console.error("Error fetching tours:", error);
+    console.log("Error fetching tours:", error);
     return undefined;
   }
 }
