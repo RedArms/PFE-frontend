@@ -3,12 +3,18 @@ import { View, Text, StyleSheet } from "react-native";
 import CarouselComponent from "../../components/CarouselComponent/CarouselComponent";
 import CrecheComponent from "../../components/CrecheComponent/CrecheComponent";
 
-const DelivererTours: React.FC<{ route: any }> = ({ route }) => {
-  console.log(route.params.id);
+const DelivererTours: React.FC<{  navigation : any}> = ({ navigation }) => {
+  
+  
+
+  // si le livreur n'a aucune tournée, on redirige vers la page de choix de tournée
+
 
   return (
     <View style={styles.container}>
-      <Text style={styles.headerText}>Choix de la tournée {route.params.id}</Text>
+      <Text style={styles.headerText}>
+        Choix de la tournée 
+      </Text>
       <CarouselComponent />
       <CrecheComponent />
     </View>

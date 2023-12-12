@@ -19,6 +19,7 @@ const Deliverer: React.FC = () => {
         component={BottomTabNavigator}
         options={{ headerShown: false }}
       />
+       <DelivererStack.Screen name="DelivererTours" component={DelivererTours} />
       <DelivererStack.Screen
         name="Deliverer"
         component={DelivererChooseScreen}
@@ -31,7 +32,7 @@ const Deliverer: React.FC = () => {
           headerBackTitle: "Retour",
         }}
       />
-      <DelivererStack.Screen name="DelivererTours" component={DelivererTours} />
+     
     </DelivererStack.Navigator>
   );
 };

@@ -41,7 +41,7 @@ const DelivererContentScreen: React.FC<{ route: any; navigation: any }> = ({
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.headerText}>
-        Tournée de {tour?.geo_zone} du{" "}
+        Contenu de la tournée de {tour?.geo_zone} du{" "}
         {tour?.date ? new Date(tour?.date).toLocaleDateString() : ""}
       </Text>
       {boxeData.map((boxe, index) => (
@@ -52,7 +52,7 @@ const DelivererContentScreen: React.FC<{ route: any; navigation: any }> = ({
         valueString="Lancer la tournée"
         method={async () => {
           await setDelivererDB(id, date, user?.user_id);
-          navigation.navigate("DelivererTours", { id: id }); // TODO: change to id
+          navigation.navigate("DelivererTours"); // TODO: change to id
         }}
       />
       </View>
