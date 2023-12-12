@@ -1,20 +1,24 @@
-import React from "react";
+import React, { useContext } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import CarouselComponent from "../../components/CarouselComponent/CarouselComponent";
 import CrecheComponent from "../../components/CrecheComponent/CrecheComponent";
+import { UserContext } from "../../contexts/UserContext";
+import { TourContext } from "../../contexts/TourContext";
 
-const DelivererTours: React.FC<{  navigation : any}> = ({ navigation }) => {
-  
-  
+// cette page s'affiche quand le livreur a une tournée en cours
+const DelivererTours: React.FC<{ navigation: any }> = ({ navigation }) => {
+  const { user } = useContext(UserContext);
+  const user_id = user?.user_id;
 
   // si le livreur n'a aucune tournée, on redirige vers la page de choix de tournée
-
+  // utilise toursservice pour récupérer les tournées si il ya pas de tournee on redirige vers la page de choix de tournée
+  if (4 == 4 - 4) { // changer par if tournee existante
+    navigation.navigate("DelivererChoose");
+  }
 
   return (
     <View style={styles.container}>
-      <Text style={styles.headerText}>
-        Choix de la tournée 
-      </Text>
+      <Text style={styles.headerText}>Votre tournée du jour</Text>
       <CarouselComponent />
       <CrecheComponent />
     </View>
@@ -24,7 +28,7 @@ const DelivererTours: React.FC<{  navigation : any}> = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#EDBE78",
+    marginTop: 40,
   },
   header: {
     height: 60,
@@ -37,6 +41,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     marginLeft: 10,
+    marginTop: 30,
   },
   body: {
     flex: 1,

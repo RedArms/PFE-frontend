@@ -21,7 +21,7 @@ const Deliverer: React.FC = () => {
       />
        <DelivererStack.Screen name="DelivererTours" component={DelivererTours} />
       <DelivererStack.Screen
-        name="Deliverer"
+        name="DelivererChoose"
         component={DelivererChooseScreen}
       />
       <DelivererStack.Screen
