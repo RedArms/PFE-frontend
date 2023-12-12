@@ -4,7 +4,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import DelivererChooseScreen from "../screens/deliverer/DelivererChooseScreen";
 import DelivererContentScreen from "../screens/deliverer/DelivererContentScreen";
 import BottomTabNavigator from "./BottomTabNavigator";
-import DelivererTours from "../screens/deliverer/DelivererTours";
+import DelivererTour from "../screens/deliverer/DelivererTour";
 const DelivererStack = createStackNavigator();
 
 /*
@@ -19,7 +19,7 @@ const Deliverer: React.FC = () => {
         component={BottomTabNavigator}
         options={{ headerShown: false }}
       />
-       <DelivererStack.Screen name="DelivererTours" component={DelivererTours} />
+       <DelivererStack.Screen name="DelivererTour" component={DelivererTour} />
       <DelivererStack.Screen
         name="DelivererChoose"
         component={DelivererChooseScreen}
