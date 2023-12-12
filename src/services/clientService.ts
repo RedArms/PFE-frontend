@@ -5,7 +5,7 @@ import axios from "axios";
 
 async function getAllClients(): Promise<Client[]> {
   try {
-    const response = await axios.get(`${API_URL}/client/`);
+    const response = await axios.get(`${API_URL}/clients/`);
 
     if (response.status !== 200) {
       throw new Error("Failed to get clients");
@@ -22,7 +22,7 @@ async function getAllClients(): Promise<Client[]> {
 
 async function createClient(client: {name: String, address: String}): Promise<Client> {
   try {
-    const response = await axios.post(`${API_URL}/client/`, client);
+    const response = await axios.post(`${API_URL}/clients/`, client);
 
     if (response.status !== 200) {
       throw new Error("Failed to create client");
@@ -40,7 +40,7 @@ async function createClient(client: {name: String, address: String}): Promise<Cl
 
 async function updateClient(client: Client): Promise<Client> {
   try {
-    const response = await axios.put(`${API_URL}/client/${client.client_id}`, client);
+    const response = await axios.put(`${API_URL}/clients/${client.client_id}`, client);
 
     if (response.status !== 200) {
       return client;
@@ -58,7 +58,7 @@ async function updateClient(client: Client): Promise<Client> {
 
 async function deleteClient(client: Client): Promise<Client> {
   try {
-    const response = await axios.delete(`${API_URL}/client/${client.client_id}`);
+    const response = await axios.delete(`${API_URL}/clients/${client.client_id}`);
 
     if (response.status !== 200) {
       throw new Error("Failed to delete client");
@@ -74,7 +74,7 @@ async function deleteClient(client: Client): Promise<Client> {
 
 async function getOrder(client: Client): Promise<RegularOrder> {
   try {
-    const response = await axios.get(`${API_URL}/client/orders/${client.client_id}`);
+    const response = await axios.get(`${API_URL}/clients/orders/${client.client_id}`);
 
     if (response.status !== 200) {
       throw new Error("Failed to get orders");
@@ -92,7 +92,7 @@ async function getOrder(client: Client): Promise<RegularOrder> {
 
 async function updateOrder(client: Client, order: RegularOrder): Promise<RegularOrder> {
   try {
-    const response = await axios.put(`${API_URL}/client/orders/${client.client_id}`, order);
+    const response = await axios.put(`${API_URL}/clients/orders/${client.client_id}`, order);
 
     if (response.status !== 200) {
       throw new Error("Failed to update order");
