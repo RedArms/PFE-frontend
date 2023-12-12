@@ -4,15 +4,15 @@ import React from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import QuantityLine from '../QuantityLine/QuantityLine';
-import { Item } from '../../models/Item';
+import { Item , ItemWithQuantity} from '../../models/Item';
 
-const CarouselComponent : React.FC<{items: Item[]}> = ({items}) => {
+const CarouselComponent : React.FC<{items: ItemWithQuantity[]}> = ({items}) => {
   const [activeIndex, setActiveIndex] = React.useState(0);
 
  
 
-  const renderItem = ({ item }: { item: any }) => {
-    return <QuantityLine label={item.label} quantity={item.quantity} />;
+  const renderItem = ({ item }: { item: ItemWithQuantity }) => {
+    return <QuantityLine label={item.label} quantity={item.quantity} size={item.size} />;
   };
 
   const windowWidth = Dimensions.get('window').width;

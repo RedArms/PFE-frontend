@@ -6,16 +6,17 @@ interface QuantityLineProps {
   
     label: string;
     quantity: number;
+    size?: string;
 }
 
 
-const QuantityLine : React.FC<QuantityLineProps> = (props) => {
+const QuantityLine : React.FC<QuantityLineProps> = ({label,quantity,size}) => {
   return (
     <TouchableOpacity style={styles.container}>
       <View style={styles.circle}>
-        <Text style={styles.circleText}>{props.quantity}</Text>
+        <Text style={styles.circleText}>{quantity}</Text>
       </View>
-      <Text style={styles.text}>{props.label}</Text>
+      <Text style={styles.text}>{label} {size ? `Taille ${size}`: ``}</Text>
     </TouchableOpacity>
   );
 };
