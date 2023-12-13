@@ -43,19 +43,19 @@ const OrderList: React.FC<OrderListProps> = ({client}) => {
         renderItem={({ item }) => <OrderItem orderLine={item} order={order} setOrder={setOrderWithChangeTracking} />}
         keyExtractor={(item, index) => index.toString()}
       />
-      {orderChanged && <ActionButton title="Mettre à jour les quantités" color="#5CB85C" onPress={handleChangeButtonPress} />}
+      {orderChanged && <ActionButton title="Mettre à jour les quantités" color="#28A745" onPress={handleChangeButtonPress} />}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#007bff',
+    backgroundColor: '#007BFF',
     padding: 10,
     paddingLeft: 20,
     paddingEnd: 20,
     borderRadius: 10,
-    height: 320,
+    height: "49%",
   },
   title: {
     fontSize: 20,
