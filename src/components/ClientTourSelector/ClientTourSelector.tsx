@@ -53,7 +53,7 @@ const ClientTourSelector: React.FC<ClientTourSelectorProps> = ({ client }) => {
       
       {modified && selectedTour !== client.tour && 
         <View style={styles.button}>
-          <ActionButton title="Confirmer la tournée" color='green' onPress={handleUpdateTour} />
+          <ActionButton title="Confirmer la tournée" color='#28A745' onPress={handleUpdateTour} />
         </View>
       }
     </>

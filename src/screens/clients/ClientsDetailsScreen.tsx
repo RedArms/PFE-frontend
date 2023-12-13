@@ -38,7 +38,7 @@ const ClientDetailsScreen: React.FC = () => {
       <Text style={styles.subtitle}>Adresse : {client.address}</Text>
       <ClientTourSelector client={client} />
       <OrderList client={client} />
-      <ActionButton title="Supprimer le client" color="#D9534F" onPress={handleDeletePress} />
+      <ActionButton title="Supprimer le client" color="#DC3545" onPress={handleDeletePress} />
     </View>
   );
 };
