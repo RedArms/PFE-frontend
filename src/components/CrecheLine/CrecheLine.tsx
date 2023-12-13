@@ -12,23 +12,42 @@ import {
 import styles from "./CrecheLineStyle";
 import ButtonChoose from "../button/ButtonChoose";
 import { Client } from "../../models/Client";
-
-interface Article {
-  name: string;
-  quantity: number;
-}
+import { ItemWithQuantity } from "../../models/Item";
+import { getBoxForClientInAtour } from "../../services/boxeService";
+import { Boxe } from "../../models/boxe";
+import CrecheBoxeRequested from "./CrecheBoxeRequested";
 
 const CrecheLine: React.FC<{
   creche: Client;
   onHandleIndicateToDelivered: () => void;
-}> = ({ creche }) => {
-  const [isArticleVisible, setisArticleVisible] = useState(false);
+  idTour: number;
+  date: string;
+}> = ({ creche, idTour, date }) => {
+  const [isItemVisible, setisItemVisible] = useState(false);
   //const [modalVisible, setModalVisible] = useState(false);
   //const [editedArticles, setEditedArticles] = useState(undefined as Article[] | undefined);
 
-  const toggleArticleVisible = () => {
-    setisArticleVisible(!isArticleVisible);
+  const [itemsRequested, setItemsRequested] = useState<Boxe[]>([]);
+
+  const toggleItemVisible = () => {
+    setisItemVisible(!isItemVisible);
   };
+
+  React.useEffect(() => {
+    const fetchBox = async () => {
+      const fetchedBox = await getBoxForClientInAtour(
+        creche.client_id,
+        idTour,
+        date
+      );
+      if (fetchedBox === undefined) {
+        return;
+      }
+      setItemsRequested(fetchedBox);
+    };
+    fetchBox();
+    console.log(itemsRequested);
+  }, [isItemVisible]);
 
   /*  const openModal = () => {
     setModalVisible(true);
@@ -53,28 +72,28 @@ const CrecheLine: React.FC<{
   return (
     <ScrollView>
       <View style={styles.toursChooseLine}>
-        <TouchableWithoutFeedback onPress={toggleArticleVisible}>
+        <TouchableWithoutFeedback onPress={toggleItemVisible}>
           <View style={styles.titleContainer}>
             <Text style={styles.text}>{creche.name}</Text>
           </View>
         </TouchableWithoutFeedback>
 
-        {/* isArticleVisible && (
+        {isItemVisible && (
           <View style={styles.AllArticleContainer}>
             <ScrollView style={{ ...styles.crecheContainer }}>
-              {article.map((articleLine, index) => (
-                <Text style={styles.crecheLine} key={index}>
-                  {articleLine.name} : {articleLine.quantity}
-                </Text>
+              {itemsRequested.map((boxe, index) => (
+
+                <CrecheBoxeRequested key={index} boxe={boxe} />
               ))}
-            </ScrollView> 
-            <ButtonChoose
+            </ScrollView>
+            {/* <ButtonChoose
               valueString="Marquer comme livrée"
               method={openModal}
             /> */}
-            <Text> teeeteettete</Text>
+          </View>
+        )}
 
-            {/* Modal for editing quantities 
+        {/* Modal for editing quantities 
             <Modal visible={modalVisible} animationType="slide" transparent={true}>
               <View style={styles.modalContainer}>
                 <ScrollView style={styles.modalContent}>
@@ -99,7 +118,6 @@ const CrecheLine: React.FC<{
               </View>
             </Modal>
           </View>*/}
-      
       </View>
     </ScrollView>
   );

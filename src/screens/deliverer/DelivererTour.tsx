@@ -8,6 +8,7 @@ import { getItemsLeftForATour } from "../../services/itemService";
 import { useIsFocused } from "@react-navigation/native";
 import { Tour } from "../../models/tour";
 import {ItemWithQuantity } from "../../models/Item";
+import { Boxe } from "../../models/boxe";
 
 // cette page s'affiche quand le livreur a une tournée en cours
 const DelivererTour: React.FC<{ navigation: any }> = ({ navigation }) => {
@@ -15,7 +16,7 @@ const DelivererTour: React.FC<{ navigation: any }> = ({ navigation }) => {
   const { user } = useContext(UserContext);
   const user_id = user?.user_id as number;
   const [tour, setTour] = React.useState<Tour>({} as Tour);
-  const [itemsLeft, setItemsLeft] = React.useState<ItemWithQuantity[]>([]);
+  const [itemsLeft, setItemsLeft] = React.useState<Boxe[]>([]);
 
   // si le livreur n'a aucune tournée, on redirige vers la page de choix de tournée
   // utilise toursservice pour récupérer la tournee si il ya pas de tournee on redirige vers la page de choix de tournée
@@ -34,7 +35,8 @@ const DelivererTour: React.FC<{ navigation: any }> = ({ navigation }) => {
     if (fetchedItemsLeft === undefined) {
       return;
     }
-
+    fetchedItemsLeft.map((item) => {  console.log(item); });
+    
     setItemsLeft(fetchedItemsLeft);
     
    
@@ -48,17 +50,19 @@ const DelivererTour: React.FC<{ navigation: any }> = ({ navigation }) => {
   const onHandleIndicateToDelivered = () => {
     fetchTour();
   };
-
+ 
   return (
     <View style={styles.container}>
       <Text style={styles.headerText}>
         La tournée de {tour?.geo_zone} pour la date du{" "}
-        {tour?.date ? new Date(tour?.date).toLocaleDateString() : "Erreur date"}
+        {tour.date ? new Date(tour.date).toLocaleDateString() : "Erreur date"}
       </Text>
       <CarouselComponent items={itemsLeft} />
       <CrecheComponent
         creches={tour?.clients ?? []}
         onHandleIndicateToDelivered={onHandleIndicateToDelivered}
+        date={tour.date}
+        idTour={tour.tour}
       />
     </View>
   );

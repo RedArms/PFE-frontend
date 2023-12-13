@@ -1,4 +1,5 @@
 import { Item, ItemWithQuantity } from "../models/Item";
+import { Boxe } from "../models/boxe";
 import API_URL from "../utils/config";
 import axios from "axios";
 
@@ -38,7 +39,7 @@ async function createItem(item: Item): Promise<Item | undefined> {
   }
 }
 
-async function getItemsLeftForATour(tourId: number , date : string): Promise<ItemWithQuantity[] | undefined> {
+async function getItemsLeftForATour(tourId: number , date : string): Promise<Boxe[] | undefined> {
   try {
 
     const url = `${API_URL}/tours/getQuantityLeft/${date}/${tourId}`;
@@ -50,7 +51,7 @@ async function getItemsLeftForATour(tourId: number , date : string): Promise<Ite
     if (response.status !== 200) {
       return undefined;
     }
-    const items : ItemWithQuantity[] = response.data;
+    const items : Boxe[] = response.data;
 
     return items;
   } catch (error) {

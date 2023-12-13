@@ -6,7 +6,8 @@ export type Item = {
 
 export type ItemWithQuantity = {
     item_id?: number;
-    label: string;
+    name: string;
     size?: string;
     quantity: number;
+    delivered_qty?: number;
 }

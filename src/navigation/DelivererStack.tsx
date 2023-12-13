@@ -19,7 +19,7 @@ const Deliverer: React.FC = () => {
         component={BottomTabNavigator}
         options={{ headerShown: false }}
       />
-       <DelivererStack.Screen name="DelivererTour" component={DelivererTour} />
+       <DelivererStack.Screen name="DelivererTour" component={DelivererTour} options={{headerShown : false}}/>
       <DelivererStack.Screen
         name="DelivererChoose"
         component={DelivererChooseScreen}

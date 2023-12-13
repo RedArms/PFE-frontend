@@ -5,13 +5,15 @@ import { View, StyleSheet, Dimensions } from 'react-native';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import QuantityLine from '../QuantityLine/QuantityLine';
 import { ItemWithQuantity} from '../../models/Item';
+import { Boxe } from '../../models/boxe';
 
-const CarouselComponent : React.FC<{items: ItemWithQuantity[]}> = ({items}) => {
+const CarouselComponent : React.FC<{items: Boxe[]}> = ({items}) => {
   const [activeIndex, setActiveIndex] = React.useState(0);
 
  
 
-  const renderItem = ({ item }: { item: ItemWithQuantity }) => {
+  const renderItem = ({ item }: { item: Boxe }) => {
+    //@ts-ignore
     return <QuantityLine label={item.label} quantity={item.quantity} size={item.size} />;
   };
 

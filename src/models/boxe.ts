@@ -5,4 +5,5 @@ export type Boxe = {
     quantity: number;
     delilvered_quantity: number;
     box_status: string;
+    size?: string;
 }
