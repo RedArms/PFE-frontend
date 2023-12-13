@@ -14,7 +14,7 @@ const CrecheBoxeRequested: React.FC<{ boxe: Boxe }> = ({ boxe }) => {
 
 const styles = StyleSheet.create({
   name: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: "bold",
     marginBottom: 5,
   },

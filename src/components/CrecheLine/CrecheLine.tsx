@@ -18,6 +18,7 @@ import { getBoxForClientInAtour } from "../../services/boxeService";
 import { Boxe } from "../../models/boxe";
 import CrecheBoxeRequested from "./CrecheBoxeRequested";
 import { Ionicons } from "@expo/vector-icons";
+import OpenMapButton from "../openMapButton/openMapButton";
 
 const CrecheLine: React.FC<{
   creche: Client;
@@ -51,7 +52,7 @@ const CrecheLine: React.FC<{
   }, [isItemVisible]);
 
   const openModal = () => {
-    setEditedArticles(itemsRequested);
+    setEditedArticles([...itemsRequested]);
     setModalVisible(true);
   };
 
@@ -72,28 +73,48 @@ const CrecheLine: React.FC<{
     setEditedArticles(updatedArticles);
   };
   return (
-    <View style={{borderWidth:1 , marginBottom : 10 , borderRadius :10  }}>
-      <TouchableWithoutFeedback onPress={toggleItemVisible}>
-        <View style={{ padding: 10 }}>
-          <Text style={{ fontSize: 20, fontWeight: "bold" , textAlign: 'center' }}>
-            {creche.name}
-          </Text>
+    <View style={{ borderWidth: 1, marginBottom: 10, borderRadius: 10 }}>
+      <View
+        style={{
+          padding: 10,
+          flexDirection: "row",
+          justifyContent: "space-between",
+        }}
+      >
+        <Text
+          style={{
+            fontSize: 20,
+            fontWeight: "bold",
+            alignContent: "flex-start",
+          }}
+        >
+          {creche.name}
+        </Text>
+        <View style={{ flexDirection: "row" }}>
+          <OpenMapButton />
+          <TouchableWithoutFeedback onPress={toggleItemVisible}>
+            <View style={{ marginLeft: 5 }}>
+              <Ionicons
+                name={isItemVisible ? "chevron-up" : "chevron-down"}
+                size={24}
+                color="black"
+              />
+            </View>
+          </TouchableWithoutFeedback>
         </View>
-      </TouchableWithoutFeedback>
+      </View>
 
       {isItemVisible && (
-        <View style={styles.AllArticleContainer}>
-          <ScrollView style={{ ...styles.crecheContainer }}>
-            {itemsRequested.map((boxe, index) => (
-              <CrecheBoxeRequested key={index} boxe={boxe} />
-            ))}
-          </ScrollView>
+        <>
+          <View style={styles.AllArticleContainer}>
+            <ScrollView style={{ ...styles.crecheContainer }}>
+              {itemsRequested.map((boxe, index) => (
+                <CrecheBoxeRequested key={index} boxe={boxe} />
+              ))}
+            </ScrollView>
+          </View>
           <Button title="Marquer comme livrée" onPress={openModal} />
-          {/* <ButtonChoose
-              valueString="Marquer comme livrée"
-              method={openModal}
-            /> */}
-        </View>
+        </>
       )}
 
       <Modal
@@ -113,24 +134,35 @@ const CrecheLine: React.FC<{
               </TouchableOpacity>
             </View>
 
-            <ScrollView >
+            <ScrollView>
               {editedArticles.map((boxe, index) => (
-                <View key={index} style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10 }}>
-                  <Text style={{ fontWeight: "bold" , fontSize : 10 }}>{boxe.name}</Text>
+                <View
+                  key={index}
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    marginBottom: 10,
+                    borderBottomColor: "black",
+                    borderBottomWidth: StyleSheet.hairlineWidth,
+                  }}
+                >
+                  <Text style={{  fontSize: 20 }}>
+                    {boxe.name}
+                  </Text>
 
                   <TextInput
                     style={{
-                      flex: 1,
-                      height: 40,
+                      height: 30,
                       borderColor: "gray",
                       borderWidth: 1,
-                      marginBottom: 10,
-                      paddingLeft: 10,
+                      paddingHorizontal: 10,
+                   
+                      alignSelf: "flex-end",
+                      borderRadius: 5,
                     }}
                     keyboardType="numeric"
                     onChangeText={(text) => handleQuantityChange(index, text)}
                     value={boxe.quantity.toString()}
-                    returnKeyLabel="valider"
                     returnKeyType="done"
                   />
                 </View>
