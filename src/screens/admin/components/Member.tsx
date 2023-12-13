@@ -46,7 +46,7 @@ const Membre = ({
             <Text style={styles.link}>{email}</Text>
           </TouchableOpacity>
           <View style={{ flex: 1, flexDirection : "row" }}>
-            <Text style={styles.label}>Num. tél. :</Text>
+            <Text style={styles.label}>Num. tél. : </Text>
             <TouchableOpacity onPress={() => Linking.openURL(`tel:${phoneNumber}`)}>
               <Text style={styles.link}>{phoneNumber}</Text>
             </TouchableOpacity>
@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 16,
     color: "#333",
-    marginBottom: 10,
+    marginBottom: 5,
   },
   link: {
     fontSize: 16,
@@ -122,15 +122,15 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   adminButton: {
-    backgroundColor: "#007BFF",
+    backgroundColor: "#28A745",
     padding: 15,
     borderRadius: 10,
-    alignItems: 'center',
-    marginTop: 20,
+    alignSelf: 'flex-end',
+    marginTop: 5,
   },
   adminButtonText: {
     color: "#FFF",
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: "bold",
   },
 });
