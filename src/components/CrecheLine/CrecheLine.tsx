@@ -46,7 +46,7 @@ const CrecheLine: React.FC<{
       setItemsRequested(fetchedBox);
     };
     fetchBox();
-    console.log(itemsRequested);
+    
   }, [isItemVisible]);
 
   /*  const openModal = () => {

@@ -4,7 +4,6 @@ import React from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import QuantityLine from '../QuantityLine/QuantityLine';
-import { ItemWithQuantity} from '../../models/Item';
 import { Boxe } from '../../models/boxe';
 
 const CarouselComponent : React.FC<{items: Boxe[]}> = ({items}) => {

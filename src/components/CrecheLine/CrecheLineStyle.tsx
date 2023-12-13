@@ -86,6 +86,7 @@ const styles: Styles = {
     color: '#D4A866',
     fontSize: moderateScale(20),
     paddingBottom: moderateScale(5),
+    padding: moderateScale(20),
   } as TextStyle,
   AllArticleContainer: {
     paddingTop: moderateScale(10),

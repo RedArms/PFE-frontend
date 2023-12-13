@@ -1,5 +1,5 @@
 import React from "react";
-import { ScrollView } from "react-native";
+import { ScrollView , StyleSheet} from "react-native";
 import CrecheLine from "../CrecheLine/CrecheLine";
 import { Client } from "../../models/Client";
 
@@ -31,9 +31,9 @@ const CrecheComponent: React.FC<Props> = ({
   );
 };
 
-const styles = {
+const styles = StyleSheet.create( {
   creche: {
     padding: 20,
   },
-};
+});
 export default CrecheComponent;

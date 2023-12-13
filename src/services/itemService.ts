@@ -1,4 +1,4 @@
-import { Item, ItemWithQuantity } from "../models/Item";
+import { Item } from "../models/Item";
 import { Boxe } from "../models/boxe";
 import API_URL from "../utils/config";
 import axios from "axios";
