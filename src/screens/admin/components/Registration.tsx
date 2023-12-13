@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
 const Registration = ({
   name,
@@ -18,14 +19,14 @@ const Registration = ({
   return (
     <View style={styles.registration}>
       <Text style={styles.registrationText}>
-        {id} : {name} {surname}
+        {name} {surname}
       </Text>
       <View style={styles.buttons}>
         <TouchableOpacity onPress={onAccept} style={styles.button}>
-          <Text style={styles.acceptText}>V</Text>
+          <Ionicons name="checkmark" size={24} color="green" />
         </TouchableOpacity>
         <TouchableOpacity onPress={onReject} style={styles.button}>
-          <Text style={styles.rejectText}>X</Text>
+          <Ionicons name="close" size={24} color="red" />
         </TouchableOpacity>
       </View>
     </View>
@@ -37,32 +38,26 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    backgroundColor: "#e9e9e9",
-    padding: 8,
-    marginTop: 4,
-    borderRadius: 4,
+    backgroundColor: "#F5F5F5",
+    padding: 10,
+    paddingLeft: 20,
+    marginTop: 10,
+    borderRadius: 10,
+    shadowOpacity: 0.05,
+    shadowRadius: 10,
+    shadowColor: "#000",
+    shadowOffset: { height: 0, width: 0 },
   },
   registrationText: {
-    // Styles pour le texte de l'inscription
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "#333",
   },
   buttons: {
-    // Conteneur pour les boutons
     flexDirection: "row",
   },
   button: {
-    // Styles généraux pour les boutons
-    marginLeft: 10,
-    padding: 5,
-    borderRadius: 5,
-    backgroundColor: "#ccc", // Utiliser des couleurs différentes si nécessaire
-  },
-  acceptText: {
-    // Styles pour le texte du bouton accepter
-    color: "green",
-  },
-  rejectText: {
-    // Styles pour le texte du bouton rejeter
-    color: "red",
+    margin: 5,
   },
 });
 
