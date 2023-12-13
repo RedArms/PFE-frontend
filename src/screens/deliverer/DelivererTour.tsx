@@ -7,7 +7,6 @@ import { getTourByDelivererId } from "../../services/toursManagementService";
 import { getItemsLeftForATour } from "../../services/itemService";
 import { useIsFocused } from "@react-navigation/native";
 import { Tour } from "../../models/tour";
-import {ItemWithQuantity } from "../../models/Item";
 import { Boxe } from "../../models/boxe";
 
 // cette page s'affiche quand le livreur a une tournée en cours
