@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
 import Registration from "./components/Registration";
 import Member from "./components/Member";
 import { User } from "../../models/user";
@@ -11,27 +12,28 @@ import {
 } from "../../services/membersManagementService";
 
 const MembersManagementService: React.FC = () => {
+  const isFocused = useIsFocused();
   const [registrations, setRegistrations] = useState<User[]>([]);
   const [members, setMembers] = useState<User[]>([]);
 
+  const fetchUsers = async () => {
+    try {
+      const allUsers = await getAllUsersApi();
+      const newRegistrations = allUsers.filter(
+        (user: User) => !user.is_verified
+      );
+      const newMembers = allUsers.filter((user: User) => user.is_verified);
+
+      setRegistrations(newRegistrations);
+      setMembers(newMembers);
+    } catch (error) {
+      console.error("Erreur lors du chargement des utilisateurs:", error);
+    }
+  };
+
   useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const allUsers = await getAllUsersApi();
-        const newRegistrations = allUsers.filter(
-          (user: User) => !user.is_verified
-        );
-        const newMembers = allUsers.filter((user: User) => user.is_verified);
-
-        setRegistrations(newRegistrations);
-        setMembers(newMembers);
-      } catch (error) {
-        console.error("Erreur lors du chargement des utilisateurs:", error);
-      }
-    };
-
     fetchUsers();
-  }, []);
+  }, [isFocused]);
 
   const handleAcceptRegistration = (id: number) => {
     // Trouver l'inscription à accepter
@@ -71,6 +73,11 @@ const MembersManagementService: React.FC = () => {
     <ScrollView style={styles.scrollContainer}>
       <View style={styles.top}>
         <Text style={styles.title}>Inscriptions en attente</Text>
+        {registrations.length === 0 && (
+          <Text style={{ textAlign: "center" }}>
+            Il n'y a aucune inscription en attente.
+          </Text>
+        )}
         {registrations.map((registration) => (
           <Registration
             key={registration.user_id}
@@ -109,42 +116,44 @@ const MembersManagementService: React.FC = () => {
 const styles = StyleSheet.create({
   scrollContainer: {
     flex: 1,
+    backgroundColor: '#F5F5F5',
   },
   top: {
     marginTop: 75,
-    margin: 10,
-    padding: 10,
+    margin: 20,
+    padding: 20,
     backgroundColor: "#fff",
-    borderRadius: 6,
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
+    borderRadius: 10,
     shadowColor: "#000",
-    shadowOffset: { height: 0, width: 0 },
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
+    elevation: 1,
   },
   container: {
-    // Conteneur pour tout le composant RegistrationPending
-    margin: 10,
+    margin: 20,
     padding: 10,
+    paddingTop: 20,
     backgroundColor: "#fff",
-    borderRadius: 6,
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
+    borderRadius: 10,
     shadowColor: "#000",
-    shadowOffset: { height: 0, width: 0 },
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
+    elevation: 1,
   },
   title: {
-    // Style pour le titre
     textAlign: "center",
     fontWeight: "bold",
-    fontSize: 18,
-    marginBottom: 10,
+    fontSize: 24,
+    marginBottom: 20,
+    color: '#333',
   },
   registration: {
-    // Style pour chaque Registration (à définir plus tard)
-    backgroundColor: "#e9e9e9",
-    padding: 8,
-    marginTop: 4,
-    borderRadius: 4,
+    backgroundColor: "#f8f8f8",
+    padding: 16,
+    marginTop: 8,
+    borderRadius: 8,
   },
 });
 
