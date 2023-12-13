@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext , useEffect} from "react";
 import { View, Text, StyleSheet } from "react-native";
 import CarouselComponent from "../../components/CarouselComponent/CarouselComponent";
 import CrecheComponent from "../../components/CrecheComponent/CrecheComponent";
@@ -8,15 +8,18 @@ import { getItemsLeftForATour } from "../../services/itemService";
 import { useIsFocused } from "@react-navigation/native";
 import { Tour } from "../../models/tour";
 import { Boxe } from "../../models/boxe";
+import KeyboardAvoidingComponent from "../../components/KeyboardAvoiding/KeyboardAvoiding";
 
 // cette page s'affiche quand le livreur a une tournée en cours
 const DelivererTour: React.FC<{ navigation: any }> = ({ navigation }) => {
   const isFocused = useIsFocused();
   const { user } = useContext(UserContext);
-  const user_id = user?.user_id as number;
+  const user_id = user?.user_id as number; 
   const [tour, setTour] = React.useState<Tour>({} as Tour);
   const [itemsLeft, setItemsLeft] = React.useState<Boxe[]>([]);
 
+
+  const [delivered, setDelivered] = React.useState<boolean>(false);
   // si le livreur n'a aucune tournée, on redirige vers la page de choix de tournée
   // utilise toursservice pour récupérer la tournee si il ya pas de tournee on redirige vers la page de choix de tournée
   const fetchTour = async () => {
@@ -38,24 +41,23 @@ const DelivererTour: React.FC<{ navigation: any }> = ({ navigation }) => {
     setItemsLeft(fetchedItemsLeft);
   };
 
-  React.useEffect(() => {
-    fetchTour();
-  }, [isFocused]);
+  useEffect( () => {
+   fetchTour();
+  }, [isFocused , delivered]);
 
-  const onHandleIndicateToDelivered = () => {
-    fetchTour();
-  };
  
   return (
     <View style={styles.container}>
       <Text style={styles.headerText}>
-        La tournée de {tour?.geo_zone} pour la date du{" "}
+        Tournée de {tour?.geo_zone} pour la date du{" "}
         {tour.date ? new Date(tour.date).toLocaleDateString() : "Erreur date"}
       </Text>
+      <Text style={{...styles.headerText , textAlign : "center"}}>Les articles restants</Text>
       <CarouselComponent items={itemsLeft} />
+      <Text style={{...styles.headerText , textAlign : "center"}}>Les crèches à livrer</Text>
       <CrecheComponent
         creches={tour?.clients ?? []}
-        onHandleIndicateToDelivered={onHandleIndicateToDelivered}
+        onCrecheDelivered={()=> setDelivered(true)}
         date={tour.date}
         idTour={tour.tour}
       />

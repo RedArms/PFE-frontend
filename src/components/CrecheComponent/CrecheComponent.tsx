@@ -5,14 +5,14 @@ import { Client } from "../../models/Client";
 
 interface Props {
   creches: Client[];
-  onHandleIndicateToDelivered: () => void;
+  onCrecheDelivered: () => void;
   idTour: number;
   date: string;
 }
 
 const CrecheComponent: React.FC<Props> = ({
   creches,
-  onHandleIndicateToDelivered,
+  onCrecheDelivered,
   idTour,
   date,
 }) => {
@@ -21,7 +21,7 @@ const CrecheComponent: React.FC<Props> = ({
       {creches.map((creche, index) => (
         <CrecheLine
           creche={creche}
-          onHandleIndicateToDelivered={onHandleIndicateToDelivered}
+          onCrecheDelivered={onCrecheDelivered}
           key={index}
           idTour={idTour}
           date={date}
