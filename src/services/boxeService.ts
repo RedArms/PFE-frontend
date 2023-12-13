@@ -23,7 +23,6 @@ async function getBoxForClientInAtour(
     const url = `${API_URL}/clients/getAllBoxes/${idClient}/${idTour}/${date}`;
     console.log("getBoxForClientInAtour : " + url);
     const response = await axios.get(url);
-    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error("Error fetching boxe:", error);

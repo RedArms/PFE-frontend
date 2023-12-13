@@ -27,20 +27,16 @@ const DelivererTour: React.FC<{ navigation: any }> = ({ navigation }) => {
       return;
     }
     setTour(fetchedTour);
+    console.log(" fetchedTour", {fetchedTour});
     
     
     
     // récupérer les items restants pour la tournée
-    const fetchedItemsLeft = await getItemsLeftForATour(tour.tour, tour.date);
+    const fetchedItemsLeft = await getItemsLeftForATour(fetchedTour.tour, fetchedTour.date);
     if (fetchedItemsLeft === undefined) {
       return;
-    }
-    fetchedItemsLeft.map((item) => {  console.log(item); });
-    
+    } 
     setItemsLeft(fetchedItemsLeft);
-    
-   
-    
   };
 
   React.useEffect(() => {
