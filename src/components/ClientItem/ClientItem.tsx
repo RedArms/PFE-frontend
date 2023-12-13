@@ -15,7 +15,9 @@ const ClientItem = ({ client }: { client: Client }) => {
 	return (
 		<TouchableOpacity onPress={navigateToClientDetails}>
 			<View style={styles.clientItem}>
-				<Text style={styles.clientText}>{client.name}</Text>
+				<View style={{width: "85%"}}>
+					<Text style={styles.clientText}>{client.name}</Text>
+				</View>
 				<Ionicons name="settings" size={24} color="black" />
 			</View>
 		</TouchableOpacity>
