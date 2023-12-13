@@ -13,23 +13,27 @@ interface AddClientModalProps {
 const AddClientModal: React.FC<AddClientModalProps> = ({ visible, onClose, fetchClients }) => {
   const [nom, setNom] = useState('');
   const [adresse, setAdresse] = useState('');
+  const [added, setAdded] = useState(false);
 
   const handleAddPress = async () => {
-    if (!nom || !adresse) {
-      alert('Veuillez remplir tous les champs.');
-      return;
+    if (!added) {
+      setAdded(true);
+      
+      if (!nom || !adresse) {
+        alert('Veuillez remplir tous les champs.');
+        return;
+      }
+      
+      await createClient({ name: nom, address: adresse });
+      fetchClients();
+      handleClose();
     }
-    
-    await createClient({ name: nom, address: adresse });
-    setAdresse('');
-    setNom('');
-    fetchClients();
-    onClose();
   };
 
   const handleClose = () => {
     setNom('');
     setAdresse('');
+    setAdded(false);
     onClose();
   };
 
