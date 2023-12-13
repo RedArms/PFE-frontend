@@ -74,7 +74,7 @@ const MembersManagementService: React.FC = () => {
       <View style={styles.top}>
         <Text style={styles.title}>Inscriptions en attente</Text>
         {registrations.length === 0 && (
-          <Text style={{ textAlign: "center" }}>
+          <Text style={styles.information}>
             Il n'y a aucune inscription en attente.
           </Text>
         )}
@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5F5F5',
   },
   top: {
-    marginTop: 75,
+    marginTop: 60,
     margin: 20,
     padding: 20,
     backgroundColor: "#fff",
@@ -130,7 +130,14 @@ const styles = StyleSheet.create({
     shadowRadius: 5,
     elevation: 1,
   },
+  information : {
+    marginTop: 10,
+    textAlign: 'center',
+    fontStyle: 'italic',
+    color: '#666',
+  },
   container: {
+    marginTop: 0,
     margin: 20,
     padding: 10,
     paddingTop: 20,
@@ -146,7 +153,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontWeight: "bold",
     fontSize: 24,
-    marginBottom: 20,
+    marginBottom: 10,
     color: '#333',
   },
   registration: {
