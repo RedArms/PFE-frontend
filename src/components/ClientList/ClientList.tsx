@@ -26,26 +26,29 @@ const ClientList = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.header}>Clients</Text>
+    <>
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
-        {clients.map((client, index) => (
-          <ClientItem key={index} client={client} />
-        ))}
+        <View style={styles.container}>
+          <Text style={styles.header}>Clients</Text>
+            {clients.map((client, index) => (
+              <ClientItem key={index} client={client} />
+            ))}
+        </View>
       </ScrollView>
       <TouchableOpacity style={styles.addButton} onPress={handleAddClientPress}>
         <Ionicons name="person-add" size={35} color="white" />
       </TouchableOpacity>
       <AddClientModal visible={isModalVisible} fetchClients={fetchClients} onClose={() => setModalVisible(false)} />
-    </View>
+    </>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
-    marginTop: 75,
+    marginTop: 55,
     margin: 20,
+    paddingBottom: 10,
     backgroundColor: "#fff",
     borderRadius: 10,
     shadowColor: "#000",
@@ -53,7 +56,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 5,
     elevation: 1,
-    height: '85%',
   },
   scrollViewContent: {
     paddingBottom: 80,
