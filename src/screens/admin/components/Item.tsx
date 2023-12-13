@@ -4,20 +4,30 @@ import { View , Text , StyleSheet} from "react-native";
 
 const ItemComponent: React.FC<{ item: Item }> = ({ item }) => (
   <View style={styles.itemContainer}>
-    <Text style={styles.text}>{item.label} {item.size ? `Taille : ${item.size}` : '' }</Text>
+    <Text style={styles.label}>{item.label}</Text>
+    {item.size && <Text style={styles.size}>{item.size}</Text>}
   </View>
 );
 
 const styles = StyleSheet.create({
   itemContainer: {
-    padding: 10,
-    borderRadius: 8, 
-    backgroundColor: "gray",  
-    marginBottom: 8,
+    padding: 15,
+    borderRadius: 10, 
+    backgroundColor: "#F5F5F5",  
+    marginBottom: 20,
+    flexDirection: "row",
   },
-  text: {
-    color: "white",
+  label: {
+    color: "#333",
+    fontSize: 18,
+    fontWeight: "bold",
+    width: "95%",
   },
+  size :{
+    color: "#666",
+    fontSize: 16,
+    fontStyle: "italic",
+  }
 });
 
 export default ItemComponent;
