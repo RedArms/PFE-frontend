@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { ScrollView, Text, TouchableOpacity, StyleSheet, View } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useIsFocused } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import { getAllClients } from '../../services/clientService';
 import ClientItem from '../ClientItem/ClientItem';
@@ -8,17 +8,13 @@ import { Client } from '../../models/Client';
 import AddClientModal from '../AddClientModal/AddClientModal';
 
 const ClientList = () => {
-  const navigation = useNavigation();
+  const isFocused = useIsFocused();
   const [clients, setClients] = useState<Client[]>([]);
   const [isModalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
-    const focusListener = navigation.addListener('focus', () => {
-      fetchClients();
-    });
-
-    return focusListener;
-  }, []);
+    fetchClients();
+  }, [isFocused]);
 
   const fetchClients = async () => {
     const clients = await getAllClients();
@@ -31,8 +27,8 @@ const ClientList = () => {
 
   return (
     <View style={styles.container}>
+      <Text style={styles.header}>Clients</Text>
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
-        <Text style={styles.header}>Clients</Text>
         {clients.map((client, index) => (
           <ClientItem key={index} client={client} />
         ))}
@@ -47,16 +43,27 @@ const ClientList = () => {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 50,
+    justifyContent: 'center',
+    marginTop: 75,
+    margin: 20,
+    backgroundColor: "#fff",
+    borderRadius: 10,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
+    elevation: 1,
+    height: '85%',
   },
   scrollViewContent: {
-    paddingBottom: 80, // Ajoutez de l'espace au bas de la ScrollView
+    paddingBottom: 80,
   },
   header: {
+    alignSelf: 'center',
     fontSize: 24,
     fontWeight: 'bold',
     padding: 20,
-    backgroundColor: '#F5F5F5',
+    paddingBottom: 10,
   },
   addButton: {
     position: 'absolute',
