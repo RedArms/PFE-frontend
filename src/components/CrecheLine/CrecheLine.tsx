@@ -133,7 +133,14 @@ const CrecheLine: React.FC<{
               ))}
             </ScrollView>
           </View>
-          <Button title="Marquer comme livrée" onPress={openModal} />
+          {orderStatus === "livre" ? (
+              <Text style={{ color: "red" }}>
+                Cette commande a déjà été marquée comme livrée
+              </Text>
+            ) : (
+              <Button title="Marquer comme livrée" onPress={openModal} />
+            )}
+         
         </>
       )}
 
