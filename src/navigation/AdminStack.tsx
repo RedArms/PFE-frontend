@@ -20,7 +20,15 @@ const Admin = () => {
         options={{headerShown: false}}/>
       <AdminStack.Screen name="Admin" component={AdminScreen} />
       <AdminStack.Screen name="Tour" component={TourScreen} />
-      <AdminStack.Screen name="TourDetail" component={TourDetailScreen} />
+      <AdminStack.Screen name="TourDetail" component={TourDetailScreen}   options={
+          {
+            headerTitle: "Détails du la tournée", 
+            headerStyle: {
+              backgroundColor: '#f3f3f3'
+            },
+            headerBackTitle: "Retour"
+          }
+        }/>
 
       <AdminStack.Screen name="Clients" component={ClientsScreen} />
       <AdminStack.Screen name="ClientDetailsScreen" 
