@@ -7,6 +7,7 @@ import { TourContextProvider } from "./src/contexts/TourContext";
 import { ClientContextProvider } from "./src/contexts/ClientContext";
 import { BoxeContextProvider } from "./src/contexts/BoxeContext";
 import { ArticleContextProvider } from "./src/contexts/ArticleContext";
+import { TourDayDelivererProvider } from "./src/contexts/TourDayDelivererContext";
 const App: React.FC = () => {
   return (
     <UserContextProvider>
@@ -14,7 +15,9 @@ const App: React.FC = () => {
       <ArticleContextProvider>
         <BoxeContextProvider>
             <TourContextProvider>
+            <TourDayDelivererProvider>
               <Navigation />
+            </TourDayDelivererProvider>
             </TourContextProvider>
         </BoxeContextProvider>
         </ArticleContextProvider>

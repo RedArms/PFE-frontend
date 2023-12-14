@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   ScrollView,
   View,
@@ -14,23 +14,26 @@ import styles from "./CrecheLineStyle";
 import ButtonChoose from "../button/ButtonChoose";
 import { Client } from "../../models/Client";
 
-import { getBoxForClientInAtour , indicateBoxesDelivered } from "../../services/boxeService";
+import {
+  getBoxForClientInAtour,
+  indicateBoxesDelivered,
+} from "../../services/boxeService";
 import { Boxe } from "../../models/boxe";
 import CrecheBoxeRequested from "./CrecheBoxeRequested";
 import { Ionicons } from "@expo/vector-icons";
 import OpenMapButton from "../openMapButton/openMapButton";
+import { TourDayDelivererContext } from "../../contexts/TourDayDelivererContext";
 
 const CrecheLine: React.FC<{
   creche: Client;
-  onCrecheDelivered: () => void;
-  idTour: number;
-  date: string;
-}> = ({ creche, idTour, date, onCrecheDelivered }) => {
+}> = ({ creche }) => {
   const [isItemVisible, setisItemVisible] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [editedArticles, setEditedArticles] = useState<Boxe[]>([]);
 
   const [itemsRequested, setItemsRequested] = useState<Boxe[]>([]);
+
+  const { idTour, date, delivered , onDelivered } = useContext(TourDayDelivererContext);
 
   const toggleItemVisible = () => {
     setisItemVisible(!isItemVisible);
@@ -49,7 +52,7 @@ const CrecheLine: React.FC<{
       setItemsRequested(fetchedBox);
     };
     fetchBox();
-  }, [isItemVisible]);
+  }, [isItemVisible, delivered]);
 
   const openModal = () => {
     const itemsToDeliver = [...itemsRequested];
@@ -66,11 +69,11 @@ const CrecheLine: React.FC<{
   };
 
   const handleSave = async () => {
-    // Handle save logic, e.g., update the state or send data to the server
     console.log("Save clicked", editedArticles);
     closeModal();
     await indicateBoxesDelivered(editedArticles, itemsRequested[0].order_id);
-    onCrecheDelivered();
+    setisItemVisible(false);
+    onDelivered();
   };
 
   const handleQuantityChange = (index: number, newQuantity: string) => {
@@ -153,9 +156,7 @@ const CrecheLine: React.FC<{
                     borderBottomWidth: StyleSheet.hairlineWidth,
                   }}
                 >
-                  <Text style={{  fontSize: 20 }}>
-                    {boxe.name}
-                  </Text>
+                  <Text style={{ fontSize: 20 }}>{boxe.name}</Text>
 
                   <TextInput
                     style={{
@@ -163,7 +164,7 @@ const CrecheLine: React.FC<{
                       borderColor: "gray",
                       borderWidth: 1,
                       paddingHorizontal: 10,
-                   
+
                       alignSelf: "flex-end",
                       borderRadius: 5,
                     }}
@@ -178,10 +179,7 @@ const CrecheLine: React.FC<{
 
             <TouchableOpacity
               style={styless.addButton}
-              onPress={() => {
-                alert("OK !");
-                handleSave();
-              }}
+              onPress={handleSave}
             >
               <Text style={styless.addButtonText}>Confirmer livraison</Text>
             </TouchableOpacity>

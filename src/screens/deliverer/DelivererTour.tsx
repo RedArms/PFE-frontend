@@ -1,4 +1,4 @@
-import React, { useContext , useEffect} from "react";
+import React, { useContext, useEffect } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import CarouselComponent from "../../components/CarouselComponent/CarouselComponent";
 import CrecheComponent from "../../components/CrecheComponent/CrecheComponent";
@@ -8,18 +8,19 @@ import { getItemsLeftForATour } from "../../services/itemService";
 import { useIsFocused } from "@react-navigation/native";
 import { Tour } from "../../models/tour";
 import { Boxe } from "../../models/boxe";
-import KeyboardAvoidingComponent from "../../components/KeyboardAvoiding/KeyboardAvoiding";
+import { TourDayDelivererContext } from "../../contexts/TourDayDelivererContext";
 
 // cette page s'affiche quand le livreur a une tournée en cours
 const DelivererTour: React.FC<{ navigation: any }> = ({ navigation }) => {
   const isFocused = useIsFocused();
   const { user } = useContext(UserContext);
-  const user_id = user?.user_id as number; 
+  const user_id = user?.user_id as number;
   const [tour, setTour] = React.useState<Tour>({} as Tour);
   const [itemsLeft, setItemsLeft] = React.useState<Boxe[]>([]);
 
+  
 
-  const [delivered, setDelivered] = React.useState<boolean>(false);
+  const { setDate , setIdTour , delivered} = useContext(TourDayDelivererContext);
   // si le livreur n'a aucune tournée, on redirige vers la page de choix de tournée
   // utilise toursservice pour récupérer la tournee si il ya pas de tournee on redirige vers la page de choix de tournée
   const fetchTour = async () => {
@@ -29,37 +30,43 @@ const DelivererTour: React.FC<{ navigation: any }> = ({ navigation }) => {
       return;
     }
     setTour(fetchedTour);
-    console.log(" fetchedTour", {fetchedTour});
-    
-    
-    
+    console.log(" fetchedTour", { fetchedTour });
+    setDate(fetchedTour.date);
+    setIdTour(fetchedTour.tour);
+
+
     // récupérer les items restants pour la tournée
-    const fetchedItemsLeft = await getItemsLeftForATour(fetchedTour.tour, fetchedTour.date);
+    const fetchedItemsLeft = await getItemsLeftForATour(
+      fetchedTour.tour,
+      fetchedTour.date
+    );
     if (fetchedItemsLeft === undefined) {
       return;
-    } 
+    }
     setItemsLeft(fetchedItemsLeft);
   };
 
-  useEffect( () => {
-   fetchTour();
-  }, [isFocused , delivered]);
+  useEffect(() => {
+    fetchTour();
+  }, [isFocused, delivered]);
 
- 
   return (
     <View style={styles.container}>
       <Text style={styles.headerText}>
         Tournée de {tour?.geo_zone} pour la date du{" "}
         {tour.date ? new Date(tour.date).toLocaleDateString() : "Erreur date"}
       </Text>
-      <Text style={{...styles.headerText , textAlign : "center"}}>Les articles restants</Text>
+      <Text style={{ ...styles.headerText, textAlign: "center" }}>
+        Les articles restants
+      </Text>
       <CarouselComponent items={itemsLeft} />
-      <Text style={{...styles.headerText , textAlign : "center"}}>Les crèches à livrer</Text>
+      <Text style={{ ...styles.headerText, textAlign: "center" }}>
+        Les crèches à livrer
+      </Text>
       <CrecheComponent
         creches={tour?.clients ?? []}
-        onCrecheDelivered={()=> setDelivered(true)}
-        date={tour.date}
-        idTour={tour.tour}
+       
+  
       />
     </View>
   );

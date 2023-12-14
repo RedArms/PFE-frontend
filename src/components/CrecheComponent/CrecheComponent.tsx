@@ -5,26 +5,18 @@ import { Client } from "../../models/Client";
 
 interface Props {
   creches: Client[];
-  onCrecheDelivered: () => void;
-  idTour: number;
-  date: string;
 }
 
 const CrecheComponent: React.FC<Props> = ({
   creches,
-  onCrecheDelivered,
-  idTour,
-  date,
 }) => {
   return (
     <ScrollView style={styles.creche}>
       {creches.map((creche, index) => (
         <CrecheLine
           creche={creche}
-          onCrecheDelivered={onCrecheDelivered}
+          
           key={index}
-          idTour={idTour}
-          date={date}
         />
       ))}
     </ScrollView>
