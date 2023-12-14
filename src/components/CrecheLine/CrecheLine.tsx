@@ -14,7 +14,7 @@ import styles from "./CrecheLineStyle";
 import ButtonChoose from "../button/ButtonChoose";
 import { Client } from "../../models/Client";
 
-import { getBoxForClientInAtour } from "../../services/boxeService";
+import { getBoxForClientInAtour , indicateBoxesDelivered } from "../../services/boxeService";
 import { Boxe } from "../../models/boxe";
 import CrecheBoxeRequested from "./CrecheBoxeRequested";
 import { Ionicons } from "@expo/vector-icons";
@@ -52,7 +52,12 @@ const CrecheLine: React.FC<{
   }, [isItemVisible]);
 
   const openModal = () => {
-    setEditedArticles([...itemsRequested]);
+    const itemsToDeliver = [...itemsRequested];
+    itemsToDeliver.forEach((item) => {
+      // @ts-ignore
+      item.delivered_qty = item.quantity;
+    });
+    setEditedArticles(itemsToDeliver);
     setModalVisible(true);
   };
 
@@ -60,16 +65,18 @@ const CrecheLine: React.FC<{
     setModalVisible(false);
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     // Handle save logic, e.g., update the state or send data to the server
     console.log("Save clicked", editedArticles);
     closeModal();
+    await indicateBoxesDelivered(editedArticles, itemsRequested[0].order_id);
     onCrecheDelivered();
   };
 
   const handleQuantityChange = (index: number, newQuantity: string) => {
     const updatedArticles = [...editedArticles];
-    updatedArticles[index].quantity = parseInt(newQuantity, 10) || 0;
+    // @ts-ignore
+    updatedArticles[index].delivered_qty = parseInt(newQuantity, 10) || 0;
     setEditedArticles(updatedArticles);
   };
   return (

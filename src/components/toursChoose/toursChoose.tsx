@@ -27,7 +27,7 @@ const ToursChoose: React.FC<ToursChooseProps> = (props) => {
     };
 
     fetchTours();
-  }, []);
+  }, [getToursToday]);
 
   if (loading) {
     return <ActivityIndicator size="large" color="#0000ff" />;

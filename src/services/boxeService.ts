@@ -30,4 +30,42 @@ async function getBoxForClientInAtour(
   }
 }
 
-export { getBoxForTours  , getBoxForClientInAtour};
+type BoxeUpdate = {
+  order_id: number;
+  item: number; // Foreign key
+  delivered_qty: number;
+};
+async function indicateBoxesDelivered(boxes : Boxe[], idOrder : number){
+  try {
+
+    console.log("Exemple de boxe envoyer avant changement de type : " , boxes[0]);
+
+    const boxesToUpdate : BoxeUpdate[] = boxes.map((boxe) => { 
+      return {
+        order_id : boxe.order_id,
+        // @ts-ignore
+        item : boxe.item_id,
+        // @ts-ignore
+        delivered_qty: boxe.delivered_qty
+      }
+    } 
+    );
+    
+    console.log('Exemple de boxe envoyer apres changement de type : ' , boxesToUpdate[0]);
+    
+    const url = `${API_URL}/boxes/updateBox/${idOrder}`;
+    console.log("indicateBoxesDelivered : " + url);
+
+    console.log("Boxe to update : " , boxesToUpdate);
+    
+    const response = await axios.put(url,boxesToUpdate);
+    console.log(response.data);
+    
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching boxe:", error);
+    return undefined;
+  }
+}
+
+export { getBoxForTours  , getBoxForClientInAtour , indicateBoxesDelivered};

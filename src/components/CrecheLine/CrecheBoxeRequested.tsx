@@ -6,7 +6,7 @@ const CrecheBoxeRequested: React.FC<{ boxe: Boxe }> = ({ boxe }) => {
   return (
     <View>
       <Text style={styles.name}>
-        {boxe.quantity} {boxe.name} {boxe.size ? `Taille ${boxe.size}` : ""}
+        {boxe.quantity} {boxe.name} {boxe.size ? `Taille ${boxe.size}` : ""} {boxe.box_status === "livre" ? "livré" : "non livré"}
       </Text>
     </View>
   );
