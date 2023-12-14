@@ -4,7 +4,7 @@ import API_URL from "../utils/config";
 import { Tour } from "../models/tour";
 import { ClientContext } from "./ClientContext";
 import { BoxeContext } from "./BoxeContext";
-import { getAllToursForToday } from "../services/toursManagementService";
+import { getAllToursForTodayWithNotDeliverer } from "../services/toursManagementService";
 
 interface TourContextProps {
   getToursToday: () => Promise<Tour[]>;
@@ -26,7 +26,7 @@ const TourContextProvider: React.FC<{ children: React.ReactNode }> = ({
   
   const getToursToday = async (): Promise<Tour[]> => {
     if(tours.length === 0){
-      const value = await getAllToursForToday();
+      const value = await getAllToursForTodayWithNotDeliverer();
       setTours(value);
     }      
       
