@@ -107,5 +107,32 @@ async function updateOrder(client: Client, order: RegularOrder): Promise<Regular
     return order;
   }
 }
+/* {
+  "order_id": 17,
+  "client": 2,
+  "status": "attente livraison",
+  "tour": 1,
+  "date": "2023-12-14"
+}*/
+type Order ={
+  order_id: number,
+  client: number,
+  status: string,
+  tour: number,
+  date: string
 
-export { getAllClients, createClient, updateClient, deleteClient, getOrder, updateOrder };
+}
+async function getOrderById(idOrder : number) : Promise<Order | undefined>{
+
+  try {
+    const url = `${API_URL}/orders/${idOrder}`;
+    console.log("getOrderById : " + url);
+    const response = await axios.get(url);
+    return response.data;
+  } catch (error) {
+    console.log("Error fetching order:", error);
+    return undefined;
+  }
+}
+
+export { getAllClients, createClient, updateClient, deleteClient, getOrder, updateOrder , getOrderById };

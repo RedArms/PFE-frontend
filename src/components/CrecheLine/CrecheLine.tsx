@@ -11,9 +11,9 @@ import {
   StyleSheet,
 } from "react-native";
 import styles from "./CrecheLineStyle";
-import ButtonChoose from "../button/ButtonChoose";
-import { Client } from "../../models/Client";
 
+import { Client } from "../../models/Client";
+import { getOrderById } from "../../services/clientService";
 import {
   getBoxForClientInAtour,
   indicateBoxesDelivered,
@@ -31,9 +31,12 @@ const CrecheLine: React.FC<{
   const [modalVisible, setModalVisible] = useState(false);
   const [editedArticles, setEditedArticles] = useState<Boxe[]>([]);
 
+  const [orderStatus, setOrderStatus] = useState("");
   const [itemsRequested, setItemsRequested] = useState<Boxe[]>([]);
 
-  const { idTour, date, delivered , onDelivered } = useContext(TourDayDelivererContext);
+  const { idTour, date, delivered, onDelivered } = useContext(
+    TourDayDelivererContext
+  );
 
   const toggleItemVisible = () => {
     setisItemVisible(!isItemVisible);
@@ -50,6 +53,12 @@ const CrecheLine: React.FC<{
         return;
       }
       setItemsRequested(fetchedBox);
+      const idOrder = fetchedBox[0].order_id;
+      const order = await getOrderById(idOrder);
+      if (order === undefined) {
+        return;
+      }
+      setOrderStatus(order.status);
     };
     fetchBox();
   }, [isItemVisible, delivered]);
@@ -117,6 +126,7 @@ const CrecheLine: React.FC<{
       {isItemVisible && (
         <>
           <View style={styles.AllArticleContainer}>
+            <Text> Status: {orderStatus}</Text>
             <ScrollView style={{ ...styles.crecheContainer }}>
               {itemsRequested.map((boxe, index) => (
                 <CrecheBoxeRequested key={index} boxe={boxe} />
@@ -177,10 +187,7 @@ const CrecheLine: React.FC<{
               ))}
             </ScrollView>
 
-            <TouchableOpacity
-              style={styless.addButton}
-              onPress={handleSave}
-            >
+            <TouchableOpacity style={styless.addButton} onPress={handleSave}>
               <Text style={styless.addButtonText}>Confirmer livraison</Text>
             </TouchableOpacity>
           </View>
