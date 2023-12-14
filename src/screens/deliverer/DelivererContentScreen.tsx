@@ -48,6 +48,10 @@ const DelivererContentScreen: React.FC<{ route: any; navigation: any }> = ({
     return <ActivityIndicator size="large" color="#0000ff" />;
   }
 
+  const handlePress = async () => {
+    await setDelivererDB(id, date, user?.user_id);
+    navigation.navigate("DelivererTour");
+  }
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.headerText}>
@@ -60,10 +64,7 @@ const DelivererContentScreen: React.FC<{ route: any; navigation: any }> = ({
       <View style={styles.btn}>
         <ButtonChoose
           valueString="Lancer la tournée"
-          method={async () => {
-            await setDelivererDB(id, date, user?.user_id);
-            navigation.navigate("DelivererTour"); 
-          }}
+          method={handlePress}
         />
       </View>
     </ScrollView>
