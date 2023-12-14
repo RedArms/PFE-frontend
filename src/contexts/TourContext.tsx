@@ -4,6 +4,7 @@ import API_URL from "../utils/config";
 import { Tour } from "../models/tour";
 import { ClientContext } from "./ClientContext";
 import { BoxeContext } from "./BoxeContext";
+import { getAllToursForToday } from "../services/toursManagementService";
 
 interface TourContextProps {
   getToursToday: () => Promise<Tour[]>;
@@ -20,34 +21,15 @@ const TourContextProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
 
   const [tours, setTours] = useState<Tour[]>([]);
-  const { getClients } = useContext(ClientContext);
-  const { getBoxeDeliverer } = useContext(BoxeContext);
+
   
   
   const getToursToday = async (): Promise<Tour[]> => {
     if(tours.length === 0){
-      try {
-        
-        const response = await axios.get(API_URL + "/tours/getAllNotDelivered");
-        const tourData: Tour[] = response.data;
-        
-        await Promise.all(
-          tourData.map(async (tour) => {
-            const geoZoneResponse = await axios.get(API_URL + `/tours/${tour.tour_id}`);
-            tour.geo_zone = geoZoneResponse.data.geo_zone;
-            tour.clients = await getClients(tour.tour_id);
-            tour.content= await getBoxeDeliverer(tour.tour_id);
-            
-          })
-        );
-          setTours(tourData);
-          return tourData;
-          
-      } catch (error) {
-        console.error("Error fetching tours:", error);
-        return [];
-      }
-    }
+      const value = await getAllToursForToday();
+      setTours(value);
+    }      
+      
       return tours;
   };
 

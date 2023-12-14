@@ -1,17 +1,18 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { ScrollView } from 'react-native';
+import { ScrollView, ActivityIndicator } from 'react-native';
 import ToursChooseLine from '../toursChooseLine/toursChooseLine';
 import { TourContext } from '../../contexts/TourContext';
 import { Tour } from '../../models/tour';
 import { Client } from '../../models/Client';
 
 interface ToursChooseProps {
-  navigation : any
+  navigation: any;
 }
 
 const ToursChoose: React.FC<ToursChooseProps> = (props) => {
   const { getToursToday } = useContext(TourContext);
   const [tours, setTours] = useState<Tour[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchTours = async () => {
@@ -20,16 +21,22 @@ const ToursChoose: React.FC<ToursChooseProps> = (props) => {
         setTours(fetchedTours);
       } catch (error) {
         console.error('Error fetching tours:', error);
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchTours();
-  }, []);
+  }, [getToursToday]);
+
+  if (loading) {
+    return <ActivityIndicator size="large" color="#0000ff" />;
+  }
 
   return (
     <ScrollView style={styles.toursChoose}>
       {tours.map((tour, index) => (
-        <ToursChooseLine key={index} id={tour.tour_id} title={tour.geo_zone} creche={tour.clients} navigation={props.navigation} />
+        <ToursChooseLine key={index} id={tour.tour} title={tour.geo_zone} creche={tour.clients} navigation={props.navigation} />
       ))}
     </ScrollView>
   );

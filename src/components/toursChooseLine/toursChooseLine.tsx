@@ -25,7 +25,10 @@ const ToursChooseLine: React.FC<ToursChooseLineProps> = (props) => {
         <TouchableWithoutFeedback onPress={toggleCrecheVisibility}>
           <View style={styles.titleContainer}>
             <Text style={styles.text}>{props.title}</Text>
-            <ButtonChoose valueString="Choisir" method={() => {navigation.navigate('DelivererContent',{id : props.id} )}}/> 
+            <ButtonChoose valueString="Choisir" method={() => {
+              console.log(props.id);
+              
+              navigation.navigate('DelivererContent',{id : props.id} )}}/> 
           </View>
         </TouchableWithoutFeedback>
 

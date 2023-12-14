@@ -1,4 +1,5 @@
-import { Item } from "../models/item";
+import { Item } from "../models/Item";
+import { Boxe } from "../models/boxe";
 import API_URL from "../utils/config";
 import axios from "axios";
 
@@ -38,5 +39,27 @@ async function createItem(item: Item): Promise<Item | undefined> {
   }
 }
 
+async function getItemsLeftForATour(tourId: number , date : string): Promise<Boxe[] | undefined> {
+  try {
 
-export { getAllItems  , createItem};
+    const url = `${API_URL}/tours/getQuantityLeft/${date}/${tourId}`;
+
+    console.log("getItemsLeftForATour : " + url);
+    
+    const response = await axios.get(url);
+
+    if (response.status !== 200) {
+      return undefined;
+    }
+    const items : Boxe[] = response.data;
+
+    return items;
+  } catch (error) {
+    console.log("Une erreur s'est produite :", error);
+
+    return undefined;
+  }
+}
+
+
+export { getAllItems  , createItem , getItemsLeftForATour};

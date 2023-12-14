@@ -4,27 +4,16 @@ import React from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import QuantityLine from '../QuantityLine/QuantityLine';
+import { Boxe } from '../../models/boxe';
 
-const CarouselComponent = () => {
+const CarouselComponent : React.FC<{items: Boxe[]}> = ({items}) => {
   const [activeIndex, setActiveIndex] = React.useState(0);
 
-  let queryResult = [
-    {
-      label: 'lange S',
-      quantity: 42,
-    },
-    {
-      label: 'lange M',
-      quantity: 432,
-    },
-    {
-      label: 'lange L',
-      quantity: 21,
-    },
-  ];
+ 
 
-  const renderItem = ({ item }: { item: any }) => {
-    return <QuantityLine label={item.label} quantity={item.quantity} />;
+  const renderItem = ({ item }: { item: Boxe }) => {
+    //@ts-ignore
+    return <QuantityLine label={item.label} quantity={item.quantity} size={item.size} />;
   };
 
   const windowWidth = Dimensions.get('window').width;
@@ -32,14 +21,14 @@ const CarouselComponent = () => {
   return (
     <View style={styles.carouselContainer}>
       <Carousel
-        data={queryResult}
+        data={items}
         renderItem={renderItem}
         sliderWidth={windowWidth}
         itemWidth={windowWidth - 20} 
         onSnapToItem={(index) => setActiveIndex(index)}
       />
       <Pagination
-        dotsLength={queryResult.length}
+        dotsLength={items.length}
         activeDotIndex={activeIndex}
         containerStyle={styles.paginationContainer}
         dotStyle={styles.paginationDot}

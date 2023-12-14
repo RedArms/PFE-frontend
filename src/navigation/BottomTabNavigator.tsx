@@ -6,19 +6,22 @@ import AdminScreen from "../screens/admin/AdminScreen";
 import ClientsScreen from "../screens/clients/ClientsScreen";
 import MemberManagement from "../screens/admin/MemberManagementScreen";
 import ItemManagementScreen from "../screens/admin/ItemManagementScreen";
-import DelivererScreen from "../screens/deliverer/DelivererChooseScreen";
+import DelivererChooseScreen from "../screens/deliverer/DelivererChooseScreen";
 import Logo from "../components/Logo/Logo";
 import { View } from "react-native";
+import DelivererTour from "../screens/deliverer/DelivererTour";
+import Profile from "../screens/Profile/Profile";
 const Tab = createBottomTabNavigator();
 
 const BottomTabNavigator: React.FC = () => {
   const { isAuthenticated, isAdmin } = useContext(UserContext);
   return (
     <Tab.Navigator screenOptions={{ headerShown: false }}>
-      <Tab.Screen name="Home" component={HomeScreen} />
+      
 
       {isAuthenticated && isAdmin && (
         <>
+        <Tab.Screen name="Home" component={HomeScreen} />
           <Tab.Screen name="Admin" component={AdminScreen} />
           <Tab.Screen name="Gestion membre" component={MemberManagement} />
           <Tab.Screen name="Clients" component={ClientsScreen} />
@@ -32,8 +35,16 @@ const BottomTabNavigator: React.FC = () => {
         </>
       )}
       {isAuthenticated && !isAdmin && (
-        <Tab.Screen name="Deliverer" component={DelivererScreen} />
+        <>
+       
+       <Tab.Screen name="DelivererTour" component={DelivererTour} />
+        <Tab.Screen name="DelivererChoose" component={DelivererChooseScreen} />
+        </>
       )}
+      {isAuthenticated && (
+          <Tab.Screen name="Profile" component={Profile}  options={{headerTitle: 'Votre profil'}}/>        
+      )
+      }
     </Tab.Navigator>
   );
 };
