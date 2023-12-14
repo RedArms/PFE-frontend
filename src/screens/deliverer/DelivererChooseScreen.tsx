@@ -1,13 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { getMonthString } from "../../utils/month";
 import ToursChoose from "../../components/toursChoose/toursChoose";
-
+import { get } from 'react-native/Libraries/TurboModule/TurboModuleRegistry';
+import { TourContext } from "../../contexts/TourContext";
+// cette page s'affiche quand le livreur n'a pas de tournée en cours, il a donc le choix entre les tournées du jour
 const DelivererChooseScreen: React.FC<{navigation : any}>  = ({navigation}) => {
   const today: Date = new Date();
   const year: number = today.getFullYear();
   const month: number = today.getMonth() + 1; // MONTHS START AT 0
   const day: number = today.getDate();
+
 
   return (
     <View style={styles.container}>

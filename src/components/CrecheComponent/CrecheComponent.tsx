@@ -1,33 +1,31 @@
-import React from 'react';
-import { View } from 'react-native';
-import CrecheLine from '../CrecheLine/CrecheLine';
+import React from "react";
+import { ScrollView , StyleSheet} from "react-native";
+import CrecheLine from "../CrecheLine/CrecheLine";
+import { Client } from "../../models/Client";
 
 interface Props {
-
+  creches: Client[];
 }
 
-const CrecheComponent: React.FC<Props> = () => {
-    let creches=[
-        {
-            creche : "Creche 1",
-            article : [{name:"article 1",quantity:1},{name:"article 2",quantity:2},{name:"article 3",quantity:3}]
-        },
-        {
-            creche: "Creche 2",
-            article : [{name:"article 1",quantity:1},{name:"article 2",quantity:2},{name:"article 3",quantity:3}]
-        },
-        {
-            creche: "Creche 3",
-            article : [{name:"article 1",quantity:1},{name:"article 2",quantity:2},{name:"article 3",quantity:3}]
-        }
-    ]
-    return (
-        <View>
-            {creches.map((creche, index) => (
-                <CrecheLine creche={creche.creche} article={creche.article}  key={index} />
-            ))}
-        </View>
-    );
+const CrecheComponent: React.FC<Props> = ({
+  creches,
+}) => {
+  return (
+    <ScrollView style={styles.creche}>
+      {creches.map((creche, index) => (
+        <CrecheLine
+          creche={creche}
+          
+          key={index}
+        />
+      ))}
+    </ScrollView>
+  );
 };
 
+const styles = StyleSheet.create( {
+  creche: {
+    padding: 20,
+  },
+});
 export default CrecheComponent;

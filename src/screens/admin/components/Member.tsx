@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, Linking } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
 const Membre = ({
   role,
@@ -24,19 +25,32 @@ const Membre = ({
 
   return (
     <View style={styles.card}>
-      <View style={styles.header}>
-        <Text style={styles.role}>{role}</Text>
-        <Text style={styles.fullName}>
-          {prenom} {nom}
-        </Text>
-        <TouchableOpacity style={styles.iconButton} onPress={toggleExpand}>
-          <Text style={styles.icon}>{expanded ? "-" : "+"}</Text>
-        </TouchableOpacity>
-      </View>
+      <TouchableOpacity style={styles.iconButton} onPress={toggleExpand}>
+        <View style={styles.header}>
+          <Text style={styles.role}>{role}</Text>
+          <Text style={styles.fullName}>
+            {prenom} {nom}
+          </Text>
+          
+            {expanded ? 
+              <Ionicons name="chevron-up" style={styles.icon} /> : 
+              <Ionicons name="chevron-down" style={styles.icon} />
+            }
+          
+        </View>
+      </TouchableOpacity>
       {expanded && (
         <View style={styles.details}>
-          <Text style={styles.email}>E-mail : {email}</Text>
-          <Text style={styles.phoneNumber}>Num. tél. :{phoneNumber}</Text>
+          <Text style={styles.label}>E-mail :</Text>
+          <TouchableOpacity onPress={() => Linking.openURL(`mailto:${email}`)}>
+            <Text style={styles.link}>{email}</Text>
+          </TouchableOpacity>
+          <View style={{ flex: 1, flexDirection : "row" }}>
+            <Text style={styles.label}>Num. tél. : </Text>
+            <TouchableOpacity onPress={() => Linking.openURL(`tel:${phoneNumber}`)}>
+              <Text style={styles.link}>{phoneNumber}</Text>
+            </TouchableOpacity>
+          </View>
           {role !== "admin" && (
             <TouchableOpacity onPress={onSetAdmin} style={styles.adminButton}>
               <Text style={styles.adminButtonText}>
@@ -53,11 +67,12 @@ const Membre = ({
 const styles = StyleSheet.create({
   card: {
     margin: 10,
-    padding: 10,
-    backgroundColor: "#fff",
-    borderRadius: 6,
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
+    padding: 15,
+    paddingHorizontal: 20,
+    backgroundColor: "#F5F5F5",
+    borderRadius: 10,
+    shadowOpacity: 0.05,
+    shadowRadius: 10,
     shadowColor: "#000",
     shadowOffset: { height: 0, width: 0 },
   },
@@ -67,12 +82,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   role: {
-    fontSize: 12,
+    fontSize: 14,
     color: "#666",
+    fontWeight: "500",
+    fontStyle: 'italic',
   },
   fullName: {
-    fontSize: 16,
+    fontSize: 20,
     fontWeight: "bold",
+    color: "#333",
   },
   iconButton: {
     // Styles for the expand/collapse button
@@ -80,28 +98,41 @@ const styles = StyleSheet.create({
   icon: {
     fontSize: 24,
     fontWeight: "bold",
+    color: "#333",
   },
   details: {
+    backgroundColor: "#fff",
+    marginHorizontal: -5,
     marginTop: 10,
+    padding: 10,
+    borderRadius: 10,
+    shadowOpacity: 0.05,
+    shadowRadius: 10,
+    shadowColor: "#000",
+    shadowOffset: { height: 0, width: 0 },
   },
-  email: {
-    // Styles for the email
+  label: {
+    fontSize: 16,
+    color: "#333",
+    marginBottom: 5,
   },
-  phoneNumber: {
-    // Styles for the phone number
+  link: {
+    fontSize: 16,
+    color: "#007bff",
+    marginBottom: 10,
   },
   adminButton: {
-    marginTop: 10,
-    backgroundColor: "green",
-    padding: 10,
-    borderRadius: 5,
-    alignSelf: "flex-end",
+    backgroundColor: "#28A745",
+    padding: 15,
+    borderRadius: 10,
+    alignSelf: 'flex-end',
+    marginTop: 5,
   },
   adminButtonText: {
-    color: "white",
+    color: "#FFF",
+    fontSize: 14,
     fontWeight: "bold",
   },
-  // Add other styles as needed
 });
 
 export default Membre;
