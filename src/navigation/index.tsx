@@ -12,9 +12,10 @@ export default () => {
   return (
     <NavigationContainer>
       {!isAuthenticated && <Auth />}
-      
+
       {isAuthenticated && !isAdmin && <Deliverer />}
       {isAuthenticated && isAdmin && <Admin />}
+      
     </NavigationContainer>
   );
 };

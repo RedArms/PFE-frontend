@@ -2,6 +2,9 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import AdminScreen from "../screens/admin/AdminScreen";
 import BottomTabNavigator from "./BottomTabNavigator";
+import TourScreen from "../screens/admin/TourScreen";
+import TourDetailScreen from "../screens/admin/TourDetailScreen";
+
 import ClientsScreen from "../screens/clients/ClientsScreen";
 import ClientDetailsScreen from "../screens/clients/ClientsDetailsScreen";
 import ItemManagementScreen from "../screens/admin/ItemManagementScreen";
@@ -16,6 +19,9 @@ const Admin = () => {
       <AdminStack.Screen name="BottomTab" component={BottomTabNavigator} 
         options={{headerShown: false}}/>
       <AdminStack.Screen name="Admin" component={AdminScreen} />
+      <AdminStack.Screen name="Tour" component={TourScreen} />
+      <AdminStack.Screen name="TourDetail" component={TourDetailScreen} />
+
       <AdminStack.Screen name="Clients" component={ClientsScreen} />
       <AdminStack.Screen name="ClientDetailsScreen" 
         component={ClientDetailsScreen} 
