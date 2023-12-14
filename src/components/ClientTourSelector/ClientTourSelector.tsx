@@ -45,7 +45,7 @@ const ClientTourSelector: React.FC<ClientTourSelectorProps> = ({ client }) => {
           >
             {!client.tour && <Picker.Item label="Sélectionner une tournée" value={null} />}
             {tours.map((tour) => (
-              <Picker.Item key={tour.tour_id} label={tour.geo_zone} value={tour.tour_id} />
+              <Picker.Item key={tour.tour} label={tour.geo_zone} value={tour.tour} />
             ))}
           </Picker>
         </View>
