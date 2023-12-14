@@ -24,7 +24,8 @@ const Admin = () => {
             headerTitle: "Détails du client", 
             headerStyle: {
               backgroundColor: '#f3f3f3'
-            }
+            },
+            headerBackTitle: "Retour"
           }
         }
       />

@@ -21,8 +21,6 @@ const BottomTabNavigator: React.FC = () => {
 
       {isAuthenticated && isAdmin && (
         <>
-        <Tab.Screen name="Home" component={HomeScreen} />
-          <Tab.Screen name="Admin" component={AdminScreen} />
           <Tab.Screen name="Gestion membre" component={MemberManagement} />
           <Tab.Screen name="Clients" component={ClientsScreen} />
           <Tab.Screen
@@ -37,12 +35,20 @@ const BottomTabNavigator: React.FC = () => {
       {isAuthenticated && !isAdmin && (
         <>
        
-       <Tab.Screen name="DelivererTour" component={DelivererTour} />
-        <Tab.Screen name="DelivererChoose" component={DelivererChooseScreen} />
+       <Tab.Screen name="DelivererTour" component={DelivererTour} options={{
+            tabBarLabel: "Mes livraisons",
+          }} />
+        <Tab.Screen name="DelivererChoose" component={DelivererChooseScreen} 
+        options={{
+          tabBarLabel: "Choix livraison",
+        }}
+        />
         </>
       )}
       {isAuthenticated && (
-          <Tab.Screen name="Profile" component={Profile}  options={{headerTitle: 'Votre profil'}}/>        
+          <Tab.Screen name="Profile" component={Profile}  options={{
+            tabBarLabel: "Profil",
+          }}/>        
       )
       }
     </Tab.Navigator>
