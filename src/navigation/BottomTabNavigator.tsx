@@ -1,14 +1,10 @@
 import React, { useContext } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import HomeScreen from "../screens/HomeScreen";
 import { UserContext } from "../contexts/UserContext";
-import AdminScreen from "../screens/admin/AdminScreen";
 import ClientsScreen from "../screens/clients/ClientsScreen";
 import MemberManagement from "../screens/admin/MemberManagementScreen";
 import ItemManagementScreen from "../screens/admin/ItemManagementScreen";
 import DelivererChooseScreen from "../screens/deliverer/DelivererChooseScreen";
-import Logo from "../components/Logo/Logo";
-import { View } from "react-native";
 import DelivererTour from "../screens/deliverer/DelivererTour";
 import Profile from "../screens/Profile/Profile";
 const Tab = createBottomTabNavigator();
