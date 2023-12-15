@@ -3,16 +3,18 @@ import { ScrollView, ActivityIndicator } from 'react-native';
 import ToursChooseLine from '../toursChooseLine/toursChooseLine';
 import { TourContext } from '../../contexts/TourContext';
 import { Tour } from '../../models/tour';
-import { Client } from '../../models/Client';
+import { useIsFocused } from '@react-navigation/native';
 
 interface ToursChooseProps {
-  navigation: any;
+  navigation?: any;
 }
 
-const ToursChoose: React.FC<ToursChooseProps> = (props) => {
+const ToursChoose: React.FC<ToursChooseProps> = ({ navigation }) => {
   const { getToursToday } = useContext(TourContext);
   const [tours, setTours] = useState<Tour[]>([]);
   const [loading, setLoading] = useState(true);
+
+  const isFocused = useIsFocused();
 
   useEffect(() => {
     const fetchTours = async () => {
@@ -27,25 +29,19 @@ const ToursChoose: React.FC<ToursChooseProps> = (props) => {
     };
 
     fetchTours();
-  }, [getToursToday]);
+  }, [isFocused, getToursToday]);
 
   if (loading) {
     return <ActivityIndicator size="large" color="#0000ff" />;
   }
 
   return (
-    <ScrollView style={styles.toursChoose}>
+    <ScrollView>
       {tours.map((tour, index) => (
-        <ToursChooseLine key={index} id={tour.tour} title={tour.geo_zone} creche={tour.clients} navigation={props.navigation} />
+        <ToursChooseLine key={index} id={tour.tour} title={tour.geo_zone} creche={tour.clients} navigation={navigation} />
       ))}
     </ScrollView>
   );
-};
-
-const styles = {
-  toursChoose: {
-    padding: 20,
-  },
 };
 
 export default ToursChoose;
