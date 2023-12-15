@@ -18,8 +18,6 @@ const DelivererTour: React.FC<{ navigation: any }> = ({ navigation }) => {
   const [tour, setTour] = React.useState<Tour>({} as Tour);
   const [itemsLeft, setItemsLeft] = React.useState<Boxe[]>([]);
 
-  
-
   const { setDate , setIdTour , delivered} = useContext(TourDayDelivererContext);
   // si le livreur n'a aucune tournée, on redirige vers la page de choix de tournée
   // utilise toursservice pour récupérer la tournee si il ya pas de tournee on redirige vers la page de choix de tournée
