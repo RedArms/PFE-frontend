@@ -24,7 +24,7 @@ const DelivererToursScreen : React.FC<{navigation?: any}> = ({ navigation }) => 
   return (
     <>
       {hasTour ? 
-        <DelivererTour fetch={fetchTour} navigation={navigation} />
+        <DelivererTour navigation={navigation} />
        : 
         <DelivererChooseScreen navigation={navigation} />
       }
