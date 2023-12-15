@@ -1,13 +1,12 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Text, StyleSheet, ScrollView, View, ActivityIndicator } from "react-native";
 import QuantityLine from "../../components/QuantityLine/QuantityLine";
-import ButtonChoose from "../../components/button/ButtonChoose";
-
 import { TourContext } from "../../contexts/TourContext";
 import { UserContext } from "../../contexts/UserContext";
 import { Tour } from "../../models/tour";
 import { BoxeContext } from "../../contexts/BoxeContext";
 import { Boxe } from "../../models/boxe";
+import ActionButton from "../../components/ActionButton/ActionButton";
 
 const DelivererContentScreen: React.FC<{ route: any; navigation: any }> = ({
   route,
@@ -49,22 +48,25 @@ const DelivererContentScreen: React.FC<{ route: any; navigation: any }> = ({
   }
 
   return (
-    <ScrollView style={styles.container}>
-      <Text style={styles.headerText}>
-        Contenu de la tournée de {tour?.geo_zone} du{" "}
-        {tour?.date ? new Date(tour?.date).toLocaleDateString() : ""}
-      </Text>
-      {boxe.map((boxeLine, index) => (
-        <QuantityLine key={index} quantity={boxeLine.quantity} label={boxeLine.name} />
-      ))}
-      <View style={styles.btn}>
-        <ButtonChoose
-          valueString="Lancer la tournée"
-          method={async () => {
-            await setDelivererDB(id, date, user?.user_id);
-            navigation.navigate("DelivererTour"); 
-          }}
-        />
+    <ScrollView>
+      <View style={styles.container}>
+        <Text style={styles.header}>
+          Contenu de la tournée de {tour?.geo_zone} du{" "}
+          {tour?.date ? new Date(tour?.date).toLocaleDateString() : ""}
+        </Text>
+        {boxe.map((boxeLine, index) => (
+          <QuantityLine key={index} quantity={boxeLine.quantity} label={boxeLine.name} size={boxeLine.size} />
+        ))}
+        <View style={styles.btn}>
+          <ActionButton
+            title="Lancer la tournée"
+            color="#28A745"
+            onPress={async () => {
+              await setDelivererDB(id, date, user?.user_id);
+              navigation.popToTop();
+            }}
+          />
+        </View>
       </View>
     </ScrollView>
   );
@@ -72,24 +74,28 @@ const DelivererContentScreen: React.FC<{ route: any; navigation: any }> = ({
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: "#EDBE78",
+    justifyContent: 'center',
+    marginTop: 55,
+    margin: 20,
+    padding: 10,
+    paddingBottom: 10,
+    backgroundColor: "#fff",
+    borderRadius: 10,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
+    elevation: 1,
   },
   header: {
-    height: 60,
-    backgroundColor: "#FFFFFF",
-    flexDirection: "row",
-    alignItems: "center",
-    paddingHorizontal: 20,
-  },
-  headerText: {
     fontSize: 20,
     fontWeight: "bold",
-    margin: 10,
+    marginVertical: 15,
     textAlign: "center",
   },
   btn: {
     alignItems: "center",
+    marginBottom: 20,
   },
   body: {
     flex: 1,
