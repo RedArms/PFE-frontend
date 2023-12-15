@@ -1,8 +1,8 @@
 export function getMonthString(month: number): string {
     const months: string[] = [
-        'Janvier', 'Février', 'Mars', 'Avril',
-        'Mai', 'Juin', 'Juillet', 'Août',
-        'Septembre', 'Octobre', 'Novembre', 'Décembre'
+        'janvier', 'février', 'mars', 'avril',
+        'mai', 'juin', 'juillet', 'août',
+        'septembre', 'octobre', 'novembre', 'décembre'
     ];
 
     return months[month-1];
