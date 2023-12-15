@@ -4,11 +4,11 @@ import { UserContext } from "../contexts/UserContext";
 import ClientsScreen from "../screens/clients/ClientsScreen";
 import MemberManagement from "../screens/admin/MemberManagementScreen";
 //import DelivererScreen from "../screens/deliverer/DelivererChooseScreen";
-import ToursScreen from "../screens/admin/TourScreen";
 
 import ItemManagementScreen from "../screens/admin/ItemManagementScreen";
 import DelivererChooseScreen from "../screens/deliverer/DelivererChooseScreen";
 import DelivererTour from "../screens/deliverer/DelivererTour";
+import DelivererToursScreen from "../screens/deliverer/DelivererToursScreen";
 import Profile from "../screens/Profile/Profile";
 const Tab = createBottomTabNavigator();
 
@@ -16,12 +16,9 @@ const BottomTabNavigator: React.FC = () => {
   const { isAuthenticated, isAdmin } = useContext(UserContext);
   return (
     <Tab.Navigator screenOptions={{ headerShown: false }}>
-      
-
       {isAuthenticated && isAdmin && (
         <>
-          <Tab.Screen name="Gestion tournée" component={ToursScreen} />
-          <Tab.Screen name="Gestion membre" component={MemberManagement} />
+          <Tab.Screen name="Membres" component={MemberManagement} />
           <Tab.Screen name="Clients" component={ClientsScreen} />
           <Tab.Screen
             name="ItemManagement"
@@ -33,24 +30,15 @@ const BottomTabNavigator: React.FC = () => {
         </>
       )}
       {isAuthenticated && !isAdmin && (
-        <>
-       
-       <Tab.Screen name="DelivererTour" component={DelivererTour} options={{
-            tabBarLabel: "Mes livraisons",
-          }} />
-        <Tab.Screen name="DelivererChoose" component={DelivererChooseScreen} 
-        options={{
-          tabBarLabel: "Choix livraison",
-        }}
-        />
-        </>
+        <Tab.Screen name="DelivererToursScreen" component={DelivererToursScreen} options={{
+          tabBarLabel: "Mes livraisons",
+        }} />
       )}
       {isAuthenticated && (
-          <Tab.Screen name="Profile" component={Profile}  options={{
-            tabBarLabel: "Profil",
-          }}/>        
-      )
-      }
+        <Tab.Screen name="Profile" component={Profile}  options={{
+          tabBarLabel: "Profil",
+        }}/>        
+      )}
     </Tab.Navigator>
   );
 };
