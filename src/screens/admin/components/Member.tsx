@@ -31,12 +31,10 @@ const Membre = ({
           <Text style={styles.fullName}>
             {prenom} {nom}
           </Text>
-          
-            {expanded ? 
-              <Ionicons name="chevron-up" style={styles.icon} /> : 
-              <Ionicons name="chevron-down" style={styles.icon} />
-            }
-          
+          {expanded ? 
+            <Ionicons name="chevron-up" style={styles.icon} /> : 
+            <Ionicons name="chevron-down" style={styles.icon} />
+          }
         </View>
       </TouchableOpacity>
       {expanded && (
