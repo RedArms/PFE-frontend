@@ -47,6 +47,10 @@ const DelivererContentScreen: React.FC<{ route: any; navigation: any }> = ({
     return <ActivityIndicator size="large" color="#0000ff" />;
   }
 
+  const handlePress = async () => {
+    await setDelivererDB(id, date, user?.user_id);
+    navigation.navigate("DelivererTour");
+  }
   return (
     <ScrollView>
       <View style={styles.container}>

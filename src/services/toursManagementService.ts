@@ -59,10 +59,13 @@ async function getAllTours(): Promise<any | undefined> {
     return undefined;
   }
 
-  async function getToursByDate(date: string): Promise<any | undefined> {
+  async function getToursByDate(date: string): Promise<Tour[] | undefined> {
     try {
-      console.log(`${API_URL}/tours/tours/${date}`);
-      const response = await axios.get(`${API_URL}/tours/tours/${date}`);
+      
+      const url = `${API_URL}/tours/getTourDay/${date}`;
+      console.log(' get tour by date : ',url);
+      
+      const response = await axios.get(url);
   
       return response.data;
     } catch (error) {
