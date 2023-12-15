@@ -5,6 +5,7 @@ import DelivererChooseScreen from "../screens/deliverer/DelivererChooseScreen";
 import DelivererContentScreen from "../screens/deliverer/DelivererContentScreen";
 import BottomTabNavigator from "./BottomTabNavigator";
 import DelivererTour from "../screens/deliverer/DelivererTour";
+import DelivererToursScreen from "../screens/deliverer/DelivererToursScreen";
 const DelivererStack = createStackNavigator();
 
 /*
@@ -19,7 +20,11 @@ const Deliverer: React.FC = () => {
         component={BottomTabNavigator}
         options={{ headerShown: false }}
       />
-       <DelivererStack.Screen name="DelivererTour" component={DelivererTour} options={{headerShown : false}}/>
+      <DelivererStack.Screen
+        name="DelivererToursScreen"
+        component={DelivererToursScreen}
+      />
+      <DelivererStack.Screen name="DelivererTour" component={DelivererTour} options={{headerShown : false}}/>
       <DelivererStack.Screen
         name="DelivererChoose"
         component={DelivererChooseScreen}
